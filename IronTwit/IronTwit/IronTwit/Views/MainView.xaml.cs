@@ -6,17 +6,17 @@ using IronTwit.ViewModels;
 using Yedda;
 using Newtonsoft.Json;
 
-namespace IronTwit
+namespace IronTwit.Views
 {
     /// <summary>
     /// Interaction logic for Window1.xaml
     /// </summary>
-    public partial class Window1 : Window
+    public partial class MainView : Window
     {
-        public Window1()
+        public MainView()
         {
             InitializeComponent();
-            Loaded += new RoutedEventHandler(Window1_Loaded);
+            Loaded += Window1_Loaded;
         }
 
         void Window1_Loaded(object sender, RoutedEventArgs e)

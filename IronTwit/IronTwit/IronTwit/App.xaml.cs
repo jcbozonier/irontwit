@@ -56,7 +56,7 @@ namespace IronTwit
                                                      }
                                                  }
                             };
-            var window = new Window1();
+            var window = new Views.MainView();
             window.DataContext = model;
             window.Show();
         }

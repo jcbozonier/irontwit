@@ -2,6 +2,7 @@
 using System.Windows;
 using IronTwit.Models;
 using IronTwit.Models.Twitter;
+using StructureMap;
 
 namespace IronTwit.ViewModels
 {
@@ -18,6 +19,11 @@ namespace IronTwit.ViewModels
         public string MessageToSend { get; set; }
         public string Recipient { get; set; }
         public SendMessageCommand SendMessage { get; set; }
+
+        public MainView()
+        {
+            Interactions = ObjectFactory.GetInstance<IInteractionContext>();
+        }
 
         public void ApplicationStarting()
         {

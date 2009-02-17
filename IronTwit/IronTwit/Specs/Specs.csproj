@@ -61,8 +61,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Application_startup_specs.cs" />
+    <Compile Include="IoC_Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SpecUnit.cs" />
+    <Compile Include="TestingInteractionContext.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\IronTwit\IronTwit.csproj">

@@ -104,6 +104,7 @@
     <Compile Include="Controls\MessageDisplay.xaml.cs">
       <DependentUpon>MessageDisplay.xaml</DependentUpon>
     </Compile>
+    <Compile Include="IoC_Configuration.cs" />
     <Compile Include="Models\Credentials.cs" />
     <Compile Include="Models\InteractionContext.cs" />
     <Compile Include="Models\Twitter\Tweet.cs" />
@@ -121,6 +122,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="Utilities\TwitterUtilities.cs" />
     <Compile Include="ViewModels\MainView.cs" />
     <Compile Include="ViewModels\SendMessageCommand.cs" />
     <Compile Include="ViewModels\UserCredentialsViewModel.cs" />

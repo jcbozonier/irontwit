@@ -7,6 +7,7 @@ using System.Linq;
 using System.Windows;
 using IronTwit.Models.Twitter;
 using IronTwit.ViewModels;
+using Specs;
 
 namespace IronTwit
 {
@@ -22,42 +23,9 @@ namespace IronTwit
 
         void App_Startup(object sender, StartupEventArgs e)
         {
-            var model = new MainView()
-                            {
-                                Tweets = new ObservableCollection<Tweet>
-                                             {
-                                                 new Tweet()
-                                                     {
-                                                         text = "Testing 1",
-                                                         user = new TwitterUser() {screen_name = "darkxanthos"}
-                                                     },
-                                                 new Tweet()
-                                                     {
-                                                         text = "Testing 2",
-                                                         user = new TwitterUser() {screen_name = "darkxantho"}
-                                                     },
-                                                 new Tweet()
-                                                     {
-                                                         text = "Testing 3",
-                                                         user = new TwitterUser() {screen_name = "darkxanths"}
-                                                     },
-                                                 new Tweet()
-                                                     {
-                                                         text = "Testing 4",
-                                                         user = new TwitterUser() {screen_name = "darkxantos"}
-                                                     },
-                                             },
-                                MyReplies = new ObservableCollection<Tweet>()
-                                                 {
-                                                     new Tweet()
-                                                     {
-                                                         text = "Testing 1",
-                                                         user = new TwitterUser() {screen_name = "darkxanthos"}
-                                                     }
-                                                 }
-                            };
+            ContainerBootstrapper.BootstrapStructureMap();
+
             var window = new Views.MainView();
-            window.DataContext = model;
             window.Show();
         }
     }

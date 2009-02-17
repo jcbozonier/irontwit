@@ -46,6 +46,8 @@ namespace Specs
         [TestFixtureSetUp]
         public void Setup()
         {
+            ContainerBootstrapper.BootstrapStructureMap();
+
             Model = ObjectFactory.GetInstance<MainView>();
             
             Context();

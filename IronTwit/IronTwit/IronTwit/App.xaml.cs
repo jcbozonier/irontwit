@@ -5,7 +5,7 @@ using System.Configuration;
 using System.Data;
 using System.Linq;
 using System.Windows;
-using IronTwit.Models;
+using IronTwit.Models.Twitter;
 using IronTwit.ViewModels;
 
 namespace IronTwit
@@ -29,22 +29,22 @@ namespace IronTwit
                                                  new Tweet()
                                                      {
                                                          text = "Testing 1",
-                                                         user = new TwitUser() {screen_name = "darkxanthos"}
+                                                         user = new TwitterUser() {screen_name = "darkxanthos"}
                                                      },
                                                  new Tweet()
                                                      {
                                                          text = "Testing 2",
-                                                         user = new TwitUser() {screen_name = "darkxantho"}
+                                                         user = new TwitterUser() {screen_name = "darkxantho"}
                                                      },
                                                  new Tweet()
                                                      {
                                                          text = "Testing 3",
-                                                         user = new TwitUser() {screen_name = "darkxanths"}
+                                                         user = new TwitterUser() {screen_name = "darkxanths"}
                                                      },
                                                  new Tweet()
                                                      {
                                                          text = "Testing 4",
-                                                         user = new TwitUser() {screen_name = "darkxantos"}
+                                                         user = new TwitterUser() {screen_name = "darkxantos"}
                                                      },
                                              },
                                 MyReplies = new ObservableCollection<Tweet>()
@@ -52,7 +52,7 @@ namespace IronTwit
                                                      new Tweet()
                                                      {
                                                          text = "Testing 1",
-                                                         user = new TwitUser() {screen_name = "darkxanthos"}
+                                                         user = new TwitterUser() {screen_name = "darkxanthos"}
                                                      }
                                                  }
                             };

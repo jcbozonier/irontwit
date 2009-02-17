@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Windows;
-using IronTwit.Models;
+using IronTwit.Models.Twitter;
 using IronTwit.ViewModels;
 using Yedda;
 using Newtonsoft.Json;
@@ -29,7 +29,7 @@ namespace IronTwit
             var converter = new JsonSerializer();
             converter.MissingMemberHandling = MissingMemberHandling.Ignore;
             var obj = (List<Tweet>)converter.Deserialize(str, typeof(List<Tweet>));
-            Inbox.DataContext = obj; 
+            Inbox.ItemsSource = obj; 
         }
     }
 }

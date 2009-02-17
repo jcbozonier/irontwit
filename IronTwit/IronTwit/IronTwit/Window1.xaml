@@ -1,9 +1,57 @@
 ﻿<Window x:Class="IronTwit.Window1"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:my="clr-namespace:IronTwit.Controls"
-    Title="Window1" Height="300" Width="300">
+    Title="Window1" Width="400" Height="300">
     <Grid>
-        <my:MessageDisplay x:Name="Inbox"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Text="Inbox" />
+            <ComboBox Grid.Column="1" x:Name="SenderFilter" />
+            <TextBox Grid.Column="2" x:Name="SearchBox" Text="Filter on..." />
+        </Grid>
+        <ListBox Grid.Row="1" Grid.IsSharedSizeScope="True" MinHeight="100" 
+                 x:Name="Inbox" 
+                 ItemsSource="{Binding Tweets}" 
+                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                 ScrollViewer.VerticalScrollBarVisibility="Visible">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition SharedSizeGroup="SenderName" Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <TextBlock Margin="0, 0, 5, 0" Grid.Column="0" Text="{Binding user.screen_name}" />
+                        <TextBlock TextWrapping="Wrap" Grid.Column="1" Text="{Binding text}" />
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition MinHeight="100" />
+            </Grid.RowDefinitions>
+            <TextBox x:Name="Recipient" Grid.Row="0" Grid.Column="0" />
+            <Button x:Name="SendMessage" Grid.Row="0" Grid.Column="1" Command="{Binding SendMessageCommand}" 
+                    Content="Send" />
+            <TextBox x:Name="MessageToSend" Grid.Row="1" Grid.ColumnSpan="2" />
+        </Grid>
     </Grid>
 </Window>

@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.ObjectModel;
 using System.Windows;
-using System.Windows.Input;
-using IronTwit.Models;
+using IronTwit.Models.Twitter;
 
 namespace IronTwit.ViewModels
 {
@@ -31,19 +26,5 @@ namespace IronTwit.ViewModels
         public string MessageToSend { get; set; }
         public string Recipient { get; set; }
         public SendMessageCommand SendMessage { get; set; }
-    }
-
-    public class SendMessageCommand : ICommand
-    {
-        public event EventHandler CanExecuteChanged;
-        public void Execute(object parameter)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public bool CanExecute(object parameter)
-        {
-            throw new System.NotImplementedException();
-        }
     }
 }

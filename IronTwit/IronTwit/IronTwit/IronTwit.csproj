@@ -92,8 +92,8 @@
     <Compile Include="Controls\MessageDisplay.xaml.cs">
       <DependentUpon>MessageDisplay.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Models\TwitObj.cs" />
-    <Compile Include="Models\TwitUser.cs" />
+    <Compile Include="Models\Twitter\Tweet.cs" />
+    <Compile Include="Models\Twitter\TwitterUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -108,6 +108,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="ViewModels\MainView.cs" />
+    <Compile Include="ViewModels\SendMessageCommand.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

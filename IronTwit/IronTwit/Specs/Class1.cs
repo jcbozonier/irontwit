@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace IronTwit.Models
+namespace Specs
 {
-    public class TwitUser
+    public class Class1
     {
-        public string screen_name { get; set; }
     }
 }

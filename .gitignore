@@ -1,0 +1,6 @@
+_ReSharper*
+*.resharper*
+bin
+obj
+*.suo
+*.zip

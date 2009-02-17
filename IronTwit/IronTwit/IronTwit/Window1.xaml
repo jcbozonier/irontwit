@@ -1,0 +1,9 @@
+﻿<Window x:Class="IronTwit.Window1"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:my="clr-namespace:IronTwit.Controls"
+    Title="Window1" Height="300" Width="300">
+    <Grid>
+        <my:MessageDisplay x:Name="Inbox"/>
+    </Grid>
+</Window>

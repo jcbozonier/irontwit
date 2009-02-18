@@ -9,9 +9,20 @@ using Yedda;
 
 namespace IronTwit.Utilities
 {
-    public class TwitterUtilities
+    public interface ITwitterUtilities
     {
-        public static List<Tweet> GetUserMessages(string username, string password)
+        List<Tweet> GetUserMessages(string username, string password);
+        void SendMessage(string username, string password, string message);
+    }
+
+    public class TwitterUtilities : ITwitterUtilities
+    {
+        public void SendMessage(string username, string password, string message)
+        {
+            
+        }
+
+        public List<Tweet> GetUserMessages(string username, string password)
         {
             var twit = new Twitter();
 

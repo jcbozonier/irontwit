@@ -4,6 +4,7 @@ using System.Windows;
 using IronTwit.Models.Twitter;
 using IronTwit.Utilities;
 using IronTwit.ViewModels;
+using StructureMap;
 using Yedda;
 using Newtonsoft.Json;
 
@@ -22,7 +23,7 @@ namespace IronTwit.Views
 
         void Window1_Loaded(object sender, RoutedEventArgs e)
         {
-            var model = new ViewModels.MainView();
+            var model = ObjectFactory.GetInstance<ViewModels.MainView>();
             model.ApplicationStarting();
             DataContext = model;
         }

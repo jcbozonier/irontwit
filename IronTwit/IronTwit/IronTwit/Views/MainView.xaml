@@ -49,7 +49,8 @@
                 <RowDefinition MinHeight="100" />
             </Grid.RowDefinitions>
             <TextBox x:Name="Recipient" Grid.Row="0" Grid.Column="0" />
-            <Button x:Name="SendMessage" Grid.Row="0" Grid.Column="1" Command="{Binding SendMessageCommand}" 
+            <Button x:Name="SendMessage" Grid.Row="0" Grid.Column="1" 
+                    Command="{Binding SendMessageCommand}" 
                     Content="Send" />
             <TextBox x:Name="MessageToSend" Grid.Row="1" Grid.ColumnSpan="2" />
         </Grid>

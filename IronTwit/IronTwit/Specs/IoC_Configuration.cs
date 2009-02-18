@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using IronTwit.Models;
+using IronTwit.Utilities;
 using StructureMap;
 
 namespace Specs
@@ -18,6 +19,7 @@ namespace Specs
             ObjectFactory.Initialize(x =>
             {
                 x.ForRequestedType<IInteractionContext>().TheDefaultIsConcreteType<TestingInteractionContext>();
+                x.ForRequestedType<ITwitterUtilities>().TheDefaultIsConcreteType<TestTwitterUtilities>();
             });
 
         }

@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Windows;
 using IronTwit.Models;
 using IronTwit.Models.Twitter;
@@ -20,9 +21,16 @@ namespace IronTwit.ViewModels
         public string Recipient { get; set; }
         public SendMessageCommand SendMessage { get; set; }
 
-        public MainView()
+        public MainView(IInteractionContext interactionContext, SendMessageCommand command)
         {
-            Interactions = ObjectFactory.GetInstance<IInteractionContext>();
+            if(interactionContext == null) 
+                throw new ArgumentNullException("interactionContext");
+            if(command == null)
+                throw new ArgumentNullException("command");
+
+            Interactions = interactionContext;
+            
+            SendMessage = command;
         }
 
         public void ApplicationStarting()
@@ -30,6 +38,9 @@ namespace IronTwit.ViewModels
             var credentials = Interactions.GetCredentials();
             UserName = credentials.UserName;
             Password = credentials.Password;
+
+            SendMessage.Username = UserName;
+            SendMessage.Password = Password;
         }
     }
 }

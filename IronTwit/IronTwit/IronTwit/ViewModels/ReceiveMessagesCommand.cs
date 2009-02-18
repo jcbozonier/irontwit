@@ -8,24 +8,19 @@ namespace IronTwit.ViewModels
 {
     public class ReceiveMessagesCommand : ICommand
     {
-        private ITwitterUtilities _Utilities;
-        public string Username;
-        public string Password;
+        private Action _OnExecute;
 
-        public ReceiveMessagesCommand(ITwitterUtilities utilities)
+        public ReceiveMessagesCommand(Action onExecute)
         {
-            _Utilities = utilities;
+            _OnExecute = onExecute;
         }
 
         public event EventHandler CanExecuteChanged;
 
-        public Action<List<Tweet>> CommandExecuted;
-
         public void Execute(object parameter)
         {
-            var result = _Utilities.GetUserMessages(Username, Password);
-            if(CommandExecuted == null) throw new NullReferenceException("Executes was not set.");
-            CommandExecuted(result);
+            if (_OnExecute != null)
+                _OnExecute();
         }
 
         public bool CanExecute(object parameter)

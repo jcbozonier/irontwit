@@ -12,12 +12,12 @@ namespace IronTwit.Utilities
     public interface ITwitterUtilities
     {
         List<Tweet> GetUserMessages(string username, string password);
-        void SendMessage(string username, string password, string message);
+        void SendMessage(string username, string password, string message, string recipient);
     }
 
     public class TwitterUtilities : ITwitterUtilities
     {
-        public void SendMessage(string username, string password, string message)
+        public void SendMessage(string username, string password, string message, string recipient)
         {
             
         }

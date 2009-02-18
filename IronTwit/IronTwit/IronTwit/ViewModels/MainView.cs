@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Input;
 using IronTwit.Models;
 using IronTwit.Models.Twitter;
+using IronTwit.Utilities;
 using StructureMap;
 using StructureMap.Pipeline;
 
@@ -27,29 +28,34 @@ namespace IronTwit.ViewModels
         public ReceiveMessagesCommand ReceiveMessage { get; set; }
  
         public MainView(
-            IInteractionContext interactionContext, 
-            SendMessageCommand sendMessageCommand,
-            ReceiveMessagesCommand receiveMessagesCommand)
+            IInteractionContext interactionContext,
+            ITwitterUtilities utilities)
         {
             if(interactionContext == null) 
                 throw new ArgumentNullException("interactionContext");
-            if(sendMessageCommand == null)
-                throw new ArgumentNullException("sendMessageCommand");
+            if(utilities == null)
+                throw new ArgumentNullException("utilities");
 
             Tweets = new ObservableCollection<Tweet>();
             MyReplies = new ObservableCollection<Tweet>();
 
             Interactions = interactionContext;
 
-            SendMessage = sendMessageCommand;
-            ReceiveMessage = receiveMessagesCommand;
-            ReceiveMessage.CommandExecuted = (result) =>
-                                                 {
-                                                     foreach (var message in result)
-                                                     {
-                                                         Tweets.Add(message);
-                                                     }
-                                                 };
+            SendMessage = new SendMessageCommand(
+                () =>
+                    {
+                        utilities.SendMessage(UserName, Password, MessageToSend, Recipient);
+                    });
+
+            ReceiveMessage = new ReceiveMessagesCommand(
+                () =>
+                    {
+                        var result = utilities.GetUserMessages(UserName, Password);
+                        foreach (var message in result)
+                        {
+                            Tweets.Add(message);
+                        }
+                    });
 
         }
 
@@ -58,9 +64,6 @@ namespace IronTwit.ViewModels
             var credentials = Interactions.GetCredentials();
             UserName = credentials.UserName;
             Password = credentials.Password;
-
-            SendMessage.Username = UserName;
-            SendMessage.Password = Password;
         }
     }
 }

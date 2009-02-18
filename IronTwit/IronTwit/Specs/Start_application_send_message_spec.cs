@@ -25,13 +25,13 @@ namespace Specs.Sending_messages
         [Test]
         public void It_should_use_the_correct_user_name()
         {
-            Model.SendMessage.Username.ShouldNotBeNull();
+            Utilities.Username.ShouldNotBeNull();
         }
 
         [Test]
         public void It_should_use_the_correct_password()
         {
-            Model.SendMessage.Password.ShouldNotBeEmpty();
+            Utilities.Password.ShouldNotBeEmpty();
         }
 
         [Test]
@@ -40,17 +40,28 @@ namespace Specs.Sending_messages
             Model.SendMessage.CanExecute(null).ShouldBeTrue();
         }
 
-        private string _Message;
+        [Test]
+        public void It_should_match_the_one_provided_by_the_user()
+        {
+            Utilities.Message.ShouldEqual(Model.MessageToSend);
+        }
+
+        [Test]
+        public void It_should_be_sent_to_the_correct_recipient()
+        {
+            Utilities.Recipient.ShouldEqual(Model.Recipient);
+        }
 
         protected override void Because()
         {
-            Model.SendMessage.Execute(_Message);
+            Model.SendMessage.Execute(null);
         }
 
         protected override void Context()
         {
-            _Message = "This is my message.";
             Model.ApplicationStarting();
+            Model.MessageToSend = "This is my message.";
+            Model.Recipient = "@testuser";
         }
     }
 
@@ -119,6 +130,7 @@ namespace Specs.Sending_messages
         public string Username;
         public string Password;
         public string Message;
+        public string Recipient;
 
         public List<Tweet> GetUserMessages(string username, string password)
         {
@@ -128,11 +140,12 @@ namespace Specs.Sending_messages
             return null;
         }
 
-        public void SendMessage(string username, string password, string message)
+        public void SendMessage(string username, string password, string message, string recipient)
         {
             Username = username;
             Password = password;
             Message = message;
+            Recipient = recipient;
         }
     }
 

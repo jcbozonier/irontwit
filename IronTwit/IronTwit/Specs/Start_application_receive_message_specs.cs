@@ -101,7 +101,7 @@ namespace Specs.Receiving_messages
                        };
         }
 
-        public void SendMessage(string username, string password, string message)
+        public void SendMessage(string username, string password, string message, string recipient)
         {
             Username = username;
             Password = password;

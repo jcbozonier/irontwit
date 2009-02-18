@@ -123,7 +123,9 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="Utilities\TwitterUtilities.cs" />
+    <Compile Include="ViewModels\DelegateCommand.cs" />
     <Compile Include="ViewModels\MainView.cs" />
+    <Compile Include="ViewModels\ReceiveMessagesCommand.cs" />
     <Compile Include="ViewModels\SendMessageCommand.cs" />
     <Compile Include="ViewModels\UserCredentialsViewModel.cs" />
     <Compile Include="Views\UserCredentials.xaml.cs">

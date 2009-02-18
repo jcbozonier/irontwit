@@ -1,30 +1,31 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows.Input;
+using IronTwit.Models.Twitter;
 using IronTwit.Utilities;
-using StructureMap;
 
 namespace IronTwit.ViewModels
 {
-    public class SendMessageCommand : ICommand
+    public class ReceiveMessagesCommand : ICommand
     {
         private ITwitterUtilities _Utilities;
         public string Username;
         public string Password;
 
-        public SendMessageCommand(ITwitterUtilities utilities)
+        public ReceiveMessagesCommand(ITwitterUtilities utilities)
         {
             _Utilities = utilities;
         }
 
         public event EventHandler CanExecuteChanged;
+
+        public Action<List<Tweet>> CommandExecuted;
+
         public void Execute(object parameter)
         {
-            if(parameter == null) 
-                throw new ArgumentNullException("parameter");
-            if(!(parameter is string))
-                throw new ArgumentException("parameter was of the wrong type.");
-
-            _Utilities.SendMessage(Username, Password, (string)parameter);
+            var result = _Utilities.GetUserMessages(Username, Password);
+            if(CommandExecuted == null) throw new NullReferenceException("Executes was not set.");
+            CommandExecuted(result);
         }
 
         public bool CanExecute(object parameter)

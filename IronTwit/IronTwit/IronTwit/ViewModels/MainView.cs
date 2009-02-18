@@ -64,6 +64,7 @@ namespace IronTwit.ViewModels
             var credentials = Interactions.GetCredentials();
             UserName = credentials.UserName;
             Password = credentials.Password;
+            ReceiveMessage.Execute(null);
         }
     }
 }

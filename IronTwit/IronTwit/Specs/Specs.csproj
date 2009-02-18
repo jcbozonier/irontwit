@@ -63,6 +63,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Starting_the_application.cs" />
     <Compile Include="Start_application_receive_message_specs.cs" />
     <Compile Include="Start_application_send_message_spec.cs" />
     <Compile Include="IoC_Configuration.cs" />

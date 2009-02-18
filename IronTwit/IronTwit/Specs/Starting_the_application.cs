@@ -9,59 +9,32 @@ using IronTwit.ViewModels;
 using NUnit.Framework;
 using SpecUnit;
 using StructureMap;
-using StructureMap.Pipeline;
 
-namespace Specs.Sending_messages
+namespace Specs.Application_starting
 {
     [TestFixture]
-    public class When_user_requests_to_send_message : context
+    public class When_main_view_is_shown_for_the_first_time : context
     {
         [Test]
-        public void It_should_be_sent()
+        public void It_should_ask_for_user_name_and_password()
         {
-            Utilities.Message.ShouldNotBeNull();
+            Application_Asked_For_User_Name_And_Password.ShouldBeTrue();
         }
 
         [Test]
-        public void It_should_use_the_correct_user_name()
+        public void It_should_get_messages_for_user()
         {
-            Utilities.Username.ShouldNotBeNull();
-        }
-
-        [Test]
-        public void It_should_use_the_correct_password()
-        {
-            Utilities.Password.ShouldNotBeEmpty();
-        }
-
-        [Test]
-        public void It_should_be_able_to_send_the_message()
-        {
-            Model.SendMessage.CanExecute(null).ShouldBeTrue();
-        }
-
-        [Test]
-        public void It_should_match_the_one_provided_by_the_user()
-        {
-            Utilities.Message.ShouldEqual(Model.MessageToSend);
-        }
-
-        [Test]
-        public void It_should_be_sent_to_the_correct_recipient()
-        {
-            Utilities.Recipient.ShouldEqual(Model.Recipient);
+            Model.Tweets.ShouldNotBeEmpty();
         }
 
         protected override void Because()
         {
-            Model.SendMessage.Execute(null);
+            Model.ApplicationStarting();
         }
 
         protected override void Context()
         {
-            Model.ApplicationStarting();
-            Model.MessageToSend = "This is my message.";
-            Model.Recipient = "@testuser";
+            //throw new System.NotImplementedException();
         }
     }
 
@@ -81,9 +54,10 @@ namespace Specs.Sending_messages
 
         protected bool Message_was_sent
         {
-            get; set;
+            get;
+            set;
         }
-        
+
 
         [TestFixtureSetUp]
         public void Setup()
@@ -117,7 +91,7 @@ namespace Specs.Sending_messages
             Username = username;
             Password = password;
 
-            return new List<Tweet>();
+            return new List<Tweet>(){new Tweet(){text="testing",user=new TwitterUser(){screen_name = "darkxanthos"}}};
         }
 
         public void SendMessage(string username, string password, string message, string recipient)

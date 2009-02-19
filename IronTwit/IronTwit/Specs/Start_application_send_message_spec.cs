@@ -9,6 +9,7 @@ using IronTwit.ViewModels;
 using NUnit.Framework;
 using SpecUnit;
 using StructureMap;
+using Bound.Net;
 using StructureMap.Pipeline;
 
 namespace Specs.Sending_messages
@@ -22,7 +23,11 @@ namespace Specs.Sending_messages
             Utilities.Message.ShouldNotBeNull();
         }
 
-
+        [Test]
+        public void It_should_update_the_UI_with_the_new_data()
+        {
+            UIUpdated.ShouldBeTrue();
+        }
 
         [Test]
         public void It_should_use_the_correct_user_name()
@@ -73,10 +78,12 @@ namespace Specs.Sending_messages
 
         private string MessageSent;
         private string Recipient;
+        protected bool UIUpdated;
 
         protected override void Context()
         {
             Model.ApplicationStarting();
+            Model.PropertyChanged += (s, e) => UIUpdated = true;
             Model.MessageToSend = MessageSent = "This is my message.";
             Model.Recipient = Recipient = "@testuser";
         }

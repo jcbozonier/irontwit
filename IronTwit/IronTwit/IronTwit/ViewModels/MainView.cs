@@ -1,20 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Net;
 using System.Windows;
-using System.Windows.Input;
+using Bound.Net;
 using IronTwit.Models;
 using IronTwit.Models.Twitter;
 using IronTwit.Utilities;
-using StructureMap;
-using StructureMap.Pipeline;
+using System.ComponentModel;
 
 namespace IronTwit.ViewModels
 {
-    public class MainView : DependencyObject
+    public class MainView : DependencyObject, INotifyPropertyChanged
     {
         public IInteractionContext Interactions;
+        private string _messageToSend;
 
         public string UserName { get; set; }
         public string Password { get; set; }
@@ -22,8 +21,32 @@ namespace IronTwit.ViewModels
         public ObservableCollection<Tweet> Tweets { get; set; }
         public ObservableCollection<Tweet> MyReplies { get; set; }
 
-        public string MessageToSend { get; set; }
-        public string Recipient { get; set; }
+        public string MessageToSend
+        {
+            get
+            {
+                return _messageToSend;
+            }
+            set
+            {
+                _messageToSend = value;
+                PropertyChanged.Notify(()=>MessageToSend);
+            }
+        }
+
+        private string _Recipient;
+        public string Recipient
+        {
+            get
+            {
+                return _Recipient;
+            }
+            set
+            {
+                _Recipient = value;
+                PropertyChanged.Notify(()=>Recipient);
+            }
+        }
 
         public SendMessageCommand SendMessage { get; set; }
         public ReceiveMessagesCommand ReceiveMessage { get; set; }
@@ -84,5 +107,7 @@ namespace IronTwit.ViewModels
                 }
             } while (shouldRetryAuthorization);
         }
+
+        public event PropertyChangedEventHandler PropertyChanged;
     }
 }

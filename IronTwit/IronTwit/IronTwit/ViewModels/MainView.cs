@@ -10,17 +10,36 @@ using System.ComponentModel;
 
 namespace IronTwit.ViewModels
 {
-    public class MainView : DependencyObject, INotifyPropertyChanged
+    public class MainView : INotifyPropertyChanged
     {
+        /// <summary>
+        /// Any user input the view model needs can be requested through
+        /// this object. Instantiation is handled in IoC container.
+        /// </summary>
         public IInteractionContext Interactions;
-        private string _messageToSend;
 
+        /// <summary>
+        /// The user's username for twitter.
+        /// </summary>
         public string UserName { get; set; }
+        /// <summary>
+        /// The user's password for twitter. This is horrible way to hold this info imo.
+        /// </summary>
         public string Password { get; set; }
 
+        /// <summary>
+        /// A list of all of the tweets that should be displayed.
+        /// </summary>
         public ObservableCollection<Tweet> Tweets { get; set; }
+        /// <summary>
+        /// A list of all of the user's messages.
+        /// </summary>
         public ObservableCollection<Tweet> MyReplies { get; set; }
 
+        private string _messageToSend;
+        /// <summary>
+        /// The message the user wants to send.
+        /// </summary>
         public string MessageToSend
         {
             get
@@ -35,6 +54,9 @@ namespace IronTwit.ViewModels
         }
 
         private string _Recipient;
+        /// <summary>
+        /// The recipient the user wants to send MessageToSend to.
+        /// </summary>
         public string Recipient
         {
             get
@@ -48,7 +70,15 @@ namespace IronTwit.ViewModels
             }
         }
 
+        /// <summary>
+        /// Command object invoked by the InteractionContext (GUI) to send
+        /// a message.
+        /// </summary>
         public SendMessageCommand SendMessage { get; set; }
+        /// <summary>
+        /// Command object invoked by the InteractionContext (GUI) to
+        /// receive a message.
+        /// </summary>
         public ReceiveMessagesCommand ReceiveMessage { get; set; }
  
         public MainView(
@@ -88,6 +118,11 @@ namespace IronTwit.ViewModels
 
         }
 
+        /// <summary>
+        /// This must be called when the application first starts so
+        /// that the model can go through the appropriate workflow
+        /// to set up the UI for the user.
+        /// </summary>
         public void ApplicationStarting()
         {
             bool shouldRetryAuthorization = false;
@@ -108,6 +143,9 @@ namespace IronTwit.ViewModels
             } while (shouldRetryAuthorization);
         }
 
+        /// <summary>
+        /// Gets called whenever a property is changed.
+        /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
     }
 }

@@ -9,76 +9,29 @@ using IronTwit.ViewModels;
 using NUnit.Framework;
 using SpecUnit;
 using StructureMap;
-using StructureMap.Pipeline;
 
-namespace Specs.Sending_messages
+namespace Specs.Application_running
 {
     [TestFixture]
-    public class When_user_requests_to_send_message : context
+    public class When_messages_are_refreshed : context
     {
-        [Test]
-        public void It_should_be_sent()
+        protected override void Context()
         {
-            Utilities.Message.ShouldNotBeNull();
-        }
+            Model = ObjectFactory.GetInstance<MainView>();
+            Model.ApplicationStarting();
 
-
-
-        [Test]
-        public void It_should_use_the_correct_user_name()
-        {
-            Utilities.Username.ShouldNotBeNull();
-        }
-
-        [Test]
-        public void It_should_use_the_correct_password()
-        {
-            Utilities.Password.ShouldNotBeEmpty();
-        }
-
-        [Test]
-        public void It_should_be_able_to_send_the_message()
-        {
-            Model.SendMessage.CanExecute(null).ShouldBeTrue();
-        }
-
-        [Test]
-        public void It_should_match_the_one_provided_by_the_user()
-        {
-            Utilities.Message.ShouldEqual(MessageSent);
-        }
-
-        [Test]
-        public void It_should_be_sent_to_the_correct_recipient()
-        {
-            Utilities.Recipient.ShouldEqual(Recipient);
-        }
-
-        [Test]
-        public void It_should_clear_the_recipient_field()
-        {
-            Model.Recipient.ShouldEqual("");
-        }
-
-        [Test]
-        public void It_should_clear_the_message_field()
-        {
-            Model.MessageToSend.ShouldEqual("");
+            Model.Tweets.Count.ShouldEqual(1);
         }
 
         protected override void Because()
         {
-            Model.SendMessage.Execute(null);
+            Model.ReceiveMessage.Execute(null);
         }
-
-        private string MessageSent;
-        private string Recipient;
-
-        protected override void Context()
+        
+        [Test]
+        public void It_should_clear_previous_messages()
         {
-            Model.ApplicationStarting();
-            Model.MessageToSend = MessageSent = "This is my message.";
-            Model.Recipient = Recipient = "@testuser";
+            Model.Tweets.Count.ShouldEqual(0);
         }
     }
 
@@ -88,19 +41,6 @@ namespace Specs.Sending_messages
         protected MainView Model;
         protected TestTwitterUtilities Utilities;
 
-        protected bool Application_Asked_For_User_Name_And_Password
-        {
-            get
-            {
-                return !String.IsNullOrEmpty(Model.UserName) && !String.IsNullOrEmpty(Model.Password);
-            }
-        }
-
-        protected bool Message_was_sent
-        {
-            get; set;
-        }
-        
 
         [TestFixtureSetUp]
         public void Setup()
@@ -108,11 +48,9 @@ namespace Specs.Sending_messages
             ContainerBootstrapper.BootstrapStructureMap();
 
             Utilities = new TestTwitterUtilities();
-
             ObjectFactory.EjectAllInstancesOf<ITwitterUtilities>();
             ObjectFactory.Inject<ITwitterUtilities>(Utilities);
 
-            Model = ObjectFactory.GetInstance<MainView>();
             Context();
             Because();
         }
@@ -122,6 +60,7 @@ namespace Specs.Sending_messages
         protected abstract void Context();
     }
 
+
     public class TestTwitterUtilities : ITwitterUtilities
     {
         public string Username;
@@ -129,12 +68,21 @@ namespace Specs.Sending_messages
         public string Message;
         public string Recipient;
 
+        public int _Counter;
+
         public List<Tweet> GetUserMessages(string username, string password)
         {
             Username = username;
             Password = password;
 
-            return new List<Tweet>();
+            _Counter++;
+
+            return _Counter == 1
+                       ? new List<Tweet>()
+                             {
+                                 new Tweet() {text = "testing", user = new TwitterUser() {screen_name = "darkxanthos"}}
+                             }
+                       : new List<Tweet>();
         }
 
         public void SendMessage(string username, string password, string message, string recipient)

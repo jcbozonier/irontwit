@@ -46,12 +46,17 @@ namespace IronTwit.ViewModels
                 () =>
                     {
                         utilities.SendMessage(UserName, Password, MessageToSend, Recipient);
+                        MessageToSend = "";
+                        Recipient = "";
                     });
 
             ReceiveMessage = new ReceiveMessagesCommand(
                 () =>
                     {
                         var result = utilities.GetUserMessages(UserName, Password);
+
+                        Tweets.Clear();
+
                         foreach (var message in result)
                         {
                             Tweets.Add(message);

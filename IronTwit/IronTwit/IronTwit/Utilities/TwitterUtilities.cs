@@ -39,14 +39,7 @@ namespace IronTwit.Utilities
             var twit = new Twitter();
             string resultString = String.Empty;
 
-            try
-            {
-                resultString = twit.GetFriendsTimeline(username, password, Twitter.OutputFormatType.JSON);
-            }
-            catch(Exception e)
-            {
-                var a = 1;
-            }
+            resultString = twit.GetFriendsTimeline(username, password, Twitter.OutputFormatType.JSON);
 
             var str = new StringReader(resultString);
             var converter = new JsonSerializer();

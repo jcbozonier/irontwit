@@ -63,6 +63,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Application_running\When_messages_are_refreshed.cs" />
     <Compile Include="Starting_Application\Happy_path.cs" />
     <Compile Include="Starting_Application\User_enters_wrong_password_when_prompted.cs" />
     <Compile Include="Start_application_receive_message_specs.cs" />

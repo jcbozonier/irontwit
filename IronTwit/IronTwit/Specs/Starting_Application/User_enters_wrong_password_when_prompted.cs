@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using IronTwit.Models;
 using IronTwit.Models.Twitter;
@@ -10,21 +11,15 @@ using NUnit.Framework;
 using SpecUnit;
 using StructureMap;
 
-namespace Specs.Application_starting
+namespace Specs.Starting_Application
 {
     [TestFixture]
-    public class When_main_view_is_shown_for_the_first_time : context
+    public class When_wrong_credentials_are_provided_to_the_app : context
     {
         [Test]
-        public void It_should_ask_for_user_name_and_password()
+        public void It_should_tell_the_user_and_ask_if_the_user_wants_to_try_again()
         {
-            Application_Asked_For_User_Name_And_Password.ShouldBeTrue();
-        }
-
-        [Test]
-        public void It_should_get_messages_for_user()
-        {
-            Model.Tweets.ShouldNotBeEmpty();
+            InteractionContext.IsUserNotifiedOfAuthenticationFailure.ShouldBeTrue();
         }
 
         protected override void Because()
@@ -32,9 +27,16 @@ namespace Specs.Application_starting
             Model.ApplicationStarting();
         }
 
+        protected FakeInteractionContext InteractionContext;
+
         protected override void Context()
         {
-            //throw new System.NotImplementedException();
+            InteractionContext = new FakeInteractionContext();
+
+            ObjectFactory.EjectAllInstancesOf<IInteractionContext>();
+            ObjectFactory.Inject<IInteractionContext>(InteractionContext);
+
+            Model = ObjectFactory.GetInstance<MainView>();
         }
     }
 
@@ -43,6 +45,7 @@ namespace Specs.Application_starting
     {
         protected MainView Model;
         protected TestTwitterUtilities Utilities;
+
 
         protected bool Application_Asked_For_User_Name_And_Password
         {
@@ -65,11 +68,9 @@ namespace Specs.Application_starting
             ContainerBootstrapper.BootstrapStructureMap();
 
             Utilities = new TestTwitterUtilities();
-
             ObjectFactory.EjectAllInstancesOf<ITwitterUtilities>();
             ObjectFactory.Inject<ITwitterUtilities>(Utilities);
 
-            Model = ObjectFactory.GetInstance<MainView>();
             Context();
             Because();
         }
@@ -77,6 +78,22 @@ namespace Specs.Application_starting
         protected abstract void Because();
 
         protected abstract void Context();
+    }
+
+    public class FakeInteractionContext : IInteractionContext
+    {
+        public bool IsUserNotifiedOfAuthenticationFailure;
+
+        public bool AuthenticationFailedRetryQuery()
+        {
+            IsUserNotifiedOfAuthenticationFailure = true;
+            return false;
+        }
+
+        public Credentials GetCredentials()
+        {
+            return new Credentials() { UserName = "testuser", Password = "testpassword" };
+        }
     }
 
     public class TestTwitterUtilities : ITwitterUtilities
@@ -90,8 +107,10 @@ namespace Specs.Application_starting
         {
             Username = username;
             Password = password;
+            
+            throw new WebException("Authentication failure.");
 
-            return new List<Tweet>(){new Tweet(){text="testing",user=new TwitterUser(){screen_name = "darkxanthos"}}};
+            return new List<Tweet>() { new Tweet() { text = "testing", user = new TwitterUser() { screen_name = "darkxanthos" } } };
         }
 
         public void SendMessage(string username, string password, string message, string recipient)
@@ -107,11 +126,17 @@ namespace Specs.Application_starting
     {
         public Credentials GetCredentials()
         {
+            throw new WebException("Authentication failure.");
             return new Credentials()
             {
                 UserName = "username",
                 Password = "password"
             };
+        }
+
+        public bool AuthenticationFailedRetryQuery()
+        {
+            return false;
         }
     }
 
@@ -132,4 +157,5 @@ namespace Specs.Application_starting
         }
 
     }
+
 }

@@ -43,16 +43,20 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition MinHeight="100" />
             </Grid.RowDefinitions>
-            <TextBox x:Name="Recipient" Grid.Row="0" Grid.Column="0" />
+            <TextBox x:Name="Recipient" Text="{Binding Recipient}" Grid.Row="0" Grid.Column="0" />
             <Button x:Name="SendMessage" Grid.Row="0" Grid.Column="1" 
-                    Command="{Binding SendMessageCommand}" 
+                    Command="{Binding SendMessage}" 
                     Content="Send" />
-            <TextBox x:Name="MessageToSend" Grid.Row="1" Grid.ColumnSpan="2" />
+            <Button x:Name="ReceiveMessage" Grid.Row="0" Grid.Column="2" 
+                    Command="{Binding ReceiveMessage}" 
+                    Content="Refresh" />
+            <TextBox x:Name="MessageToSend" Text="{Binding MessageToSend}" Grid.Row="1" Grid.ColumnSpan="3" />
         </Grid>
     </Grid>
 </Window>

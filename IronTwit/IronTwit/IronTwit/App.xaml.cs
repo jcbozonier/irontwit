@@ -18,7 +18,7 @@ namespace IronTwit
     {
         public App()
         {
-            Startup += new StartupEventHandler(App_Startup);
+            Startup += App_Startup;
         }
 
         void App_Startup(object sender, StartupEventArgs e)
@@ -26,6 +26,7 @@ namespace IronTwit
             ContainerBootstrapper.BootstrapStructureMap();
 
             var window = new Views.MainView();
+
             window.Show();
         }
     }

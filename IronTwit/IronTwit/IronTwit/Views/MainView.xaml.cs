@@ -24,8 +24,9 @@ namespace IronTwit.Views
         void Window1_Loaded(object sender, RoutedEventArgs e)
         {
             var model = ObjectFactory.GetInstance<ViewModels.MainView>();
-            model.ApplicationStarting();
             DataContext = model;
+
+            model.ApplicationStarting();
         }
 
         

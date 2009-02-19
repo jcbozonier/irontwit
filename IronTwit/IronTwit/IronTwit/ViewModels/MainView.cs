@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Net;
 using System.Windows;
 using System.Windows.Input;
 using IronTwit.Models;
@@ -61,10 +62,22 @@ namespace IronTwit.ViewModels
 
         public void ApplicationStarting()
         {
-            var credentials = Interactions.GetCredentials();
-            UserName = credentials.UserName;
-            Password = credentials.Password;
-            ReceiveMessage.Execute(null);
+            bool shouldRetryAuthorization = false;
+            do
+            {
+                var credentials = Interactions.GetCredentials();
+                UserName = credentials.UserName;
+                Password = credentials.Password;
+
+                try
+                {
+                    ReceiveMessage.Execute(null);
+                }
+                catch (WebException e)
+                {
+                    shouldRetryAuthorization = Interactions.AuthenticationFailedRetryQuery();
+                }
+            } while (shouldRetryAuthorization);
         }
     }
 }

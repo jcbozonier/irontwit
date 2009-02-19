@@ -119,6 +119,11 @@ namespace Specs.Receiving_messages
                 Password = "password"
             };
         }
+
+        public bool AuthenticationFailedRetryQuery()
+        {
+            return false;
+        }
     }
 
     public static class ContainerBootstrapper

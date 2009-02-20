@@ -8,7 +8,7 @@ using NUnit.Framework;
 using SpecUnit;
 using StructureMap;
 
-namespace Specs.Receiving_messages
+namespace Specs.Application_starting.Receiving_messages
 {
     [TestFixture]
     public class When_refresh_is_requested : context

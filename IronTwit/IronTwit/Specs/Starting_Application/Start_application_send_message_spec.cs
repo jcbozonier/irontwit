@@ -12,7 +12,7 @@ using StructureMap;
 using Bound.Net;
 using StructureMap.Pipeline;
 
-namespace Specs.Sending_messages
+namespace Specs.Application_starting.Sending_messages
 {
     [TestFixture]
     public class When_user_requests_to_send_message : context

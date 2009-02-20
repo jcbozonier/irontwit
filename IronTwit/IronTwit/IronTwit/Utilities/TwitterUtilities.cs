@@ -47,6 +47,7 @@ namespace IronTwit.Utilities
             MaxMessageLength = maxMessageLength;
         }
         
+        //Stupid StructureMap kruft. >:(
         [DefaultConstructor]
         public TwitterUtilities(ITwitterDataAccess dataAccess)
         {
@@ -58,7 +59,7 @@ namespace IronTwit.Utilities
 
         public void SendMessage(string username, string password, string message, string recipient)
         {
-            //1 is for the space and should only be subtracted if there is a recipient 
+            //1 is for the space and should only be subtracted if there is a recipient
             var maxLengthOfMessageBody = MaxMessageLength - recipient.Length - 1; 
 
             if(maxLengthOfMessageBody <= 0)
@@ -77,16 +78,11 @@ namespace IronTwit.Utilities
 
                 for(var count=0; count<=numberOfMessagesToSend; count++)
                 {
-                    var numberOfCharactersToGrab = message.Length > maxLengthOfMessageBody
-                                                       ? maxLengthOfMessageBody
-                                                       : message.Length;
-
-                    var messageToSend = message.Substring(0, numberOfCharactersToGrab);
-                    message = message.Remove(0, numberOfCharactersToGrab);
-
+                    string messageToSend = _GetMessageToSend(recipient, maxLengthOfMessageBody, message);
                     messageToSend = (String.IsNullOrEmpty(recipient))
-                          ? messageToSend
-                          : String.Format("{0} {1}", recipient, messageToSend);
+                                ? messageToSend
+                                : String.Format("{0} {1}", recipient, messageToSend);
+                    message = _CropMessage(maxLengthOfMessageBody, message);
 
                     _DataAccess.SendMessage(username, password, messageToSend);
                 }
@@ -95,6 +91,34 @@ namespace IronTwit.Utilities
             }
 
             _DataAccess.SendMessage(username, password, message);
+        }
+
+        private string _CropMessage(int maxLengthOfMessageBody, string message)
+        {
+            var numberOfCharactersToGrab = _GetNumberOfCharactersToGrab(message, maxLengthOfMessageBody);
+
+            message = message.Remove(0, numberOfCharactersToGrab);
+            return message;
+        }
+
+        public static string _GetMessageToSend(string recipient, int maxLengthOfMessageBody, string message)
+        {
+            int numberOfCharactersToGrab = _GetNumberOfCharactersToGrab(message, maxLengthOfMessageBody);
+
+            var messageToSend = message.Substring(0, numberOfCharactersToGrab);
+
+            return messageToSend;
+        }
+
+        public static int _GetNumberOfCharactersToGrab(string message, int maxLengthOfMessageBody)
+        {
+            var result = message.Length > maxLengthOfMessageBody
+                       ? maxLengthOfMessageBody
+                       : message.Length;
+
+            var croppedMessage = message.Substring(0, result).TrimEnd(' ');
+
+            return croppedMessage.Length;
         }
 
         public List<Tweet> GetUserMessages(string username, string password)

@@ -83,10 +83,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Controls\MessageDisplay.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\UserCredentials.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -105,9 +101,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controls\MessageDisplay.xaml.cs">
-      <DependentUpon>MessageDisplay.xaml</DependentUpon>
-    </Compile>
     <Compile Include="IoC_Configuration.cs" />
     <Compile Include="Models\Credentials.cs" />
     <Compile Include="Models\InteractionContext.cs" />

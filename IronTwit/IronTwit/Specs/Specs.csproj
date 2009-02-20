@@ -68,10 +68,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Application_running\When_messages_are_refreshed.cs" />
+    <Compile Include="ServicesScope\When_sending_large_messages.cs" />
     <Compile Include="Starting_Application\Happy_path.cs" />
     <Compile Include="Starting_Application\User_enters_wrong_password_when_prompted.cs" />
-    <Compile Include="Start_application_receive_message_specs.cs" />
-    <Compile Include="Start_application_send_message_spec.cs" />
+    <Compile Include="Starting_Application\Start_application_receive_message_specs.cs" />
+    <Compile Include="Starting_Application\Start_application_send_message_spec.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\SpecUnit.cs" />
   </ItemGroup>
@@ -80,9 +81,6 @@
       <Project>{DF1A7919-466C-4321-BFEF-C3AAB6BF4841}</Project>
       <Name>IronTwit</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ServicesScope\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

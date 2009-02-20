@@ -19,7 +19,8 @@ namespace Specs
             ObjectFactory.Initialize(x =>
             {
                 x.ForRequestedType<IInteractionContext>().TheDefaultIsConcreteType<GuiInteractionContext>();
-                x.ForRequestedType<ITwitterUtilities>().TheDefaultIsConcreteType<TwitterUtilities>();
+                x.ForRequestedType<ITwitterDataAccess>().TheDefaultIsConcreteType<TwitterDataAccess>();
+                x.ForRequestedType<ITwitterUtilities>().TheDefault.Is.OfConcreteType<TwitterUtilities>();
             });
 
         }

@@ -69,6 +69,7 @@
   <ItemGroup>
     <Compile Include="Application_running\When_messages_are_refreshed.cs" />
     <Compile Include="ServicesScope\When_sending_large_messages.cs" />
+    <Compile Include="ServicesScope\When_sending_normal_messages.cs" />
     <Compile Include="Starting_Application\Happy_path.cs" />
     <Compile Include="Starting_Application\User_enters_wrong_password_when_prompted.cs" />
     <Compile Include="Starting_Application\Start_application_receive_message_specs.cs" />

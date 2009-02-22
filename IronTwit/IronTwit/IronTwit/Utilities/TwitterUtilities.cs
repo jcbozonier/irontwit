@@ -96,39 +96,14 @@ namespace IronTwit.Utilities
                     startMessageIndex = endMessageIndex + 1;
                     endMessageIndex = Math.Min(startMessageIndex + maxLengthOfMessageContent - 1, message.Length-1);
                 }
-
-                endMessageIndex--;
+                else
+                {
+                    endMessageIndex--;
+                }
+                
             }
 
             messagesToSend.ForEach((messageToSend) => _DataAccess.SendMessage(username, password, messageToSend));
-        }
-
-        private string _CropMessage(int maxLengthOfMessageBody, string message)
-        {
-            var numberOfCharactersToGrab = _GetNumberOfCharactersToGrab(message, maxLengthOfMessageBody);
-
-            message = message.Remove(0, numberOfCharactersToGrab);
-            return message;
-        }
-
-        public static string _GetMessageToSend(string recipient, int maxLengthOfMessageBody, string message)
-        {
-            int numberOfCharactersToGrab = _GetNumberOfCharactersToGrab(message, maxLengthOfMessageBody);
-
-            var messageToSend = message.Substring(0, numberOfCharactersToGrab);
-
-            return messageToSend;
-        }
-
-        public static int _GetNumberOfCharactersToGrab(string message, int maxLengthOfMessageBody)
-        {
-            var result = message.Length > maxLengthOfMessageBody
-                       ? maxLengthOfMessageBody
-                       : message.Length;
-
-            var croppedMessage = message.Substring(0, result).TrimEnd(' ');
-
-            return croppedMessage.Length;
         }
 
         public List<Tweet> GetUserMessages(string username, string password)

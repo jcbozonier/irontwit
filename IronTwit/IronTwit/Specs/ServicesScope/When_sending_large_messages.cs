@@ -26,14 +26,24 @@ namespace Specs.Application_running.sending_messages
             DataAccess.SentMessages.ForEach(message => message.Length.ShouldBeLessThan(MaxMessageLength+1));
         }
 
+        [Test]
+        public void It_should_not_remove_any_letters_from_the_message()
+        {
+            DataAccess.SentMessages.Reverse();
+            DataAccess.SentMessages[0].EndsWith("it.").ShouldBeTrue();
+        }
+
         protected string Recipient = "@ChadBoyer";
+
+        protected string Message =
+            "I need to test to ensure that my twitter client is breaking up messages only at word boundaries. This will come in handy not just for making long tweets read better when split but also for displaying URLs. My code can't handle a single long word right now though (think a word larger than 140 chars :). Once that becomes a *real* problem, I'll look into fixing it.";
 
         protected override void Because()
         {
             Utilities.SendMessage(
                 "username", 
-                "password", 
-                "This is a test message from my new twitter client. If everything goes as planned, this message should be split up into multiple messages with each one directed at you. Sorry for the long message but I wanted to make sure it got split up at least once.  :) This is a test message from my new twitter client. If everything goes as planned, this message should be split up into multiple messages with each one directed at you. Sorry for the long message but I wanted to make sure it got split up at least once.  :)", 
+                "password",
+                Message,
                 Recipient);
         }
 

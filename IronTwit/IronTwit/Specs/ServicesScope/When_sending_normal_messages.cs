@@ -8,8 +8,40 @@ using SpecUnit;
 
 namespace Specs.ServicesScope.Sending_normal_messages
 {
+
     [TestFixture]
     public class When_sending_a_large_message_with_no_recipient : context
+    {
+        [Test]
+        public void It_should_not_be_broken_up_into_multiple_messages()
+        {
+            DataAccess.MessagesSent.ShouldEqual(1);
+        }
+
+        [Test]
+        public void It_clips_each_message_to_be_at_or_below_the_max_message_length()
+        {
+            DataAccess.SentMessages.ForEach(message => message.Length.ShouldBeLessThan(MaxMessageLength + 1));
+        }
+
+        protected string Recipient=null;
+
+        protected override void Because()
+        {
+            Utilities.SendMessage(
+                "username",
+                "password",
+                "This is a test message from",
+                Recipient);
+        }
+
+        protected override void Context()
+        {
+        }
+    }
+
+    [TestFixture]
+    public class When_sending_a_large_message_with_recipient : context
     {
         [Test]
         public void It_should_not_be_broken_up_into_multiple_messages()

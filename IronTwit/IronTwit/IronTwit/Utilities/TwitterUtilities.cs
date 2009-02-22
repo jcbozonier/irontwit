@@ -67,7 +67,7 @@ namespace IronTwit.Utilities
             // send message
             // repeat until the endIndex == messageLength-1.
 
-            var maxLengthOfMessageContent = (!String.IsNullOrEmpty(username))
+            var maxLengthOfMessageContent = (!String.IsNullOrEmpty(recipient))
                                                 ? 140 - (recipient.Length + 1) //For space below
                                                 : 140;
 

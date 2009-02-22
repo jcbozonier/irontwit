@@ -59,38 +59,48 @@ namespace IronTwit.Utilities
 
         public void SendMessage(string username, string password, string message, string recipient)
         {
-            //1 is for the space and should only be subtracted if there is a recipient
-            var maxLengthOfMessageBody = MaxMessageLength - recipient.Length - 1; 
+            // Get the maximum length of a message subtracting the to field
+            // go to the maxLength - 1 index of the message and search backwards for a space or end of string.
+            // tag this index as the end index
+            // pull message from start index to end index into message variable
+            // tag on the recipient
+            // send message
+            // repeat until the endIndex == messageLength-1.
 
-            if(maxLengthOfMessageBody <= 0)
-                throw new ArgumentException("The recipient's name is too long for the given message limit.");
+            var maxLengthOfMessageContent = (!String.IsNullOrEmpty(username))
+                                                ? 140 - (recipient.Length + 1) //For space below
+                                                : 140;
 
-            if(message.Length > maxLengthOfMessageBody)
+            var recipientMessagePortion = (!String.IsNullOrEmpty(username))
+                                              ? recipient + " "
+                                              : "";
+
+            var startMessageIndex = 0;
+            var endMessageIndex = Math.Min(maxLengthOfMessageContent - 1, message.Length-1);
+
+            var messagesToSend = new List<string>();
+
+            while (startMessageIndex < message.Length - 1)
             {
-                // Find out how many times maxLengthOfMessageBody divides into message.Length
-                // Loop that many times plus one
-                // in each iteration remove a set of characters of length maxLengthOfMessageBody
-                // concatenate the recipient's name and the message portion
-                // then send the message
-                // continue
+                if(startMessageIndex >= message.Length ||
+                    startMessageIndex > endMessageIndex)
+                    break;
 
-                var numberOfMessagesToSend = message.Length/maxLengthOfMessageBody;
-
-                for(var count=0; count<=numberOfMessagesToSend; count++)
+                if( message[endMessageIndex] == ' ' || 
+                    endMessageIndex >= message.Length-1)
                 {
-                    string messageToSend = _GetMessageToSend(recipient, maxLengthOfMessageBody, message);
-                    messageToSend = (String.IsNullOrEmpty(recipient))
-                                ? messageToSend
-                                : String.Format("{0} {1}", recipient, messageToSend);
-                    message = _CropMessage(maxLengthOfMessageBody, message);
+                    // Then this is the message portion we want.
+                    messagesToSend.Add(
+                        recipientMessagePortion + message.Substring(startMessageIndex, endMessageIndex - startMessageIndex + 1));
 
-                    _DataAccess.SendMessage(username, password, messageToSend);
+                    startMessageIndex = endMessageIndex + 1;
+                    endMessageIndex = Math.Min(startMessageIndex + maxLengthOfMessageContent - 1, message.Length-1);
                 }
 
-                return;
+                endMessageIndex--;
             }
 
-            _DataAccess.SendMessage(username, password, message);
+            messagesToSend.ForEach((messageToSend) => _DataAccess.SendMessage(username, password, messageToSend));
         }
 
         private string _CropMessage(int maxLengthOfMessageBody, string message)

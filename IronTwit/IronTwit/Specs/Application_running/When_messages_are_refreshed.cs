@@ -20,7 +20,7 @@ namespace Specs.Application_running
             Model = ObjectFactory.GetInstance<MainView>();
             Model.ApplicationStarting();
 
-            Model.Tweets.Count.ShouldEqual(1);
+            Model.Messages.Count.ShouldEqual(1);
         }
 
         protected override void Because()
@@ -31,7 +31,7 @@ namespace Specs.Application_running
         [Test]
         public void It_should_clear_previous_messages()
         {
-            Model.Tweets.Count.ShouldEqual(0);
+            Model.Messages.Count.ShouldEqual(0);
         }
     }
 
@@ -70,7 +70,7 @@ namespace Specs.Application_running
 
         public int _Counter;
 
-        public List<Tweet> GetUserMessages(string username, string password)
+        public List<IMessage> GetUserMessages(string username, string password)
         {
             Username = username;
             Password = password;
@@ -78,11 +78,11 @@ namespace Specs.Application_running
             _Counter++;
 
             return _Counter == 1
-                       ? new List<Tweet>()
+                       ? new List<IMessage>()
                              {
-                                 new Tweet() {text = "testing", user = new TwitterUser() {screen_name = "darkxanthos"}}
+                                 new Tweet() {Text = "testing", Sender = new TwitterUser() {AccountName = "darkxanthos"}}
                              }
-                       : new List<Tweet>();
+                       : new List<IMessage>();
         }
 
         public void SendMessage(string username, string password, string message, string recipient)

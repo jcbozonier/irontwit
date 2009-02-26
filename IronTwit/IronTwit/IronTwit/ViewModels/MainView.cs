@@ -30,7 +30,7 @@ namespace IronTwit.ViewModels
         /// <summary>
         /// A list of all of the tweets that should be displayed.
         /// </summary>
-        public ObservableCollection<Tweet> Tweets { get; set; }
+        public ObservableCollection<IMessage> Messages { get; set; }
         /// <summary>
         /// A list of all of the user's messages.
         /// </summary>
@@ -90,7 +90,7 @@ namespace IronTwit.ViewModels
             if(utilities == null)
                 throw new ArgumentNullException("utilities");
 
-            Tweets = new ObservableCollection<Tweet>();
+            Messages = new ObservableCollection<IMessage>();
             MyReplies = new ObservableCollection<Tweet>();
 
             Interactions = interactionContext;
@@ -108,11 +108,11 @@ namespace IronTwit.ViewModels
                     {
                         var result = utilities.GetUserMessages(UserName, Password);
 
-                        Tweets.Clear();
+                        Messages.Clear();
 
                         foreach (var message in result)
                         {
-                            Tweets.Add(message);
+                            Messages.Add(message);
                         }
                     });
 

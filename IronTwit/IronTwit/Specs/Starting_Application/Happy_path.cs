@@ -26,7 +26,7 @@ namespace Specs.Application_starting
         [Test]
         public void It_should_get_messages_for_user()
         {
-            Model.Tweets.ShouldNotBeEmpty();
+            Model.Messages.ShouldNotBeEmpty();
         }
 
         protected override void Because()
@@ -103,12 +103,12 @@ namespace Specs.Application_starting
         public string Message;
         public string Recipient;
 
-        public List<Tweet> GetUserMessages(string username, string password)
+        public List<IMessage> GetUserMessages(string username, string password)
         {
             Username = username;
             Password = password;
 
-            return new List<Tweet>(){new Tweet(){text="testing",user=new TwitterUser(){screen_name = "darkxanthos"}}};
+            return new List<IMessage>(){new Tweet(){Text="testing",Sender=new TwitterUser(){AccountName = "darkxanthos"}}};
         }
 
         public void SendMessage(string username, string password, string message, string recipient)

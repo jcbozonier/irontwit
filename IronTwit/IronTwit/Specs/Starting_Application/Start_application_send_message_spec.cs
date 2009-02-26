@@ -136,12 +136,12 @@ namespace Specs.Application_starting.Sending_messages
         public string Message;
         public string Recipient;
 
-        public List<Tweet> GetUserMessages(string username, string password)
+        public List<IMessage> GetUserMessages(string username, string password)
         {
             Username = username;
             Password = password;
 
-            return new List<Tweet>();
+            return new List<IMessage>();
         }
 
         public void SendMessage(string username, string password, string message, string recipient)

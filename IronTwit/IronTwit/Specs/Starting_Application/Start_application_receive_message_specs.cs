@@ -16,7 +16,7 @@ namespace Specs.Application_starting.Receiving_messages
         [Test]
         public void It_should_get_items()
         {
-            Model.Tweets.Count.ShouldBeGreaterThan(0);
+            Model.Messages.Count.ShouldBeGreaterThan(0);
         }
 
         [Test]
@@ -83,19 +83,19 @@ namespace Specs.Application_starting.Receiving_messages
         public string Password;
         public string Message;
 
-        public List<Tweet> GetUserMessages(string username, string password)
+        public List<IMessage> GetUserMessages(string username, string password)
         {
             Username = username;
             Password = password;
 
-            return new List<Tweet>
+            return new List<IMessage>
                        {
                            new Tweet()
                                {
-                                   text="Message 1",
-                                   user = new TwitterUser()
+                                   Text="Message 1",
+                                   Sender = new TwitterUser()
                                               {
-                                                  screen_name = "darkxanthos"
+                                                  AccountName = "darkxanthos"
                                               }
                                }
                        };

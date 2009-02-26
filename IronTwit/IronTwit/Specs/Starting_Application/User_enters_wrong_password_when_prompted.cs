@@ -103,14 +103,14 @@ namespace Specs.Starting_Application
         public string Message;
         public string Recipient;
 
-        public List<Tweet> GetUserMessages(string username, string password)
+        public List<IMessage> GetUserMessages(string username, string password)
         {
             Username = username;
             Password = password;
             
             throw new WebException("Authentication failure.");
 
-            return new List<Tweet>() { new Tweet() { text = "testing", user = new TwitterUser() { screen_name = "darkxanthos" } } };
+            return new List<IMessage>() { new Tweet() { Text = "testing", Sender = new TwitterUser() { AccountName = "darkxanthos" } } };
         }
 
         public void SendMessage(string username, string password, string message, string recipient)

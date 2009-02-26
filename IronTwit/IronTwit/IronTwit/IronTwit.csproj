@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{DF1A7919-466C-4321-BFEF-C3AAB6BF4841}</ProjectGuid>
     <OutputType>WinExe</OutputType>
@@ -83,6 +83,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\UserCredentials.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -103,8 +107,12 @@
   <ItemGroup>
     <Compile Include="IoC_Configuration.cs" />
     <Compile Include="Models\Credentials.cs" />
+    <Compile Include="Models\IMessage.cs" />
     <Compile Include="Models\InteractionContext.cs" />
+    <Compile Include="Models\ISender.cs" />
+    <Compile Include="Models\SupportedServices.cs" />
     <Compile Include="Models\Twitter\Tweet.cs" />
+    <Compile Include="Models\Twitter\TwitterSender.cs" />
     <Compile Include="Models\Twitter\TwitterUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -126,6 +134,7 @@
     <Compile Include="ViewModels\ReceiveMessagesCommand.cs" />
     <Compile Include="ViewModels\SendMessageCommand.cs" />
     <Compile Include="ViewModels\UserCredentialsViewModel.cs" />
+    <Compile Include="Views\MessageView.cs" />
     <Compile Include="Views\UserCredentials.xaml.cs">
       <DependentUpon>UserCredentials.xaml</DependentUpon>
     </Compile>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using IronTwit.Models;
 using IronTwit.Models.Twitter;
 using Newtonsoft.Json;
 using StructureMap;
@@ -12,7 +13,7 @@ namespace IronTwit.Utilities
 {
     public interface ITwitterUtilities
     {
-        List<Tweet> GetUserMessages(string username, string password);
+        List<IMessage> GetUserMessages(string username, string password);
         void SendMessage(string username, string password, string message, string recipient);
     }
 
@@ -106,16 +107,16 @@ namespace IronTwit.Utilities
             messagesToSend.ForEach((messageToSend) => _DataAccess.SendMessage(username, password, messageToSend));
         }
 
-        public List<Tweet> GetUserMessages(string username, string password)
+        public List<IMessage> GetUserMessages(string username, string password)
         {
             string resultString = String.Empty;
-
+            
             resultString = _DataAccess.GetFriendsTimelineAsJSON(username, password);
 
             var str = new StringReader(resultString);
             var converter = new JsonSerializer();
             converter.MissingMemberHandling = MissingMemberHandling.Ignore;
-            return (List<Tweet>)converter.Deserialize(str, typeof(List<Tweet>));
+            return new List<IMessage>(((List<Tweet>)converter.Deserialize(str, typeof(List<Tweet>))).ToArray());
         }
     }
 }

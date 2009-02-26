@@ -39,7 +39,7 @@
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=3.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\ThirdParty\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\ThirdParty\TwitterComm\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="StructureMap, Version=2.5.3.0, Culture=neutral, PublicKeyToken=e60ad81abae3c223, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -75,7 +75,7 @@
     </Reference>
     <Reference Include="Yedda.Twitter, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\ThirdParty\Yedda.Twitter.dll</HintPath>
+      <HintPath>..\..\ThirdParty\TwitterComm\Yedda.Twitter.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

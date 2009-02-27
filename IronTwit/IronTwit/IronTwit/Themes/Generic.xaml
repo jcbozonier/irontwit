@@ -20,8 +20,22 @@
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
                             <TextBlock Margin="0, 0, 5, 0" Grid.Column="0" Text="{Binding Sender.AccountName}" />
-                            <TextBlock TextWrapping="Wrap" Grid.Column="1" Text="{Binding Text}" />
+                            <Views:MessageTextView Grid.Column="1" Content="{Binding Text}" />
                         </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type Views:MessageTextView}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Views:MessageTextView}">
+                    <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}">
+                        <TextBlock TextWrapping="Wrap" x:Name="PART_MessageText" />
                     </Border>
                 </ControlTemplate>
             </Setter.Value>

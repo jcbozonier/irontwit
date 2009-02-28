@@ -33,7 +33,7 @@ namespace Specs.Application_starting.Receiving_messages
 
         protected override void Context()
         {
-            Model.ApplicationStarting();
+            Model.Init();
         }
     }
 

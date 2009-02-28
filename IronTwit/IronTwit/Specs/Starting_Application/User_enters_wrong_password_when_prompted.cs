@@ -25,7 +25,7 @@ namespace Specs.Starting_Application
 
         protected override void Because()
         {
-            Model.ApplicationStarting();
+            Model.Init();
         }
 
         protected FakeInteractionContext InteractionContext;

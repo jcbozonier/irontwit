@@ -9,7 +9,12 @@ using UniteMessaging;
 
 namespace IronTwit.ViewModels
 {
-    public class MainView : INotifyPropertyChanged
+    public interface IInitializeView
+    {
+        void Init();
+    }
+
+    public class MainView : IInitializeView, INotifyPropertyChanged
     {
         /// <summary>
         /// Any user input the view model needs can be requested through
@@ -122,7 +127,7 @@ namespace IronTwit.ViewModels
         /// that the model can go through the appropriate workflow
         /// to set up the UI for the user.
         /// </summary>
-        public void ApplicationStarting()
+        public void Init()
         {
             bool shouldRetryAuthorization = false;
             do

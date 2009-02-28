@@ -19,7 +19,7 @@ namespace IronTwit.Views
 
         void Window1_Loaded(object sender, RoutedEventArgs e)
         {
-            ((ViewModels.MainView)DataContext).ApplicationStarting();
+            ((ViewModels.IInitializeView)DataContext).Init();
         }
 
         

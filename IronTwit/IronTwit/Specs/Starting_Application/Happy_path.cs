@@ -32,7 +32,7 @@ namespace Specs.Application_starting
 
         protected override void Because()
         {
-            Model.ApplicationStarting();
+            Model.Init();
         }
 
         protected override void Context()

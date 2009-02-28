@@ -82,7 +82,7 @@ namespace Specs.Application_starting.Sending_messages
 
         protected override void Context()
         {
-            Model.ApplicationStarting();
+            Model.Init();
             Model.PropertyChanged += (s, e) => UIUpdated = true;
             Model.MessageToSend = MessageSent = "This is my message.";
             Model.Recipient = Recipient = "@testuser";

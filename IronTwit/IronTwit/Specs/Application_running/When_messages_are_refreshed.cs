@@ -18,7 +18,7 @@ namespace Specs.Application_running
         protected override void Context()
         {
             Model = ObjectFactory.GetInstance<MainView>();
-            Model.ApplicationStarting();
+            Model.Init();
 
             Model.Messages.Count.ShouldEqual(1);
         }

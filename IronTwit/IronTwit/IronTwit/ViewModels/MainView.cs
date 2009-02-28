@@ -2,6 +2,7 @@
 using Unite.UI.Utilities;
 using System;
 using System.Collections.ObjectModel;
+using System.Collections.Generic;
 using System.Net;
 using System.Windows;
 using System.ComponentModel;
@@ -84,7 +85,9 @@ namespace Unite.UI.ViewModels
         /// receive a message.
         /// </summary>
         public ReceiveMessagesCommand ReceiveMessage { get; set; }
- 
+
+        List<object> _ServiceProviders;
+
         public MainView(
             IInteractionContext interactionContext,
             IMessagingService utilities)
@@ -93,6 +96,9 @@ namespace Unite.UI.ViewModels
                 throw new ArgumentNullException("interactionContext");
             if(utilities == null)
                 throw new ArgumentNullException("utilities");
+
+            // This might be better being created in the controller. (App.xaml.cs)
+            _ServiceProviders = new List<object>();
 
             Messages = new ObservableCollection<IMessage>();
             MyReplies = new ObservableCollection<IMessage>();

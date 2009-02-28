@@ -10,9 +10,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using IronTwit.ViewModels;
+using Unite.UI.ViewModels;
 
-namespace IronTwit.Views
+namespace Unite.UI.Views
 {
     /// <summary>
     /// Interaction logic for UserCredentials.xaml

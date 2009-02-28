@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace IronTwit.Models
+namespace Unite.Messaging
 {
     //Service specific (i.e. not an "Identity" which is a semantic grouping of ISenders under one friendly name)
     public interface ISender
@@ -14,6 +14,6 @@ namespace IronTwit.Models
         /// For Twitter, e.g. '@darkxanthos'
         /// For Email, e.g. 'darkxanthos@gmail.com'
         /// </summary>
-        string AccountName { get; }
+        string AccountName { get; set; }
     }
 }

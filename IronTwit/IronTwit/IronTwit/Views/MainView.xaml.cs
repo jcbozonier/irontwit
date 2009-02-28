@@ -1,14 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Windows;
-using IronTwit.Models.Twitter;
-using IronTwit.Utilities;
-using IronTwit.ViewModels;
-using StructureMap;
-using Yedda;
-using Newtonsoft.Json;
+using Unite.UI.Utilities;
+using Unite.UI.ViewModels;
 
-namespace IronTwit.Views
+namespace Unite.UI.Views
 {
     /// <summary>
     /// Interaction logic for Window1.xaml
@@ -23,10 +19,7 @@ namespace IronTwit.Views
 
         void Window1_Loaded(object sender, RoutedEventArgs e)
         {
-            var model = ObjectFactory.GetInstance<ViewModels.MainView>();
-            DataContext = model;
-
-            model.ApplicationStarting();
+            ((ViewModels.IInitializeView)DataContext).Init();
         }
 
         

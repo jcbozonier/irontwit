@@ -1,22 +1,16 @@
-﻿using System;
+﻿using IronTwitterPlugIn.DataObjects;
+using Newtonsoft.Json;
+using StructureMap;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using IronTwit.Models;
-using IronTwit.Models.Twitter;
-using Newtonsoft.Json;
-using StructureMap;
+using Unite.Messaging;
 using Yedda;
 
-namespace IronTwit.Utilities
+namespace IronTwitterPlugIn
 {
-    public interface ITwitterUtilities
-    {
-        List<IMessage> GetUserMessages(string username, string password);
-        void SendMessage(string username, string password, string message, string recipient);
-    }
-
     public interface ITwitterDataAccess
     {
         /// <summary>
@@ -27,11 +21,11 @@ namespace IronTwit.Utilities
         /// <param name="message"></param>
         /// <returns></returns>
         string SendMessage(string username, string password, string message);
-        string GetFriendsTimelineAsJSON(string username, string password);
+        string GetMessages(string username, string password);
     }
 
     [StructureMap.Pluggable("Complex")]
-    public class TwitterUtilities : ITwitterUtilities
+    public class TwitterUtilities : IMessagingService
     {
         private readonly int MaxMessageLength = 140;
         private ITwitterDataAccess _DataAccess;
@@ -107,16 +101,21 @@ namespace IronTwit.Utilities
             messagesToSend.ForEach((messageToSend) => _DataAccess.SendMessage(username, password, messageToSend));
         }
 
-        public List<IMessage> GetUserMessages(string username, string password)
+        public List<IMessage> GetMessages(string username, string password)
         {
             string resultString = String.Empty;
             
-            resultString = _DataAccess.GetFriendsTimelineAsJSON(username, password);
+            resultString = _DataAccess.GetMessages(username, password);
 
             var str = new StringReader(resultString);
             var converter = new JsonSerializer();
             converter.MissingMemberHandling = MissingMemberHandling.Ignore;
-            return new List<IMessage>(((List<Tweet>)converter.Deserialize(str, typeof(List<Tweet>))).ToArray());
+
+            // Convert the sender property to proper twitter form.
+            var tweets = (List<Tweet>)converter.Deserialize(str, typeof(List<Tweet>));
+            tweets.ForEach(tweet=>tweet.Sender.AccountName = "@" + tweet.Sender.AccountName);
+
+            return new List<IMessage>(tweets.ToArray());
         }
     }
 }

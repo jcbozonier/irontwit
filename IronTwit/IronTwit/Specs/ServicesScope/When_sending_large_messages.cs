@@ -1,9 +1,10 @@
-﻿using IronTwit.Utilities;
+﻿using Unite.UI.Utilities;
+using IronTwitterPlugIn;
 using NUnit.Framework;
 using SpecUnit;
 using System.Collections.Generic;
 
-namespace Specs.Application_running.sending_messages
+namespace Unite.Specs.Application_running.sending_messages
 {
     [TestFixture]
     public class When_sending_a_large_message_with_no_recipient : context
@@ -91,7 +92,7 @@ namespace Specs.Application_running.sending_messages
             return "result message";
         }
 
-        public string GetFriendsTimelineAsJSON(string username, string password)
+        public string GetMessages(string username, string password)
         {
             return "result message";
         }

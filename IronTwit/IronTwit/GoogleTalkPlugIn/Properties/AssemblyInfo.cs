@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Unite.Specs")]
+[assembly: AssemblyTitle("GoogleTalkPlugIn")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Unite.Specs")]
+[assembly: AssemblyProduct("GoogleTalkPlugIn")]
 [assembly: AssemblyCopyright("Copyright ©  2009")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("f4c2aebd-c320-4d1c-b246-2220348c2d3a")]
+[assembly: Guid("cebbd923-77df-4612-8643-101d463eb260")]
 
 // Version information for an assembly consists of the following four values:
 //

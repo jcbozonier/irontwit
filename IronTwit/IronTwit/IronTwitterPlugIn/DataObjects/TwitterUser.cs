@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Unite.Messaging;
 
-namespace IronTwit.Models.Twitter
+namespace IronTwitterPlugIn.DataObjects
 {
     public class TwitterUser : ISender
     {

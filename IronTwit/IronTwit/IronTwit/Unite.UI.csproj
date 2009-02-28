@@ -3,13 +3,13 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
+    <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{DF1A7919-466C-4321-BFEF-C3AAB6BF4841}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>IronTwit</RootNamespace>
-    <AssemblyName>IronTwit</AssemblyName>
+    <RootNamespace>Unite.UI</RootNamespace>
+    <AssemblyName>Unite.UI</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -36,10 +36,6 @@
     <Reference Include="Bound.Net, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\ThirdParty\WpfBindingHelpers\Bound.Net.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=3.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\ThirdParty\TwitterComm\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="StructureMap, Version=2.5.3.0, Culture=neutral, PublicKeyToken=e60ad81abae3c223, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -73,10 +69,6 @@
     <Reference Include="PresentationFramework">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
-    <Reference Include="Yedda.Twitter, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\ThirdParty\TwitterComm\Yedda.Twitter.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -106,14 +98,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IoC_Configuration.cs" />
-    <Compile Include="Models\Credentials.cs" />
-    <Compile Include="Models\IMessage.cs" />
-    <Compile Include="Models\InteractionContext.cs" />
-    <Compile Include="Models\ISender.cs" />
-    <Compile Include="Models\SupportedServices.cs" />
-    <Compile Include="Models\Twitter\Tweet.cs" />
-    <Compile Include="Models\Twitter\TwitterSender.cs" />
-    <Compile Include="Models\Twitter\TwitterUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -127,16 +111,16 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="Utilities\IInteractionContext.cs" />
     <Compile Include="Utilities\InlineUrls.cs" />
-    <Compile Include="Utilities\TwitterDataAccess.cs" />
-    <Compile Include="Utilities\TwitterUtilities.cs" />
+    <Compile Include="Utilities\InteractionContext.cs" />
     <Compile Include="ViewModels\DelegateCommand.cs" />
     <Compile Include="ViewModels\MainView.cs" />
     <Compile Include="ViewModels\ReceiveMessagesCommand.cs" />
     <Compile Include="ViewModels\SendMessageCommand.cs" />
     <Compile Include="ViewModels\UserCredentialsViewModel.cs" />
-    <Compile Include="Views\MessageTextView.cs" />
-    <Compile Include="Views\MessageView.cs" />
+    <Compile Include="Controls\MessageTextView.cs" />
+    <Compile Include="Controls\MessageView.cs" />
     <Compile Include="Views\UserCredentials.xaml.cs">
       <DependentUpon>UserCredentials.xaml</DependentUpon>
     </Compile>
@@ -149,6 +133,16 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\IronTwitterPlugIn\IronTwitterPlugIn.csproj">
+      <Project>{7E90D07E-E532-4F57-BD4D-41A3C64F6B3E}</Project>
+      <Name>IronTwitterPlugIn</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UniteMessaging\Unite.Messaging.csproj">
+      <Project>{7B3CBD74-D69D-420F-90F9-19174C7DE3FA}</Project>
+      <Name>Unite.Messaging</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -12,7 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace IronTwit.Views
+namespace Unite.UI.Controls
 {
     /// <summary>
     /// Follow steps 1a or 1b and then 2 to use this custom control in a XAML file.
@@ -21,14 +21,14 @@ namespace IronTwit.Views
     /// Add this XmlNamespace attribute to the root element of the markup file where it is 
     /// to be used:
     ///
-    ///     xmlns:MyNamespace="clr-namespace:IronTwit.Views"
+    ///     xmlns:MyNamespace="clr-namespace:Unite.UI.Views"
     ///
     ///
     /// Step 1b) Using this custom control in a XAML file that exists in a different project.
     /// Add this XmlNamespace attribute to the root element of the markup file where it is 
     /// to be used:
     ///
-    ///     xmlns:MyNamespace="clr-namespace:IronTwit.Views;assembly=IronTwit.Views"
+    ///     xmlns:MyNamespace="clr-namespace:Unite.UI.Views;assembly=Unite.UI.Views"
     ///
     /// You will also need to add a project reference from the project where the XAML file lives
     /// to this project and Rebuild to avoid compilation errors:
@@ -40,14 +40,44 @@ namespace IronTwit.Views
     /// Step 2)
     /// Go ahead and use your control in the XAML file.
     ///
-    ///     <MyNamespace:MessageView/>
+    ///     <MyNamespace:MessageTextView/>
     ///
     /// </summary>
-    public class MessageView : Control
+    [TemplatePart(Type=typeof(TextBlock), Name=NAME_PART_MESSAGE_TEXT)]
+    public class MessageTextView : ContentControl
     {
-        static MessageView()
+        private const string NAME_PART_MESSAGE_TEXT = "PART_MessageText";
+
+        protected TextBlock MessageText;
+
+        static MessageTextView()
         {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(MessageView), new FrameworkPropertyMetadata(typeof(MessageView)));
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(MessageTextView), new FrameworkPropertyMetadata(typeof(MessageTextView)));
+        }
+
+        public override void OnApplyTemplate()
+        {
+            base.OnApplyTemplate();
+
+            MessageText = (TextBlock) GetTemplateChild(NAME_PART_MESSAGE_TEXT);
+
+            SetMessageText((string) Content);
+        }
+
+        protected override void OnContentChanged(object oldContent, object newContent)
+        {
+            base.OnContentChanged(oldContent, newContent);
+
+            if (MessageText == null)
+                return;
+
+            SetMessageText((string) Content);
+        }
+
+        private void SetMessageText(string messageText)
+        {
+            //TODO: this is where the magic will happen of parsing and displaying the links in messages
+            MessageText.Text = messageText;
         }
     }
 }

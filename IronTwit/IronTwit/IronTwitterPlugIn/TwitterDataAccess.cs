@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Yedda;
 
-namespace IronTwit.Utilities
+namespace IronTwitterPlugIn
 {
     public class TwitterDataAccess : ITwitterDataAccess
     {
@@ -15,7 +15,7 @@ namespace IronTwit.Utilities
             return result;
         }
 
-        public string GetFriendsTimelineAsJSON(string username, string password)
+        public string GetMessages(string username, string password)
         {
             var twit = new Twitter();
             var result = twit.GetFriendsTimelineAsJSON(username, password);

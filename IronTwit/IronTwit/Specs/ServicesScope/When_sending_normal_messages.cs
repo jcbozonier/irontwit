@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using IronTwit.Utilities;
+using Unite.UI.Utilities;
+using IronTwitterPlugIn;
 using NUnit.Framework;
 using SpecUnit;
 
-namespace Specs.ServicesScope.Sending_normal_messages
+
+namespace Unite.Specs.ServicesScope.Sending_normal_messages
 {
 
     [TestFixture]
@@ -116,7 +118,7 @@ namespace Specs.ServicesScope.Sending_normal_messages
             return "result message";
         }
 
-        public string GetFriendsTimelineAsJSON(string username, string password)
+        public string GetMessages(string username, string password)
         {
             return "result message";
         }

@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using IronTwit.Models;
-using IronTwit.Models.Twitter;
-using IronTwit.Utilities;
-using IronTwit.ViewModels;
+using Unite.UI.Utilities;
+using Unite.UI.ViewModels;
+using IronTwitterPlugIn.DataObjects;
 using NUnit.Framework;
 using SpecUnit;
 using StructureMap;
+using Unite.Messaging;
 
-namespace Specs.Application_running
+namespace Unite.Specs.Application_running
 {
     [TestFixture]
     public class When_messages_are_refreshed : context
@@ -18,7 +18,7 @@ namespace Specs.Application_running
         protected override void Context()
         {
             Model = ObjectFactory.GetInstance<MainView>();
-            Model.ApplicationStarting();
+            Model.Init();
 
             Model.Messages.Count.ShouldEqual(1);
         }
@@ -48,8 +48,8 @@ namespace Specs.Application_running
             ContainerBootstrapper.BootstrapStructureMap();
 
             Utilities = new TestTwitterUtilities();
-            ObjectFactory.EjectAllInstancesOf<ITwitterUtilities>();
-            ObjectFactory.Inject<ITwitterUtilities>(Utilities);
+            ObjectFactory.EjectAllInstancesOf<IMessagingService>();
+            ObjectFactory.Inject<IMessagingService>(Utilities);
 
             Context();
             Because();
@@ -61,7 +61,7 @@ namespace Specs.Application_running
     }
 
 
-    public class TestTwitterUtilities : ITwitterUtilities
+    public class TestTwitterUtilities : IMessagingService
     {
         public string Username;
         public string Password;
@@ -70,7 +70,7 @@ namespace Specs.Application_running
 
         public int _Counter;
 
-        public List<IMessage> GetUserMessages(string username, string password)
+        public List<IMessage> GetMessages(string username, string password)
         {
             Username = username;
             Password = password;
@@ -122,7 +122,7 @@ namespace Specs.Application_running
             ObjectFactory.Initialize(x =>
             {
                 x.ForRequestedType<IInteractionContext>().TheDefaultIsConcreteType<TestingInteractionContext>();
-                x.ForRequestedType<ITwitterUtilities>().TheDefaultIsConcreteType<TestTwitterUtilities>();
+                x.ForRequestedType<IMessagingService>().TheDefaultIsConcreteType<TestTwitterUtilities>();
             });
 
         }

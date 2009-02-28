@@ -1,16 +1,20 @@
-﻿using System;
+﻿using Bound.Net;
+using Unite.UI.Utilities;
+using System;
 using System.Collections.ObjectModel;
 using System.Net;
 using System.Windows;
-using Bound.Net;
-using IronTwit.Models;
-using IronTwit.Models.Twitter;
-using IronTwit.Utilities;
 using System.ComponentModel;
+using Unite.Messaging;
 
-namespace IronTwit.ViewModels
+namespace Unite.UI.ViewModels
 {
-    public class MainView : INotifyPropertyChanged
+    public interface IInitializeView
+    {
+        void Init();
+    }
+
+    public class MainView : IInitializeView, INotifyPropertyChanged
     {
         /// <summary>
         /// Any user input the view model needs can be requested through
@@ -34,7 +38,7 @@ namespace IronTwit.ViewModels
         /// <summary>
         /// A list of all of the user's messages.
         /// </summary>
-        public ObservableCollection<Tweet> MyReplies { get; set; }
+        public ObservableCollection<IMessage> MyReplies { get; set; }
 
         private string _messageToSend;
         /// <summary>
@@ -83,7 +87,7 @@ namespace IronTwit.ViewModels
  
         public MainView(
             IInteractionContext interactionContext,
-            ITwitterUtilities utilities)
+            IMessagingService utilities)
         {
             if(interactionContext == null) 
                 throw new ArgumentNullException("interactionContext");
@@ -91,7 +95,7 @@ namespace IronTwit.ViewModels
                 throw new ArgumentNullException("utilities");
 
             Messages = new ObservableCollection<IMessage>();
-            MyReplies = new ObservableCollection<Tweet>();
+            MyReplies = new ObservableCollection<IMessage>();
 
             Interactions = interactionContext;
 
@@ -106,7 +110,7 @@ namespace IronTwit.ViewModels
             ReceiveMessage = new ReceiveMessagesCommand(
                 () =>
                     {
-                        var result = utilities.GetUserMessages(UserName, Password);
+                        var result = utilities.GetMessages(UserName, Password);
 
                         Messages.Clear();
 
@@ -123,7 +127,7 @@ namespace IronTwit.ViewModels
         /// that the model can go through the appropriate workflow
         /// to set up the UI for the user.
         /// </summary>
-        public void ApplicationStarting()
+        public void Init()
         {
             bool shouldRetryAuthorization = false;
             do

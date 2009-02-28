@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using IronTwit.Models;
-using IronTwit.Utilities;
+using Unite.UI.Utilities;
+using IronTwitterPlugIn;
 using StructureMap;
+using Unite.Messaging;
 
-namespace Specs
+namespace Unite.UI
 {
     public static class ContainerBootstrapper
     {
@@ -15,12 +16,12 @@ namespace Specs
         {
 
             // Initialize the static ObjectFactory container
-
+            // This should be the only place in the project with a reference to Twitter.
             ObjectFactory.Initialize(x =>
             {
                 x.ForRequestedType<IInteractionContext>().TheDefaultIsConcreteType<GuiInteractionContext>();
                 x.ForRequestedType<ITwitterDataAccess>().TheDefaultIsConcreteType<TwitterDataAccess>();
-                x.ForRequestedType<ITwitterUtilities>().TheDefault.Is.OfConcreteType<TwitterUtilities>();
+                x.ForRequestedType<IMessagingService>().TheDefault.Is.OfConcreteType<TwitterUtilities>();
             });
 
         }

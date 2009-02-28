@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Input;
-using IronTwit.Models.Twitter;
-using IronTwit.Utilities;
 
-namespace IronTwit.ViewModels
+namespace Unite.UI.ViewModels
 {
     public class ReceiveMessagesCommand : ICommand
     {

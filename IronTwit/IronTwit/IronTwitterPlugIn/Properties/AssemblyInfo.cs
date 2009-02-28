@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Unite.Specs")]
+[assembly: AssemblyTitle("IronTwitterPlugIn")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Unite.Specs")]
+[assembly: AssemblyProduct("IronTwitterPlugIn")]
 [assembly: AssemblyCopyright("Copyright ©  2009")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("f4c2aebd-c320-4d1c-b246-2220348c2d3a")]
+[assembly: Guid("692c986e-f34a-4ec7-b40f-7ad19a1f03b9")]
 
 // Version information for an assembly consists of the following four values:
 //

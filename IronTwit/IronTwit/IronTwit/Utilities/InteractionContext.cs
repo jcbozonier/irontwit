@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows;
-using IronTwit.ViewModels;
-using IronTwit.Views;
+using Unite.UI.ViewModels;
+using Unite.UI.Views;
+using Unite.Messaging;
 
-namespace IronTwit.Models
+namespace Unite.UI.Utilities
 {
     public class GuiInteractionContext : IInteractionContext
     {
@@ -30,15 +31,9 @@ namespace IronTwit.Models
         public bool AuthenticationFailedRetryQuery()
         {
             var result = MessageBox.Show("Username and/or password are not correct. Retry?",
-                            "IronTwit by Justin Bozonier",
+                            "Unite.UI by Justin Bozonier",
                             MessageBoxButton.YesNo);
             return result == MessageBoxResult.Yes;
         }
-    }
-
-    public interface IInteractionContext
-    {
-        Credentials GetCredentials();
-        bool AuthenticationFailedRetryQuery();
     }
 }

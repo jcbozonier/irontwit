@@ -8,8 +8,8 @@
     <ProjectGuid>{FEBEE5E9-11DA-407E-8BF8-F52A9A4B72D6}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Specs</RootNamespace>
-    <AssemblyName>Specs</AssemblyName>
+    <RootNamespace>Unite.Specs</RootNamespace>
+    <AssemblyName>Unite.Specs</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -83,13 +83,13 @@
       <Project>{7E90D07E-E532-4F57-BD4D-41A3C64F6B3E}</Project>
       <Name>IronTwitterPlugIn</Name>
     </ProjectReference>
-    <ProjectReference Include="..\IronTwit\IronTwit.csproj">
+    <ProjectReference Include="..\IronTwit\Unite.UI.csproj">
       <Project>{DF1A7919-466C-4321-BFEF-C3AAB6BF4841}</Project>
-      <Name>IronTwit</Name>
+      <Name>Unite.UI</Name>
     </ProjectReference>
-    <ProjectReference Include="..\UniteMessaging\UniteMessaging.csproj">
+    <ProjectReference Include="..\UniteMessaging\Unite.Messaging.csproj">
       <Project>{7B3CBD74-D69D-420F-90F9-19174C7DE3FA}</Project>
-      <Name>UniteMessaging</Name>
+      <Name>Unite.Messaging</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

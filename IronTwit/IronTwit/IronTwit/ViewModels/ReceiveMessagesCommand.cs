@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Input;
 
-namespace IronTwit.ViewModels
+namespace Unite.UI.ViewModels
 {
     public class ReceiveMessagesCommand : ICommand
     {

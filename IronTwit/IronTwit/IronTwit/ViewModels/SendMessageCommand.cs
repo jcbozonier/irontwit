@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Windows.Input;
-using IronTwit.Utilities;
+using Unite.UI.Utilities;
 using StructureMap;
 
-namespace IronTwit.ViewModels
+namespace Unite.UI.ViewModels
 {
     public class SendMessageCommand : ICommand
     {

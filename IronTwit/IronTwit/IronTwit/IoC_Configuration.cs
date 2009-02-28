@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using IronTwit.Utilities;
+using Unite.UI.Utilities;
 using IronTwitterPlugIn;
 using StructureMap;
-using UniteMessaging;
+using Unite.Messaging;
 
-namespace Specs
+namespace Unite.UI
 {
     public static class ContainerBootstrapper
     {

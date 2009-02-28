@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using IronTwit.Utilities;
+using Unite.UI.Utilities;
 using NUnit.Framework;
 using SpecUnit;
 
-namespace Specs.UnitTests
+namespace Unite.Specs.UnitTests
 {
     [TestFixture]
     public class Formatting_messages_for_twitter

@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using IronTwit.Utilities;
+using Unite.UI.Utilities;
 using IronTwitterPlugIn;
 using NUnit.Framework;
 using SpecUnit;
 
 
-namespace Specs.ServicesScope.Sending_normal_messages
+namespace Unite.Specs.ServicesScope.Sending_normal_messages
 {
 
     [TestFixture]

@@ -1,13 +1,13 @@
 ﻿using Bound.Net;
-using IronTwit.Utilities;
+using Unite.UI.Utilities;
 using System;
 using System.Collections.ObjectModel;
 using System.Net;
 using System.Windows;
 using System.ComponentModel;
-using UniteMessaging;
+using Unite.Messaging;
 
-namespace IronTwit.ViewModels
+namespace Unite.UI.ViewModels
 {
     public interface IInitializeView
     {

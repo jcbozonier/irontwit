@@ -5,11 +5,10 @@ using System.Configuration;
 using System.Data;
 using System.Linq;
 using System.Windows;
-using IronTwit.ViewModels;
-using Specs;
+using Unite.UI.ViewModels;
 using StructureMap;
 
-namespace IronTwit
+namespace Unite.UI
 {
     /// <summary>
     /// Interaction logic for App.xaml

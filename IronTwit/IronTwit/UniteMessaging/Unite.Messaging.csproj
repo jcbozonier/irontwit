@@ -8,8 +8,8 @@
     <ProjectGuid>{7B3CBD74-D69D-420F-90F9-19174C7DE3FA}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>UniteMessaging</RootNamespace>
-    <AssemblyName>UniteMessaging</AssemblyName>
+    <RootNamespace>Unite.Messaging</RootNamespace>
+    <AssemblyName>Unite.Messaging</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

@@ -12,7 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace IronTwit.Controls
+namespace Unite.UI.Controls
 {
     /// <summary>
     /// Follow steps 1a or 1b and then 2 to use this custom control in a XAML file.
@@ -21,14 +21,14 @@ namespace IronTwit.Controls
     /// Add this XmlNamespace attribute to the root element of the markup file where it is 
     /// to be used:
     ///
-    ///     xmlns:MyNamespace="clr-namespace:IronTwit.Views"
+    ///     xmlns:MyNamespace="clr-namespace:Unite.UI.Views"
     ///
     ///
     /// Step 1b) Using this custom control in a XAML file that exists in a different project.
     /// Add this XmlNamespace attribute to the root element of the markup file where it is 
     /// to be used:
     ///
-    ///     xmlns:MyNamespace="clr-namespace:IronTwit.Views;assembly=IronTwit.Views"
+    ///     xmlns:MyNamespace="clr-namespace:Unite.UI.Views;assembly=Unite.UI.Views"
     ///
     /// You will also need to add a project reference from the project where the XAML file lives
     /// to this project and Rebuild to avoid compilation errors:

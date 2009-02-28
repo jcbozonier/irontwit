@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using UniteMessaging;
+using Unite.Messaging;
 using Yedda;
 
 namespace IronTwitterPlugIn

@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using IronTwit.Utilities;
-using IronTwit.ViewModels;
+using Unite.UI.Utilities;
+using Unite.UI.ViewModels;
 using IronTwitterPlugIn.DataObjects;
 using NUnit.Framework;
 using SpecUnit;
 using StructureMap;
-using UniteMessaging;
+using Unite.Messaging;
 
-namespace Specs.Application_running
+namespace Unite.Specs.Application_running
 {
     [TestFixture]
     public class When_messages_are_refreshed : context

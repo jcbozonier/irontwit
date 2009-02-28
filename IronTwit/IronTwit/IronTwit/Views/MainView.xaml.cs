@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Windows;
-using IronTwit.Utilities;
-using IronTwit.ViewModels;
+using Unite.UI.Utilities;
+using Unite.UI.ViewModels;
 
-namespace IronTwit.Views
+namespace Unite.UI.Views
 {
     /// <summary>
     /// Interaction logic for Window1.xaml

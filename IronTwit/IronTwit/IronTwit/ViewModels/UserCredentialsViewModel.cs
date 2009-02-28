@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Windows;
 
-namespace IronTwit.ViewModels
+namespace Unite.UI.ViewModels
 {
     public class UserCredentialsViewModel : DependencyObject
     {

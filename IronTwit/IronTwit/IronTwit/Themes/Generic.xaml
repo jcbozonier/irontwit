@@ -1,8 +1,8 @@
 <ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="clr-namespace:IronTwit"
-    xmlns:Controls="clr-namespace:IronTwit.Controls">
+    xmlns:local="clr-namespace:Unite.UI"
+    xmlns:Controls="clr-namespace:Unite.UI.Controls">
 
     <Style TargetType="{x:Type Controls:MessageView}">
         <Setter Property="Template">

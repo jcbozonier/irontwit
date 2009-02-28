@@ -2,17 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using IronTwit.Utilities;
-using IronTwit.ViewModels;
+using Unite.UI.Utilities;
+using Unite.UI.ViewModels;
 using IronTwitterPlugIn;
 using NUnit.Framework;
 using SpecUnit;
 using StructureMap;
 using Bound.Net;
 using StructureMap.Pipeline;
-using UniteMessaging;
+using Unite.Messaging;
 
-namespace Specs.Application_starting.Sending_messages
+namespace Unite.Specs.Application_starting.Sending_messages
 {
     [TestFixture]
     public class When_user_requests_to_send_message : context

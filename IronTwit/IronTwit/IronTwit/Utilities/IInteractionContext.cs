@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using UniteMessaging;
+using Unite.Messaging;
 
-namespace IronTwit.Utilities
+namespace Unite.UI.Utilities
 {
     public interface IInteractionContext
     {

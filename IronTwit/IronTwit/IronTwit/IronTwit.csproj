@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
+    <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{DF1A7919-466C-4321-BFEF-C3AAB6BF4841}</ProjectGuid>
     <OutputType>WinExe</OutputType>
@@ -135,8 +135,8 @@
     <Compile Include="ViewModels\ReceiveMessagesCommand.cs" />
     <Compile Include="ViewModels\SendMessageCommand.cs" />
     <Compile Include="ViewModels\UserCredentialsViewModel.cs" />
-    <Compile Include="Views\MessageTextView.cs" />
-    <Compile Include="Views\MessageView.cs" />
+    <Compile Include="Controls\MessageTextView.cs" />
+    <Compile Include="Controls\MessageView.cs" />
     <Compile Include="Views\UserCredentials.xaml.cs">
       <DependentUpon>UserCredentials.xaml</DependentUpon>
     </Compile>

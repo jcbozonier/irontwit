@@ -3,7 +3,6 @@ using System.IO;
 using System.Windows;
 using IronTwit.Utilities;
 using IronTwit.ViewModels;
-using StructureMap;
 
 namespace IronTwit.Views
 {
@@ -20,10 +19,7 @@ namespace IronTwit.Views
 
         void Window1_Loaded(object sender, RoutedEventArgs e)
         {
-            var model = ObjectFactory.GetInstance<ViewModels.MainView>();
-            DataContext = model;
-
-            model.ApplicationStarting();
+            ((ViewModels.MainView)DataContext).ApplicationStarting();
         }
 
         

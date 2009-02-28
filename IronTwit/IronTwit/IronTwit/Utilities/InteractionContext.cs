@@ -36,10 +36,4 @@ namespace IronTwit.Utilities
             return result == MessageBoxResult.Yes;
         }
     }
-
-    public interface IInteractionContext
-    {
-        Credentials GetCredentials();
-        bool AuthenticationFailedRetryQuery();
-    }
 }

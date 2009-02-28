@@ -7,6 +7,7 @@ using System.Linq;
 using System.Windows;
 using IronTwit.ViewModels;
 using Specs;
+using StructureMap;
 
 namespace IronTwit
 {
@@ -25,7 +26,7 @@ namespace IronTwit
             ContainerBootstrapper.BootstrapStructureMap();
 
             var window = new Views.MainView();
-
+            window.DataContext = ObjectFactory.GetInstance<ViewModels.MainView>();
             window.Show();
         }
     }

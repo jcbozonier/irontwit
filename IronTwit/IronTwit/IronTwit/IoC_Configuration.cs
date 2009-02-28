@@ -20,7 +20,7 @@ namespace Specs
             {
                 x.ForRequestedType<IInteractionContext>().TheDefaultIsConcreteType<GuiInteractionContext>();
                 x.ForRequestedType<ITwitterDataAccess>().TheDefaultIsConcreteType<TwitterDataAccess>();
-                x.ForRequestedType<ITwitterUtilities>().TheDefault.Is.OfConcreteType<TwitterUtilities>();
+                x.ForRequestedType<IMessagingService>().TheDefault.Is.OfConcreteType<TwitterUtilities>();
             });
 
         }

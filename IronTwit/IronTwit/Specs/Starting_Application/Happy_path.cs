@@ -68,8 +68,8 @@ namespace Specs.Application_starting
             ContainerBootstrapper.BootstrapStructureMap();
 
             Utilities = new TestTwitterUtilities();
-            ObjectFactory.EjectAllInstancesOf<ITwitterUtilities>();
-            ObjectFactory.Inject<ITwitterUtilities>(Utilities);
+            ObjectFactory.EjectAllInstancesOf<IMessagingService>();
+            ObjectFactory.Inject<IMessagingService>(Utilities);
 
             Context();
             Because();
@@ -96,14 +96,14 @@ namespace Specs.Application_starting
         }
     }
 
-    public class TestTwitterUtilities : ITwitterUtilities
+    public class TestTwitterUtilities : IMessagingService
     {
         public string Username;
         public string Password;
         public string Message;
         public string Recipient;
 
-        public List<IMessage> GetUserMessages(string username, string password)
+        public List<IMessage> GetMessages(string username, string password)
         {
             Username = username;
             Password = password;
@@ -148,7 +148,7 @@ namespace Specs.Application_starting
             ObjectFactory.Initialize(x =>
             {
                 x.ForRequestedType<IInteractionContext>().TheDefaultIsConcreteType<TestingInteractionContext>();
-                x.ForRequestedType<ITwitterUtilities>().TheDefaultIsConcreteType<TestTwitterUtilities>();
+                x.ForRequestedType<IMessagingService>().TheDefaultIsConcreteType<TestTwitterUtilities>();
             });
 
         }

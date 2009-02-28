@@ -8,7 +8,6 @@ namespace IronTwit.Models
     public interface IMessage
     {
         string Text { get; set; }
-        
         ISender Sender { get; set; }
     }
 }

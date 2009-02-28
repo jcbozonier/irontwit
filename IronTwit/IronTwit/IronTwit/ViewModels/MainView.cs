@@ -83,7 +83,7 @@ namespace IronTwit.ViewModels
  
         public MainView(
             IInteractionContext interactionContext,
-            ITwitterUtilities utilities)
+            IMessagingService utilities)
         {
             if(interactionContext == null) 
                 throw new ArgumentNullException("interactionContext");
@@ -106,7 +106,7 @@ namespace IronTwit.ViewModels
             ReceiveMessage = new ReceiveMessagesCommand(
                 () =>
                     {
-                        var result = utilities.GetUserMessages(UserName, Password);
+                        var result = utilities.GetMessages(UserName, Password);
 
                         Messages.Clear();
 

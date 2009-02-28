@@ -91,7 +91,7 @@ namespace Specs.Application_running.sending_messages
             return "result message";
         }
 
-        public string GetFriendsTimelineAsJSON(string username, string password)
+        public string GetMessages(string username, string password)
         {
             return "result message";
         }

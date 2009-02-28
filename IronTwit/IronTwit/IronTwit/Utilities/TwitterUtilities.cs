@@ -11,9 +11,9 @@ using Yedda;
 
 namespace IronTwit.Utilities
 {
-    public interface ITwitterUtilities
+    public interface IMessagingService
     {
-        List<IMessage> GetUserMessages(string username, string password);
+        List<IMessage> GetMessages(string username, string password);
         void SendMessage(string username, string password, string message, string recipient);
     }
 
@@ -27,11 +27,11 @@ namespace IronTwit.Utilities
         /// <param name="message"></param>
         /// <returns></returns>
         string SendMessage(string username, string password, string message);
-        string GetFriendsTimelineAsJSON(string username, string password);
+        string GetMessages(string username, string password);
     }
 
     [StructureMap.Pluggable("Complex")]
-    public class TwitterUtilities : ITwitterUtilities
+    public class TwitterUtilities : IMessagingService
     {
         private readonly int MaxMessageLength = 140;
         private ITwitterDataAccess _DataAccess;
@@ -107,11 +107,11 @@ namespace IronTwit.Utilities
             messagesToSend.ForEach((messageToSend) => _DataAccess.SendMessage(username, password, messageToSend));
         }
 
-        public List<IMessage> GetUserMessages(string username, string password)
+        public List<IMessage> GetMessages(string username, string password)
         {
             string resultString = String.Empty;
             
-            resultString = _DataAccess.GetFriendsTimelineAsJSON(username, password);
+            resultString = _DataAccess.GetMessages(username, password);
 
             var str = new StringReader(resultString);
             var converter = new JsonSerializer();

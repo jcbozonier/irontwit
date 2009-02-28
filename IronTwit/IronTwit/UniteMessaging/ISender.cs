@@ -14,6 +14,6 @@ namespace Unite.Messaging
         /// For Twitter, e.g. '@darkxanthos'
         /// For Email, e.g. 'darkxanthos@gmail.com'
         /// </summary>
-        string AccountName { get; }
+        string AccountName { get; set; }
     }
 }

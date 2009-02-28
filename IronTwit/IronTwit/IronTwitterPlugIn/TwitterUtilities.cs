@@ -110,7 +110,12 @@ namespace IronTwitterPlugIn
             var str = new StringReader(resultString);
             var converter = new JsonSerializer();
             converter.MissingMemberHandling = MissingMemberHandling.Ignore;
-            return new List<IMessage>(((List<Tweet>)converter.Deserialize(str, typeof(List<Tweet>))).ToArray());
+
+            // Convert the sender property to proper twitter form.
+            var tweets = (List<Tweet>)converter.Deserialize(str, typeof(List<Tweet>));
+            tweets.ForEach(tweet=>tweet.Sender.AccountName = "@" + tweet.Sender.AccountName);
+
+            return new List<IMessage>(tweets.ToArray());
         }
     }
 }

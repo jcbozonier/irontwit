@@ -79,9 +79,17 @@
     <Compile Include="Utilities\SpecUnit.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\IronTwitterPlugIn\IronTwitterPlugIn.csproj">
+      <Project>{7E90D07E-E532-4F57-BD4D-41A3C64F6B3E}</Project>
+      <Name>IronTwitterPlugIn</Name>
+    </ProjectReference>
     <ProjectReference Include="..\IronTwit\IronTwit.csproj">
       <Project>{DF1A7919-466C-4321-BFEF-C3AAB6BF4841}</Project>
       <Name>IronTwit</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UniteMessaging\UniteMessaging.csproj">
+      <Project>{7B3CBD74-D69D-420F-90F9-19174C7DE3FA}</Project>
+      <Name>UniteMessaging</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

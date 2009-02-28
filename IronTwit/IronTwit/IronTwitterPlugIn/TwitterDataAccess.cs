@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Yedda;
 
-namespace IronTwit.Utilities
+namespace IronTwitterPlugIn
 {
     public class TwitterDataAccess : ITwitterDataAccess
     {

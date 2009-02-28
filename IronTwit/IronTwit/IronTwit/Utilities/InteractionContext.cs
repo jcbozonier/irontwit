@@ -5,8 +5,9 @@ using System.Text;
 using System.Windows;
 using IronTwit.ViewModels;
 using IronTwit.Views;
+using UniteMessaging;
 
-namespace IronTwit.Models
+namespace IronTwit.Utilities
 {
     public class GuiInteractionContext : IInteractionContext
     {

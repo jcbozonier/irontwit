@@ -9,6 +9,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plug Ins", "Plug Ins", "{37
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IronTwitterPlugIn", "IronTwitterPlugIn\IronTwitterPlugIn.csproj", "{7E90D07E-E532-4F57-BD4D-41A3C64F6B3E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniteMessaging", "UniteMessaging\UniteMessaging.csproj", "{7B3CBD74-D69D-420F-90F9-19174C7DE3FA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{7E90D07E-E532-4F57-BD4D-41A3C64F6B3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7E90D07E-E532-4F57-BD4D-41A3C64F6B3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7E90D07E-E532-4F57-BD4D-41A3C64F6B3E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B3CBD74-D69D-420F-90F9-19174C7DE3FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B3CBD74-D69D-420F-90F9-19174C7DE3FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B3CBD74-D69D-420F-90F9-19174C7DE3FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B3CBD74-D69D-420F-90F9-19174C7DE3FA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

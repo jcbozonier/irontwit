@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Input;
-using IronTwit.Models.Twitter;
-using IronTwit.Utilities;
 
 namespace IronTwit.ViewModels
 {

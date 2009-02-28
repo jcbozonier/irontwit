@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Text;
-using IronTwit.Models;
-using IronTwit.Models.Twitter;
 using IronTwit.Utilities;
 using IronTwit.ViewModels;
+using IronTwitterPlugIn;
+using IronTwitterPlugIn.DataObjects;
 using NUnit.Framework;
 using SpecUnit;
 using StructureMap;
+using UniteMessaging;
 
 namespace Specs.Starting_Application
 {

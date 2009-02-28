@@ -1,12 +1,11 @@
-﻿using System;
+﻿using Bound.Net;
+using IronTwit.Utilities;
+using System;
 using System.Collections.ObjectModel;
 using System.Net;
 using System.Windows;
-using Bound.Net;
-using IronTwit.Models;
-using IronTwit.Models.Twitter;
-using IronTwit.Utilities;
 using System.ComponentModel;
+using UniteMessaging;
 
 namespace IronTwit.ViewModels
 {
@@ -34,7 +33,7 @@ namespace IronTwit.ViewModels
         /// <summary>
         /// A list of all of the user's messages.
         /// </summary>
-        public ObservableCollection<Tweet> MyReplies { get; set; }
+        public ObservableCollection<IMessage> MyReplies { get; set; }
 
         private string _messageToSend;
         /// <summary>
@@ -91,7 +90,7 @@ namespace IronTwit.ViewModels
                 throw new ArgumentNullException("utilities");
 
             Messages = new ObservableCollection<IMessage>();
-            MyReplies = new ObservableCollection<Tweet>();
+            MyReplies = new ObservableCollection<IMessage>();
 
             Interactions = interactionContext;
 

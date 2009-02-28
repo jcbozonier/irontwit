@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using IronTwit.Models;
-using IronTwit.Models.Twitter;
 using IronTwit.Utilities;
 using IronTwit.ViewModels;
+using IronTwitterPlugIn;
+using IronTwitterPlugIn.DataObjects;
 using NUnit.Framework;
 using SpecUnit;
 using StructureMap;
+using UniteMessaging;
 
 namespace Specs.Application_starting.Receiving_messages
 {

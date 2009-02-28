@@ -5,7 +5,6 @@ using System.Configuration;
 using System.Data;
 using System.Linq;
 using System.Windows;
-using IronTwit.Models.Twitter;
 using IronTwit.ViewModels;
 using Specs;
 

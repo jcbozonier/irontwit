@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using IronTwit.Utilities;
+using IronTwitterPlugIn;
 using NUnit.Framework;
 using SpecUnit;
+
 
 namespace Specs.ServicesScope.Sending_normal_messages
 {

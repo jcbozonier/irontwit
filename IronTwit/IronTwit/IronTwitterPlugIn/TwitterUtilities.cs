@@ -1,22 +1,16 @@
-﻿using System;
+﻿using IronTwitterPlugIn.DataObjects;
+using Newtonsoft.Json;
+using StructureMap;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using IronTwit.Models;
-using IronTwit.Models.Twitter;
-using Newtonsoft.Json;
-using StructureMap;
+using UniteMessaging;
 using Yedda;
 
-namespace IronTwit.Utilities
+namespace IronTwitterPlugIn
 {
-    public interface IMessagingService
-    {
-        List<IMessage> GetMessages(string username, string password);
-        void SendMessage(string username, string password, string message, string recipient);
-    }
-
     public interface ITwitterDataAccess
     {
         /// <summary>

@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using IronTwit.Models;
 using IronTwit.Utilities;
+using IronTwitterPlugIn;
 using StructureMap;
+using UniteMessaging;
 
 namespace Specs
 {
@@ -15,7 +16,7 @@ namespace Specs
         {
 
             // Initialize the static ObjectFactory container
-
+            // This should be the only place in the project with a reference to Twitter.
             ObjectFactory.Initialize(x =>
             {
                 x.ForRequestedType<IInteractionContext>().TheDefaultIsConcreteType<GuiInteractionContext>();

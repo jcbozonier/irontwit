@@ -1,12 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Windows;
-using IronTwit.Models.Twitter;
 using IronTwit.Utilities;
 using IronTwit.ViewModels;
 using StructureMap;
-using Yedda;
-using Newtonsoft.Json;
 
 namespace IronTwit.Views
 {

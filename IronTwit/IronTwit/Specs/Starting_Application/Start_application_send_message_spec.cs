@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using IronTwit.Models;
-using IronTwit.Models.Twitter;
 using IronTwit.Utilities;
 using IronTwit.ViewModels;
+using IronTwitterPlugIn;
 using NUnit.Framework;
 using SpecUnit;
 using StructureMap;
 using Bound.Net;
 using StructureMap.Pipeline;
+using UniteMessaging;
 
 namespace Specs.Application_starting.Sending_messages
 {

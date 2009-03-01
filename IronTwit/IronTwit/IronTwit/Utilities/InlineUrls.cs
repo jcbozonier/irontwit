@@ -20,7 +20,17 @@ namespace Unite.UI.Utilities
         {
             var uris = new List<InlineUri>();
 
+            Match match;
+            int index = 0;
+            while (true)
+            {
+                match = _regex.Match(text, index);
+                if (match == Match.Empty)
+                    break;
 
+                uris.Add(new InlineUri(text.Substring(match.Index, match.Length), match.Index, match.Length));
+                index = match.Index + match.Length;
+            };
 
             return uris;
         }

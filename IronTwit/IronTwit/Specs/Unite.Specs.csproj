@@ -68,7 +68,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Application_running\When_messages_are_refreshed.cs" />
-    <Compile Include="ServicesScope\When_a_received_message_contains_a_url.cs" />
     <Compile Include="ServicesScope\When_sending_large_messages.cs" />
     <Compile Include="ServicesScope\When_sending_normal_messages.cs" />
     <Compile Include="Starting_Application\Happy_path.cs" />
@@ -77,6 +76,7 @@
     <Compile Include="Starting_Application\Start_application_send_message_spec.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServicesScope\Formatting_messages_for_twitter.cs" />
+    <Compile Include="UnitTests\InlineUrlsTests.cs" />
     <Compile Include="Utilities\SpecUnit.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -92,9 +92,6 @@
       <Project>{7B3CBD74-D69D-420F-90F9-19174C7DE3FA}</Project>
       <Name>Unite.Messaging</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="UnitTests\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

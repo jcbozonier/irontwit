@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Windows;
@@ -74,10 +75,69 @@ namespace Unite.UI.Controls
             SetMessageText((string) Content);
         }
 
+        private List<Hyperlink> _hyperlinks = new List<Hyperlink>();
         private void SetMessageText(string messageText)
         {
-            //TODO: this is where the magic will happen of parsing and displaying the links in messages
-            MessageText.Text = messageText;
+            ClearHyperlinks();
+            MessageText.Inlines.Clear();
+
+            var inlineUris = Utilities.InlineUris.Get(messageText);
+            var charIndex = 0;
+            foreach (var inlineUri in inlineUris)
+            {
+                if (inlineUri.StartIndex > charIndex)
+                {
+                    //add text before link
+                    var run = new Run(messageText.Substring(charIndex, inlineUri.StartIndex - charIndex));
+                    MessageText.Inlines.Add(run);
+                    charIndex += run.Text.Length;
+                }
+
+                //add Hyperlink
+                var hyperlink = new Hyperlink();
+                var displayRun = new Run(messageText.Substring(inlineUri.StartIndex, inlineUri.Length));
+                hyperlink.Inlines.Add(displayRun);
+                hyperlink.NavigateUri = new Uri(displayRun.Text);
+                ListenToHyperlink(hyperlink, true);
+                MessageText.Inlines.Add(hyperlink);
+                charIndex += inlineUri.Length;
+            }
+
+            if (charIndex < messageText.Length)
+            {
+                //add text at end
+                var run = new Run(messageText.Substring(charIndex));
+                MessageText.Inlines.Add(run);
+            }
+        }
+
+        private void ClearHyperlinks()
+        {
+            foreach (var hyperlink in _hyperlinks)
+            {
+                ListenToHyperlink(hyperlink, false);
+            }
+        }
+
+        private void ListenToHyperlink(Hyperlink hyperlink, bool listen)
+        {
+            if (hyperlink == null)
+                throw new ArgumentNullException("hyperlink");
+
+            if (listen)
+            {
+                hyperlink.Click += hyperlink_Click;
+            }
+            else
+            {
+                hyperlink.Click -= hyperlink_Click;
+            }
+        }
+
+        void hyperlink_Click(object sender, RoutedEventArgs e)
+        {
+            var hyperlink = (Hyperlink) sender;
+            Process.Start(hyperlink.NavigateUri.ToString());
         }
     }
 }

@@ -142,14 +142,11 @@ namespace Unite.UI.ViewModels
                 UserName = credentials.UserName;
                 Password = credentials.Password;
 
-                try
-                {
-                    ReceiveMessage.Execute(null);
-                }
-                catch (WebException e)
-                {
-                    shouldRetryAuthorization = Interactions.AuthenticationFailedRetryQuery();
-                }
+                ReceiveMessage.Execute(
+                    null, 
+                    webException => 
+                        shouldRetryAuthorization = Interactions.AuthenticationFailedRetryQuery());
+
             } while (shouldRetryAuthorization);
         }
 

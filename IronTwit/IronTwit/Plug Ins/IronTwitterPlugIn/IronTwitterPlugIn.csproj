@@ -33,15 +33,15 @@
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=3.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\ThirdParty\TwitterComm\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\..\ThirdParty\TwitterComm\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="StructureMap, Version=2.5.3.0, Culture=neutral, PublicKeyToken=e60ad81abae3c223, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\ThirdParty\IoC\StructureMap.dll</HintPath>
+      <HintPath>..\..\..\ThirdParty\IoC\StructureMap.dll</HintPath>
     </Reference>
     <Reference Include="StructureMap.AutoMocking, Version=2.5.3.0, Culture=neutral, PublicKeyToken=e60ad81abae3c223, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\ThirdParty\IoC\StructureMap.AutoMocking.dll</HintPath>
+      <HintPath>..\..\..\ThirdParty\IoC\StructureMap.AutoMocking.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">

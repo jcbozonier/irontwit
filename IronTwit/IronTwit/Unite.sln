@@ -1,17 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unite.UI", "IronTwit\Unite.UI.csproj", "{DF1A7919-466C-4321-BFEF-C3AAB6BF4841}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unite.UI", "UI\Unite.UI.csproj", "{DF1A7919-466C-4321-BFEF-C3AAB6BF4841}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unite.Specs", "Specs\Unite.Specs.csproj", "{FEBEE5E9-11DA-407E-8BF8-F52A9A4B72D6}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plug Ins", "Plug Ins", "{37DA2247-7893-4ADA-AC91-922B74465BD4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IronTwitterPlugIn", "IronTwitterPlugIn\IronTwitterPlugIn.csproj", "{7E90D07E-E532-4F57-BD4D-41A3C64F6B3E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IronTwitterPlugIn", "Plug Ins\IronTwitterPlugIn\IronTwitterPlugIn.csproj", "{7E90D07E-E532-4F57-BD4D-41A3C64F6B3E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unite.Messaging", "UniteMessaging\Unite.Messaging.csproj", "{7B3CBD74-D69D-420F-90F9-19174C7DE3FA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unite.Messaging", "Messaging\Unite.Messaging.csproj", "{7B3CBD74-D69D-420F-90F9-19174C7DE3FA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleTalkPlugIn", "GoogleTalkPlugIn\GoogleTalkPlugIn.csproj", "{6D6AD44D-28E7-4ED0-8A9F-68C36E9AFCC6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleTalkPlugIn", "Plug Ins\GoogleTalkPlugIn\GoogleTalkPlugIn.csproj", "{6D6AD44D-28E7-4ED0-8A9F-68C36E9AFCC6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

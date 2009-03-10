@@ -7,7 +7,6 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using Unite.Messaging;
-using Yedda;
 
 namespace IronTwitterPlugIn
 {
@@ -42,14 +41,20 @@ namespace IronTwitterPlugIn
             MaxMessageLength = maxMessageLength;
         }
         
-        //Stupid StructureMap kruft. >:(
         [DefaultConstructor]
+        public TwitterUtilities() : this(null)
+        {
+            
+        }
+
         public TwitterUtilities(ITwitterDataAccess dataAccess)
         {
             // .NET Twitter fix for HTTP Error 417 with Twitter
             System.Net.ServicePointManager.Expect100Continue = false;
 
-            _DataAccess = dataAccess;
+            _DataAccess = dataAccess; //testing path
+            if (dataAccess == null) //default path
+                _DataAccess = new TwitterDataAccess();
         }
 
         public void SendMessage(string username, string password, string message, string recipient)

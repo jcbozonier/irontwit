@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{7E90D07E-E532-4F57-BD4D-41A3C64F6B3E}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -69,7 +69,7 @@
     <Compile Include="DataObjects\TwitterUser.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\UniteMessaging\Unite.Messaging.csproj">
+    <ProjectReference Include="..\..\Messaging\Unite.Messaging.csproj">
       <Project>{7B3CBD74-D69D-420F-90F9-19174C7DE3FA}</Project>
       <Name>Unite.Messaging</Name>
     </ProjectReference>

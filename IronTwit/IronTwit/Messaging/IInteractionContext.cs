@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Unite.Messaging;
 
-namespace Unite.UI.Utilities
+namespace Unite.Messaging
 {
     public interface IInteractionContext
     {

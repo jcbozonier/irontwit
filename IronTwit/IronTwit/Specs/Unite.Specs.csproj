@@ -67,6 +67,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Application_running\Class1.cs" />
     <Compile Include="Application_running\When_messages_are_refreshed.cs" />
     <Compile Include="ServicesScope\When_sending_large_messages.cs" />
     <Compile Include="ServicesScope\When_sending_normal_messages.cs" />
@@ -80,15 +81,15 @@
     <Compile Include="Utilities\SpecUnit.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\IronTwitterPlugIn\IronTwitterPlugIn.csproj">
+    <ProjectReference Include="..\Plug Ins\IronTwitterPlugIn\IronTwitterPlugIn.csproj">
       <Project>{7E90D07E-E532-4F57-BD4D-41A3C64F6B3E}</Project>
       <Name>IronTwitterPlugIn</Name>
     </ProjectReference>
-    <ProjectReference Include="..\IronTwit\Unite.UI.csproj">
+    <ProjectReference Include="..\UI\Unite.UI.csproj">
       <Project>{DF1A7919-466C-4321-BFEF-C3AAB6BF4841}</Project>
       <Name>Unite.UI</Name>
     </ProjectReference>
-    <ProjectReference Include="..\UniteMessaging\Unite.Messaging.csproj">
+    <ProjectReference Include="..\Messaging\Unite.Messaging.csproj">
       <Project>{7B3CBD74-D69D-420F-90F9-19174C7DE3FA}</Project>
       <Name>Unite.Messaging</Name>
     </ProjectReference>

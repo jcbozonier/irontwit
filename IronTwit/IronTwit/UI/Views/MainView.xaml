@@ -10,7 +10,13 @@
 			<GradientStop Color="#FFD3FD9E" Offset="1"/>
 		</LinearGradientBrush>
 	</Window.Resources>
-    <Grid>
+	<Window.Background>
+		<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+			<GradientStop Color="#FF5B954E" Offset="0"/>
+			<GradientStop Color="#FFE5EF62" Offset="0.085"/>
+		</LinearGradientBrush>
+	</Window.Background>
+    <Grid Margin="5">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -30,7 +36,13 @@
                  x:Name="Inbox" 
                  ItemsSource="{Binding Messages}" 
                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                 ScrollViewer.VerticalScrollBarVisibility="Visible" Background="{DynamicResource LightGradientBackGround}">
+                 ScrollViewer.VerticalScrollBarVisibility="Visible" AllowDrop="False" Opacity="1">
+        	<ListBox.Background>
+        		<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+        			<GradientStop Color="#FFFFFFFF" Offset="0.022"/>
+        			<GradientStop Color="#FFBBC4C4" Offset="0"/>
+        		</LinearGradientBrush>
+        	</ListBox.Background>
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Controls:MessageView />
@@ -47,14 +59,29 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition MinHeight="100" />
             </Grid.RowDefinitions>
-            <TextBox x:Name="Recipient" Text="{Binding Recipient}" Grid.Row="0" Grid.Column="0" />
+            <TextBox x:Name="Recipient" Text="{Binding Recipient}" Grid.Row="0" Grid.Column="0" >
+            	<TextBox.Background>
+            		<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+            			<GradientStop Color="#FFC8C8C8" Offset="0"/>
+            			<GradientStop Color="#FFFFFFFF" Offset="0.388"/>
+            			<GradientStop Color="#FFDFDFDF" Offset="0.134"/>
+            		</LinearGradientBrush>
+            	</TextBox.Background>
+            </TextBox>
             <Button x:Name="SendMessage" Grid.Row="0" Grid.Column="1" 
                     Command="{Binding SendMessage}" 
                     Content="Send" />
             <Button x:Name="ReceiveMessage" Grid.Row="0" Grid.Column="2" 
                     Command="{Binding ReceiveMessage}" 
                     Content="Refresh" />
-            <TextBox x:Name="MessageToSend" Text="{Binding MessageToSend}" Grid.Row="1" Grid.ColumnSpan="3" Background="{DynamicResource LightGradientBackGround}" />
+            <TextBox x:Name="MessageToSend" Text="{Binding MessageToSend}" Grid.Row="1" Grid.ColumnSpan="3" >
+            	<TextBox.Background>
+            		<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+            			<GradientStop Color="#FFFFFFFF" Offset="0.076"/>
+            			<GradientStop Color="#FFCFCFCF" Offset="0"/>
+            		</LinearGradientBrush>
+            	</TextBox.Background>
+            </TextBox>
         </Grid>
     </Grid>
 </Window>

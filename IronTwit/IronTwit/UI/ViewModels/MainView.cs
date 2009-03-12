@@ -24,15 +24,6 @@ namespace Unite.UI.ViewModels
         public IInteractionContext Interactions;
 
         /// <summary>
-        /// The user's username for twitter.
-        /// </summary>
-        public string UserName { get; set; }
-        /// <summary>
-        /// The user's password for twitter. This is horrible way to hold this info imo.
-        /// </summary>
-        public string Password { get; set; }
-
-        /// <summary>
         /// A list of all of the tweets that should be displayed.
         /// </summary>
         public ObservableCollection<IMessage> Messages { get; set; }

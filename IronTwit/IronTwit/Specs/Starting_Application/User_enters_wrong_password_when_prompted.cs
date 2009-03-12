@@ -47,15 +47,6 @@ namespace Unite.Specs.Starting_Application
         protected MainView Model;
         protected TestTwitterUtilities Utilities;
 
-
-        protected bool Application_Asked_For_User_Name_And_Password
-        {
-            get
-            {
-                return !String.IsNullOrEmpty(Model.UserName) && !String.IsNullOrEmpty(Model.Password);
-            }
-        }
-
         protected bool Message_was_sent
         {
             get;

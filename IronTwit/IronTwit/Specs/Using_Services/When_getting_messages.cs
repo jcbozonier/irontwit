@@ -39,7 +39,8 @@ namespace Unite.Specs.Using_Services
         public void Setup()
         {
             MyCredentials = new Credentials() { UserName = "username", Password = "password" };
-            ServiceProvider = new ServiceProvider(new FauxMessageService("test 1"), new FauxMessageService("test2"));
+            ServiceProvider = new ServiceProvider();
+            ServiceProvider.Add(new FauxMessageService("test 1"), new FauxMessageService("test2"));
             ServiceManager = new ServicesManager(ServiceProvider);
 
             Context();

@@ -1,17 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace Unite.Messaging
 {
     public class ServiceProvider
     {
-        private IEnumerable<IMessagingService> Services;
+        private List<IMessagingService> Services;
 
-        public ServiceProvider(params IMessagingService[] services)
+        public ServiceProvider()
         {
-            Services = services;
+            Services = new List<IMessagingService>();
+        }
+
+        public void Add(params IMessagingService[] services)
+        {
+            Services.AddRange(services);
         }
 
         public IEnumerable<IMessagingService> GetServices()

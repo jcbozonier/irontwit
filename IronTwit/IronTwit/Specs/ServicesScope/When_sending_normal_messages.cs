@@ -42,6 +42,13 @@ namespace Unite.Specs.ServicesScope.Sending_normal_messages
         }
     }
 
+    public class TestSender : ISender
+    {
+        public Guid ServiceId { get { return Guid.NewGuid(); } }
+
+        public string UserName { get; set; }
+    }
+
     [TestFixture]
     public class When_sending_a_large_message_with_recipient : context
     {

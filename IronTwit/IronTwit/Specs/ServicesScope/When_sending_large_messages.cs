@@ -76,6 +76,12 @@ namespace Unite.Specs.Application_running.sending_messages
         protected abstract void Context();
     }
 
+    public class TestSender : ISender
+    {
+        public Guid ServiceId { get { return Guid.NewGuid(); } }
+        public string UserName { get; set; }
+    }
+
     public class TestTwitterDataAccess : ITwitterDataAccess
     {
         public int MessagesSent;

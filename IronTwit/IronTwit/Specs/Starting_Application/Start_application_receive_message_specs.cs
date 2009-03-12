@@ -95,7 +95,7 @@ namespace Unite.Specs.Application_starting.Receiving_messages
                            new Tweet()
                                {
                                    Text="Message 1",
-                                   Sender = new TwitterUser()
+                                   Recipient = new TwitterUser()
                                               {
                                                   UserName = "darkxanthos"
                                               }

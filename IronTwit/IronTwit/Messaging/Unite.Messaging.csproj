@@ -55,6 +55,7 @@
     <Compile Include="IPluginLoader.cs" />
     <Compile Include="ISender.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiceProvider.cs" />
     <Compile Include="ServiceResolver.cs" />
     <Compile Include="ServicesManager.cs" />
   </ItemGroup>

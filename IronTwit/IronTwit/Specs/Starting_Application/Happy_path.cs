@@ -110,7 +110,7 @@ namespace Unite.Specs.Application_starting
         {
             Credentials = credentials;
 
-            return new List<IMessage>(){new Tweet(){Text="testing",Sender=new TwitterUser(){UserName = "darkxanthos"}}};
+            return new List<IMessage>(){new Tweet(){Text="testing",Recipient=new TwitterUser(){UserName = "darkxanthos"}}};
         }
 
         public void SendMessage(Credentials credentials, string recipient, string message)

@@ -41,7 +41,7 @@ namespace Unite.Specs.TwitterServicesScope
         }
     }
 
-    public class TestSender : ISender
+    public class TestSender : IRecipient
     {
         public Guid ServiceId { get { return Guid.NewGuid(); } }
 

@@ -81,7 +81,7 @@ namespace Unite.Specs.Application_running
             return _Counter == 1
                        ? new List<IMessage>()
                              {
-                                 new Tweet() {Text = "testing", Sender = new TwitterUser() {UserName = "darkxanthos"}}
+                                 new Tweet() {Text = "testing", Recipient = new TwitterUser() {UserName = "darkxanthos"}}
                              }
                        : new List<IMessage>();
         }

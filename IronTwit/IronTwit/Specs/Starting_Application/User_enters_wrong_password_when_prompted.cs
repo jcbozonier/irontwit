@@ -112,7 +112,7 @@ namespace Unite.Specs.Starting_Application
             
             throw new WebException("Authentication failure.");
 
-            return new List<IMessage>() { new Tweet() { Text = "testing", Sender = new TwitterUser() { UserName = "darkxanthos" } } };
+            return new List<IMessage>() { new Tweet() { Text = "testing", Recipient = new TwitterUser() { UserName = "darkxanthos" } } };
         }
 
         public void SendMessage(Credentials credentials, string recipient, string message)

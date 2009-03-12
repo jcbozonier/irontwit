@@ -83,6 +83,7 @@
     <Compile Include="TwitterServicesScope\Formatting_messages_for_twitter.cs" />
     <Compile Include="UnitTests\InlineUrlsTests.cs" />
     <Compile Include="UnitTests\ServiceResolverTests.cs" />
+    <Compile Include="Using_Services\When_getting_messages.cs" />
     <Compile Include="Utilities\SpecUnit.cs" />
   </ItemGroup>
   <ItemGroup>

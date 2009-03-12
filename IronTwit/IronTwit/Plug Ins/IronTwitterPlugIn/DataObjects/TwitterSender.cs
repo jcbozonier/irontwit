@@ -6,16 +6,16 @@ using Unite.Messaging;
 
 namespace IronTwitterPlugIn.DataObjects
 {
-    public class TwitterSender : ISender
-    {
-        public SupportedServices Service
-        {
-            get { return SupportedServices.Twitter; }
-        }
+    //public class TwitterSender : ISender
+    //{
+    //    public SupportedServices Service
+    //    {
+    //        get { return SupportedServices.Twitter; }
+    //    }
 
-        public string AccountName
-        {
-            get; set;
-        }
-    }
+    //    public string UserName
+    //    {
+    //        get; set;
+    //    }
+    //}
 }

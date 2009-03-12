@@ -18,12 +18,7 @@ namespace IronTwitterPlugIn.DataObjects
             set { Text = value; }
         }
 
-        private string _text;
-        public string Text
-        {
-            get { return _text; }
-            set { _text = value; }
-        }
+        public string Text { get; set; }
 
         /// <summary>
         /// for de/serialization only (alias to Sender)
@@ -31,14 +26,14 @@ namespace IronTwitterPlugIn.DataObjects
         public TwitterUser user
         {
             get { return (TwitterUser)Sender; }
-            set { Sender = value; }
+            set
+            {
+                if (!value.UserName.StartsWith("@"))
+                    value.UserName = "@" + value.UserName;
+                Sender = value;
+            }
         }
 
-        private TwitterUser _sender;
-        public ISender Sender
-        {
-            get { return _sender; }
-            set { _sender = (TwitterUser)value; }
-        }
+        public ISender Sender { get; set; }
     }
 }

@@ -8,22 +8,17 @@ namespace IronTwitterPlugIn.DataObjects
 {
     public class TwitterUser : ISender
     {
-        public SupportedServices Service { get { return SupportedServices.Twitter; } }
+        public Guid ServiceId { get { return TwitterUtilities.SERVICE_ID; } }
 
         /// <summary>
-        /// for de/serialization only (alias to AccountName)
+        /// for de/serialization only (alias to UserName)
         /// </summary>
         public string screen_name
         {
-            get { return AccountName; }
-            set { AccountName = value; }
+            get { return UserName; }
+            set { UserName = value; }
         }
 
-        private string _accountName;
-        public string AccountName
-        {
-            get { return _accountName; }
-            set { _accountName = value; }
-        }
+        public string UserName { get; set; }
     }
 }

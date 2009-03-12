@@ -46,13 +46,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Credentials.cs" />
+    <Compile Include="ICredentialCache.cs" />
     <Compile Include="IInteractionContext.cs" />
     <Compile Include="IMessage.cs" />
+    <Compile Include="IMessagingServiceRegistry.cs" />
+    <Compile Include="MessagingAccount.cs" />
     <Compile Include="IMessagingService.cs" />
     <Compile Include="IPluginLoader.cs" />
     <Compile Include="ISender.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SupportedServices.cs" />
+    <Compile Include="ServiceResolver.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

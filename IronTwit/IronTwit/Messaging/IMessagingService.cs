@@ -7,7 +7,9 @@ namespace Unite.Messaging
 {
     public interface IMessagingService
     {
-        List<IMessage> GetMessages(string username, string password);
-        void SendMessage(string username, string password, string message, string recipient);
+        Guid ServiceId { get; }
+        string ServiceName { get; }
+        List<IMessage> GetMessages(Credentials credentials);
+        void SendMessage(Credentials credentials, string recipient, string message);
     }
 }

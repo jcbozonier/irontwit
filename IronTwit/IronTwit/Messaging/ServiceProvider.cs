@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Unite.Messaging
 {
     public class ServiceProvider
     {
-        private List<IMessagingService> Services;
+        private readonly List<IMessagingService> Services;
 
         public ServiceProvider()
         {
@@ -13,12 +15,24 @@ namespace Unite.Messaging
 
         public void Add(params IMessagingService[] services)
         {
-            Services.AddRange(services);
+            foreach(var service in services)
+            {
+                service.CredentialsRequested += _GetCredentials;
+                Services.Add(service);
+            }
+        }
+
+        private void _GetCredentials(object sender, CredentialEventArgs e)
+        {
+            if (CredentialsRequested != null)
+                CredentialsRequested(this, e);
         }
 
         public IEnumerable<IMessagingService> GetServices()
         {
             return Services;
         }
+
+        public event EventHandler<CredentialEventArgs> CredentialsRequested;
     }
 }

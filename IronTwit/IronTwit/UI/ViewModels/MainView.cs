@@ -86,8 +86,6 @@ namespace Unite.UI.ViewModels
         /// </summary>
         public ReceiveMessagesCommand ReceiveMessage { get; set; }
 
-        List<object> _ServiceProviders;
-
         public MainView(
             IInteractionContext interactionContext,
             IMessagingService messagingService)
@@ -97,8 +95,7 @@ namespace Unite.UI.ViewModels
             if(messagingService == null)
                 throw new ArgumentNullException("messagingService");
 
-            // This might be better being created in the controller. (App.xaml.cs)
-            _ServiceProviders = new List<object>();
+            messagingService.CredentialsRequested += messagingService_CredentialsRequested;
 
             Messages = new ObservableCollection<IMessage>();
             MyReplies = new ObservableCollection<IMessage>();
@@ -108,16 +105,15 @@ namespace Unite.UI.ViewModels
             SendMessage = new SendMessageCommand(
                 () =>
                     {
-                        messagingService.SendMessage(new Credentials {UserName = UserName, Password = Password}, Recipient, MessageToSend);
-                        MessageToSend = "";
+                        messagingService.SendMessage(Recipient, MessageToSend);
                         Recipient = "";
+                        MessageToSend = "";
                     });
 
             ReceiveMessage = new ReceiveMessagesCommand(
                 () =>
                     {
-                        var result = messagingService.GetMessages(new Credentials{UserName = UserName, Password = Password});
-
+                        var result = messagingService.GetMessages();
                         Messages.Clear();
 
                         foreach (var message in result)
@@ -126,6 +122,11 @@ namespace Unite.UI.ViewModels
                         }
                     });
 
+        }
+
+        void messagingService_CredentialsRequested(object sender, CredentialEventArgs e)
+        {
+            var credentials = Interactions.GetCredentials(e);
         }
 
         /// <summary>
@@ -138,10 +139,6 @@ namespace Unite.UI.ViewModels
             bool shouldRetryAuthorization = false;
             do
             {
-                var credentials = Interactions.GetCredentials();
-                UserName = credentials.UserName;
-                Password = credentials.Password;
-
                 ReceiveMessage.Execute(
                     null, 
                     webException => 

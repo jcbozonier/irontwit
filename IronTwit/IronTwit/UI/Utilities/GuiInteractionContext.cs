@@ -11,7 +11,12 @@ namespace Unite.UI.Utilities
 {
     public class GuiInteractionContext : IInteractionContext
     {
-        public Credentials GetCredentials()
+        public Credentials GetCredentials(IServiceInformation serviceInformation)
+        {
+            return GetCredentials(serviceInformation.ServiceID, serviceInformation.ServiceName);
+        }
+
+        public Credentials GetCredentials(Guid serviceID, string serviceName)
         {
             var model = new UserCredentialsViewModel();
 

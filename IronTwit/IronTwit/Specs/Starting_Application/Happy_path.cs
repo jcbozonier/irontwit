@@ -18,11 +18,6 @@ namespace Unite.Specs.Application_starting
     [TestFixture]
     public class When_main_view_is_shown_for_the_first_time : context
     {
-        [Test]
-        public void It_should_ask_for_user_name_and_password()
-        {
-            Application_Asked_For_User_Name_And_Password.ShouldBeTrue();
-        }
 
         [Test]
         public void It_should_get_messages_for_user()
@@ -46,6 +41,7 @@ namespace Unite.Specs.Application_starting
     {
         protected MainView Model;
         protected TestTwitterUtilities Utilities;
+        protected FakeInteractionContext InteractionContext;
         
 
         protected bool Application_Asked_For_User_Name_And_Password
@@ -69,8 +65,12 @@ namespace Unite.Specs.Application_starting
             ContainerBootstrapper.BootstrapStructureMap();
 
             Utilities = new TestTwitterUtilities();
+            InteractionContext = new FakeInteractionContext();
+
             ObjectFactory.EjectAllInstancesOf<IMessagingService>();
+            ObjectFactory.EjectAllInstancesOf<IInteractionContext>();
             ObjectFactory.Inject<IMessagingService>(Utilities);
+            ObjectFactory.Inject<IInteractionContext>(InteractionContext);
 
             Context();
             Because();
@@ -84,16 +84,32 @@ namespace Unite.Specs.Application_starting
     public class FakeInteractionContext : IInteractionContext
     {
         public bool IsUserNotifiedOfAuthenticationFailure;
+        public bool WasUserAuthenticated;
+
+        public Credentials GetCredentials(IServiceInformation serviceInformation)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Credentials GetCredentials(Guid serviceID, string serviceName)
+        {
+            WasUserAuthenticated = true;
+            return new Credentials()
+                       {
+                           UserName = "testuser",
+                           Password = "testpassword",
+                           ServiceInformation = new ServiceInformation()
+                                                    {
+                                                        ServiceID = serviceID,
+                                                        ServiceName = serviceName
+                                                    }
+                       };
+        }
 
         public bool AuthenticationFailedRetryQuery()
         {
             IsUserNotifiedOfAuthenticationFailure = true;
             return false;
-        }
-
-        public Credentials GetCredentials()
-        {
-            return new Credentials() {UserName = "testuser", Password = "testpassword"};
         }
     }
 
@@ -106,19 +122,21 @@ namespace Unite.Specs.Application_starting
         public string Message;
         public string Recipient;
 
-        public List<IMessage> GetMessages(Credentials credentials)
+        public List<IMessage> GetMessages()
         {
-            Credentials = credentials;
+            Credentials = new Credentials(){UserName = "username", Password = "password"};
 
             return new List<IMessage>(){new Tweet(){Text="testing",Recipient=new TwitterUser(){UserName = "darkxanthos"}}};
         }
 
-        public void SendMessage(Credentials credentials, string recipient, string message)
+        public void SendMessage(string recipient, string message)
         {
-            Credentials = credentials;
+            Credentials = new Credentials() { UserName = "username", Password = "password" };
             Message = message;
             Recipient = recipient;
         }
+
+        public event EventHandler<CredentialEventArgs> CredentialsRequested;
     }
 
     public class TestingInteractionContext : IInteractionContext
@@ -130,6 +148,25 @@ namespace Unite.Specs.Application_starting
                 UserName = "username",
                 Password = "password"
             };
+        }
+
+        public Credentials GetCredentials(IServiceInformation serviceInformation)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Credentials GetCredentials(Guid serviceID, string serviceName)
+        {
+            return new Credentials()
+                       {
+                           UserName = "username",
+                           Password = "password",
+                           ServiceInformation = new ServiceInformation()
+                                                    {
+                                                        ServiceID = serviceID,
+                                                        ServiceName = serviceName
+                                                    }
+                       };
         }
 
         public bool AuthenticationFailedRetryQuery()

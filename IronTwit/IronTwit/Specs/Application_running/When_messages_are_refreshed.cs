@@ -72,9 +72,9 @@ namespace Unite.Specs.Application_running
 
         public int _Counter;
 
-        public List<IMessage> GetMessages(Credentials credentials)
+        public List<IMessage> GetMessages()
         {
-            Credentials = credentials;
+            Credentials = new Credentials() { UserName = "username", Password = "password" };
 
             _Counter++;
 
@@ -86,23 +86,36 @@ namespace Unite.Specs.Application_running
                        : new List<IMessage>();
         }
 
-        public void SendMessage(Credentials credentials, string recipient, string message)
+        public void SendMessage(string recipient, string message)
         {
-            Credentials = credentials;
+            Credentials = new Credentials() { UserName = "username", Password = "password" };
             Message = message;
             Recipient = recipient;
         }
+
+        public event EventHandler<CredentialEventArgs> CredentialsRequested;
     }
 
     public class TestingInteractionContext : IInteractionContext
     {
-        public Credentials GetCredentials()
+
+        public Credentials GetCredentials(IServiceInformation serviceInformation)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Credentials GetCredentials(Guid serviceID, string serviceName)
         {
             return new Credentials()
-            {
-                UserName = "username",
-                Password = "password"
-            };
+                       {
+                           UserName = "username",
+                           Password = "password",
+                           ServiceInformation = new ServiceInformation()
+                                                    {
+                                                        ServiceID = serviceID,
+                                                        ServiceName = serviceName
+                                                    }
+                       };
         }
 
         public bool AuthenticationFailedRetryQuery()

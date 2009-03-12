@@ -85,15 +85,29 @@ namespace Unite.Specs.Starting_Application
     {
         public bool IsUserNotifiedOfAuthenticationFailure;
 
+        public Credentials GetCredentials(IServiceInformation serviceInformation)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Credentials GetCredentials(Guid serviceID, string serviceName)
+        {
+            return new Credentials()
+            {
+                UserName = "username",
+                Password = "password",
+                ServiceInformation = new ServiceInformation()
+                {
+                    ServiceID = serviceID,
+                    ServiceName = serviceName
+                }
+            };
+        }
+
         public bool AuthenticationFailedRetryQuery()
         {
             IsUserNotifiedOfAuthenticationFailure = true;
             return false;
-        }
-
-        public Credentials GetCredentials()
-        {
-            return new Credentials() { UserName = "testuser", Password = "testpassword" };
         }
     }
 
@@ -106,33 +120,33 @@ namespace Unite.Specs.Starting_Application
         public string Message;
         public string Recipient;
 
-        public List<IMessage> GetMessages(Credentials credentials)
+        public List<IMessage> GetMessages()
         {
-            Credentials = credentials;
+            Credentials = new Credentials() { UserName = "username", Password = "password" };
             
             throw new WebException("Authentication failure.");
-
-            return new List<IMessage>() { new Tweet() { Text = "testing", Recipient = new TwitterUser() { UserName = "darkxanthos" } } };
         }
 
-        public void SendMessage(Credentials credentials, string recipient, string message)
+        public void SendMessage(string recipient, string message)
         {
-            Credentials = credentials;
+            Credentials = new Credentials() { UserName = "username", Password = "password" };
             Message = message;
             Recipient = recipient;
         }
+
+        public event EventHandler<CredentialEventArgs> CredentialsRequested;
     }
 
     public class TestingInteractionContext : IInteractionContext
     {
-        public Credentials GetCredentials()
+        public Credentials GetCredentials(IServiceInformation serviceInformation)
+        {
+            throw new WebException("Authentication failure");
+        }
+
+        public Credentials GetCredentials(Guid serviceID, string serviceName)
         {
             throw new WebException("Authentication failure.");
-            return new Credentials()
-            {
-                UserName = "username",
-                Password = "password"
-            };
         }
 
         public bool AuthenticationFailedRetryQuery()

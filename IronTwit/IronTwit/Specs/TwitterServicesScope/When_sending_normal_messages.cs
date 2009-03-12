@@ -31,7 +31,6 @@ namespace Unite.Specs.TwitterServicesScope
         protected override void Because()
         {
             Utilities.SendMessage(
-                new Credentials { UserName = "username", Password = "password" },
                 Recipient,
                 "This is a test message from");
         }
@@ -74,7 +73,6 @@ namespace Unite.Specs.TwitterServicesScope
         protected override void Because()
         {
             Utilities.SendMessage(
-                new Credentials{UserName = "username", Password = "password"},
                 Recipient,
                 "This is a test message from");
         }

@@ -9,5 +9,6 @@ namespace Unite.Messaging
     {
         public string UserName { get; set; }
         public string Password { get; set; }
+        public IServiceInformation ServiceInformation { get; set; }
     }
 }

@@ -19,7 +19,7 @@ namespace Unite.Specs.Using_Services
 
         protected override void Because()
         {
-            Messages = ServiceManager.GetMessages(MyCredentials);
+            Messages = ServiceManager.GetMessages();
         }
 
         protected override void Context()
@@ -61,7 +61,7 @@ namespace Unite.Specs.Using_Services
             MessageText = messageText;
         }
 
-        public List<IMessage> GetMessages(Credentials credentials)
+        public List<IMessage> GetMessages()
         {
             return new List<IMessage>()
                        {
@@ -73,10 +73,12 @@ namespace Unite.Specs.Using_Services
                        };
         }
 
-        public void SendMessage(Credentials credentials, string recipient, string message)
+        public void SendMessage(string recipient, string message)
         {
             throw new System.NotImplementedException();
         }
+
+        public event EventHandler<CredentialEventArgs> CredentialsRequested;
     }
 
     public class Recipient : IRecipient

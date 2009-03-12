@@ -44,7 +44,6 @@ namespace Unite.Specs.Application_running.sending_messages
         protected override void Because()
         {
             Utilities.SendMessage(
-                new Credentials() { UserName = "username", Password = "password" },
                 Recipient,
                 Message);
         }

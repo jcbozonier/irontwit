@@ -90,12 +90,12 @@ namespace Unite.UI.ViewModels
 
         public MainView(
             IInteractionContext interactionContext,
-            IMessagingService utilities)
+            IMessagingService messagingService)
         {
             if(interactionContext == null) 
                 throw new ArgumentNullException("interactionContext");
-            if(utilities == null)
-                throw new ArgumentNullException("utilities");
+            if(messagingService == null)
+                throw new ArgumentNullException("messagingService");
 
             // This might be better being created in the controller. (App.xaml.cs)
             _ServiceProviders = new List<object>();
@@ -108,7 +108,7 @@ namespace Unite.UI.ViewModels
             SendMessage = new SendMessageCommand(
                 () =>
                     {
-                        utilities.SendMessage(new Credentials {UserName = UserName, Password = Password}, Recipient, MessageToSend);
+                        messagingService.SendMessage(new Credentials {UserName = UserName, Password = Password}, Recipient, MessageToSend);
                         MessageToSend = "";
                         Recipient = "";
                     });
@@ -116,7 +116,7 @@ namespace Unite.UI.ViewModels
             ReceiveMessage = new ReceiveMessagesCommand(
                 () =>
                     {
-                        var result = utilities.GetMessages(new Credentials{UserName = UserName, Password = Password});
+                        var result = messagingService.GetMessages(new Credentials{UserName = UserName, Password = Password});
 
                         Messages.Clear();
 

@@ -18,6 +18,7 @@ namespace Unite.UI
             ObjectFactory.Initialize(x =>
             {
                 x.ForRequestedType<IInteractionContext>().TheDefaultIsConcreteType<GuiInteractionContext>();
+                x.ForRequestedType<IMessagingService>().TheDefaultIsConcreteType<ServicesManager>();
             });
         }
     }

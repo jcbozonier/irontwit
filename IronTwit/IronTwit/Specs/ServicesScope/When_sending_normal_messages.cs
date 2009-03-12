@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Unite.Messaging;
 using Unite.UI.Utilities;
 using IronTwitterPlugIn;
 using NUnit.Framework;
@@ -26,20 +27,26 @@ namespace Unite.Specs.ServicesScope.Sending_normal_messages
             DataAccess.SentMessages.ForEach(message => message.Length.ShouldBeLessThan(MaxMessageLength + 1));
         }
 
-        protected string Recipient=null;
+        protected ISender Recipient = null;
 
         protected override void Because()
         {
             Utilities.SendMessage(
-                "username",
-                "password",
-                "This is a test message from",
-                Recipient);
+                new Credentials { UserName = "username", Password = "password" },
+                Recipient,
+                "This is a test message from");
         }
 
         protected override void Context()
         {
         }
+    }
+
+    public class TestSender : ISender
+    {
+        public Guid ServiceId { get { return Guid.NewGuid(); } }
+
+        public string UserName { get; set; }
     }
 
     [TestFixture]
@@ -54,7 +61,7 @@ namespace Unite.Specs.ServicesScope.Sending_normal_messages
         [Test]
         public void It_includes_the_recipient_in_the_message()
         {
-            DataAccess.SentMessages.ForEach(message => message.Contains(Recipient).ShouldBeTrue());
+            DataAccess.SentMessages.ForEach(message => message.Contains(Recipient.UserName).ShouldBeTrue());
         }
 
         [Test]
@@ -63,15 +70,14 @@ namespace Unite.Specs.ServicesScope.Sending_normal_messages
             DataAccess.SentMessages.ForEach(message => message.Length.ShouldBeLessThan(MaxMessageLength + 1));
         }
 
-        protected string Recipient = "@ChadBoyer";
+        protected ISender Recipient = new TestSender { UserName = "@ChadBoyer" };
 
         protected override void Because()
         {
             Utilities.SendMessage(
-                "username",
-                "password",
-                "This is a test message from",
-                Recipient);
+                new Credentials{UserName = "username", Password = "password"},
+                Recipient,
+                "This is a test message from");
         }
 
         protected override void Context()
@@ -111,14 +117,14 @@ namespace Unite.Specs.ServicesScope.Sending_normal_messages
             SentMessages = new List<string>();
         }
 
-        public string SendMessage(string username, string password, string message)
+        public string SendMessage(Credentials credentials, string message)
         {
             MessagesSent++;
             SentMessages.Add(message);
             return "result message";
         }
 
-        public string GetMessages(string username, string password)
+        public string GetMessages(Credentials credentials)
         {
             return "result message";
         }

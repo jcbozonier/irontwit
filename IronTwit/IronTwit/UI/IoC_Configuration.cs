@@ -1,4 +1,9 @@
-﻿using Unite.UI.Utilities;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Unite.UI.Utilities;
+using IronTwitterPlugIn;
 using StructureMap;
 using Unite.Messaging;
 
@@ -13,8 +18,6 @@ namespace Unite.UI
             ObjectFactory.Initialize(x =>
             {
                 x.ForRequestedType<IInteractionContext>().TheDefaultIsConcreteType<GuiInteractionContext>();
-                x.ForRequestedType<IMessagingService>().TheDefaultIsConcreteType<NullObjectMessageService>();
-                x.ForRequestedType<IMessage>().TheDefaultIsConcreteType<NullObjectMessage>();
             });
         }
     }

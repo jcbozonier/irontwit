@@ -1,4 +1,6 @@
-﻿using Unite.UI.Utilities;
+﻿using System;
+using Unite.Messaging;
+using Unite.UI.Utilities;
 using IronTwitterPlugIn;
 using NUnit.Framework;
 using SpecUnit;
@@ -18,7 +20,7 @@ namespace Unite.Specs.Application_running.sending_messages
         [Test]
         public void It_includes_the_recipient_in_each_message()
         {
-            DataAccess.SentMessages.ForEach(message => message.Contains(Recipient).ShouldBeTrue());
+            DataAccess.SentMessages.ForEach(message => message.Contains(Recipient.UserName).ShouldBeTrue());
         }
 
         [Test]
@@ -34,7 +36,7 @@ namespace Unite.Specs.Application_running.sending_messages
             DataAccess.SentMessages[0].EndsWith("it.").ShouldBeTrue();
         }
 
-        protected string Recipient = "@ChadBoyer";
+        protected ISender Recipient = new TestSender() { UserName = "@ChadBoyer" };
 
         protected string Message =
             "I need to test to ensure that my twitter client is breaking up messages only at word boundaries. This will come in handy not just for making long tweets read better when split but also for displaying URLs. My code can't handle a single long word right now though (think a word larger than 140 chars :). Once that becomes a *real* problem, I'll look into fixing it.";
@@ -42,10 +44,9 @@ namespace Unite.Specs.Application_running.sending_messages
         protected override void Because()
         {
             Utilities.SendMessage(
-                "username", 
-                "password",
-                Message,
-                Recipient);
+                new Credentials() { UserName = "username", Password = "password" },
+                Recipient,
+                Message);
         }
 
         protected override void Context()
@@ -75,6 +76,12 @@ namespace Unite.Specs.Application_running.sending_messages
         protected abstract void Context();
     }
 
+    public class TestSender : ISender
+    {
+        public Guid ServiceId { get { return Guid.NewGuid(); } }
+        public string UserName { get; set; }
+    }
+
     public class TestTwitterDataAccess : ITwitterDataAccess
     {
         public int MessagesSent;
@@ -85,14 +92,14 @@ namespace Unite.Specs.Application_running.sending_messages
             SentMessages = new List<string>();
         }
 
-        public string SendMessage(string username, string password, string message)
+        public string SendMessage(Credentials credentials, string message)
         {
             MessagesSent++;
             SentMessages.Add(message);
             return "result message";
         }
 
-        public string GetMessages(string username, string password)
+        public string GetMessages(Credentials credentials)
         {
             return "result message";
         }

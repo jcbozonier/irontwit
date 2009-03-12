@@ -66,6 +66,14 @@ namespace IronTwitterPlugIn
 
         public void SendMessage(string recipient, string message)
         {
+            if (_UserCredentials == null && CredentialsRequested != null)
+                CredentialsRequested(this, new CredentialEventArgs()
+                                               {
+                                                   ServiceID = SERVICE_ID,
+                                                   ServiceName = SERVICE_NAME
+                                               });
+
+
             // Get the maximum length of a message subtracting the to field
             // go to the maxLength - 1 index of the message and search backwards for a space or end of string.
             // tag this index as the end index

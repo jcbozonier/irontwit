@@ -48,8 +48,14 @@ namespace Unite.Specs.TwitterServicesScope
     }
 
     [TestFixture]
-    public class When_sending_a_large_message_with_recipient : context
+    public class When_sending_a_large_message_with_recipient_first_time : context
     {
+        [Test]
+        public void It_should_request_user_credentials()
+        {
+            CredentialsRequested.ShouldBeTrue();
+        }
+
         [Test]
         public void It_should_not_be_broken_up_into_multiple_messages()
         {
@@ -88,15 +94,22 @@ namespace Unite.Specs.TwitterServicesScope
         protected TwitterUtilities Utilities;
         protected TestTwitterDataAccess DataAccess;
         protected readonly int MaxMessageLength = 140;
+        protected bool CredentialsRequested;
 
         [TestFixtureSetUp]
         public void Setup()
         {
             DataAccess = new TestTwitterDataAccess();
             Utilities = new TwitterUtilities(DataAccess, MaxMessageLength);
+            Utilities.CredentialsRequested += Utilities_CredentialsRequested;
 
             Context();
             Because();
+        }
+
+        void Utilities_CredentialsRequested(object sender, CredentialEventArgs e)
+        {
+            CredentialsRequested = true;
         }
 
         protected abstract void Because();

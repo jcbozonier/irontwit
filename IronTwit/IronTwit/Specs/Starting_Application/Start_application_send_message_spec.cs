@@ -32,13 +32,13 @@ namespace Unite.Specs.Application_starting.Sending_messages
         [Test]
         public void It_should_use_the_correct_user_name()
         {
-            Utilities.Username.ShouldNotBeNull();
+            Utilities.Credentials.UserName.ShouldNotBeNull();
         }
 
         [Test]
         public void It_should_use_the_correct_password()
         {
-            Utilities.Password.ShouldNotBeEmpty();
+            Utilities.Credentials.Password.ShouldNotBeEmpty();
         }
 
         [Test]
@@ -131,23 +131,23 @@ namespace Unite.Specs.Application_starting.Sending_messages
 
     public class TestTwitterUtilities : IMessagingService
     {
-        public string Username;
-        public string Password;
+        public Guid ServiceId { get { return Guid.NewGuid(); } }
+        public string ServiceName { get { return "TestTwitter"; } }
+
+        public Credentials Credentials;
         public string Message;
         public string Recipient;
 
-        public List<IMessage> GetMessages(string username, string password)
+        public List<IMessage> GetMessages(Credentials credentials)
         {
-            Username = username;
-            Password = password;
+            Credentials = credentials;
 
             return new List<IMessage>();
         }
 
-        public void SendMessage(string username, string password, string message, string recipient)
+        public void SendMessage(Credentials credentials, string recipient, string message)
         {
-            Username = username;
-            Password = password;
+            Credentials = credentials;
             Message = message;
             Recipient = recipient;
         }

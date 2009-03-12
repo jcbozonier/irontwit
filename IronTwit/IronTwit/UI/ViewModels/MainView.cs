@@ -108,7 +108,7 @@ namespace Unite.UI.ViewModels
             SendMessage = new SendMessageCommand(
                 () =>
                     {
-                        utilities.SendMessage(UserName, Password, MessageToSend, Recipient);
+                        utilities.SendMessage(new Credentials {UserName = UserName, Password = Password}, Recipient, MessageToSend);
                         MessageToSend = "";
                         Recipient = "";
                     });
@@ -116,7 +116,7 @@ namespace Unite.UI.ViewModels
             ReceiveMessage = new ReceiveMessagesCommand(
                 () =>
                     {
-                        var result = utilities.GetMessages(UserName, Password);
+                        var result = utilities.GetMessages(new Credentials{UserName = UserName, Password = Password});
 
                         Messages.Clear();
 

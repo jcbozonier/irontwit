@@ -15,12 +15,11 @@ namespace IronTwitterPlugIn
         /// <summary>
         /// Returns a status in JSON.
         /// </summary>
-        /// <param name="username"></param>
-        /// <param name="password"></param>
+        /// <param name="credentials"></param>
         /// <param name="message"></param>
         /// <returns></returns>
-        string SendMessage(string username, string password, string message);
-        string GetMessages(string username, string password);
+        string SendMessage(Credentials credentials, string message);
+        string GetMessages(Credentials credentials);
     }
 
     [StructureMap.Pluggable("Complex")]
@@ -29,7 +28,13 @@ namespace IronTwitterPlugIn
         private readonly int MaxMessageLength = 140;
         private ITwitterDataAccess _DataAccess;
 
-        /// <summary>
+        public static readonly Guid SERVICE_ID = new Guid("{FC1DF655-BBA0-4036-B352-CA98E1B565D7}");
+        public static readonly string SERVICE_NAME = "Twitter";
+
+        public Guid ServiceId { get { return SERVICE_ID; } }
+        public string ServiceName { get { return SERVICE_NAME; } }
+
+            /// <summary>
         /// This constructor should only be used if Twitter changes their default max
         /// message length. Until that time, this is only for testing.
         /// </summary>
@@ -57,7 +62,7 @@ namespace IronTwitterPlugIn
                 _DataAccess = new TwitterDataAccess();
         }
 
-        public void SendMessage(string username, string password, string message, string recipient)
+        public void SendMessage(Credentials credentials, string recipient, string message)
         {
             // Get the maximum length of a message subtracting the to field
             // go to the maxLength - 1 index of the message and search backwards for a space or end of string.
@@ -67,11 +72,11 @@ namespace IronTwitterPlugIn
             // send message
             // repeat until the endIndex == messageLength-1.
 
-            var maxLengthOfMessageContent = (!String.IsNullOrEmpty(recipient))
+            var maxLengthOfMessageContent = (!string.IsNullOrEmpty(recipient))
                                                 ? 140 - (recipient.Length + 1) //For space below
                                                 : 140;
 
-            var recipientMessagePortion = (!String.IsNullOrEmpty(username))
+            var recipientMessagePortion = (!String.IsNullOrEmpty(credentials.UserName))
                                               ? recipient + " "
                                               : "";
 
@@ -103,14 +108,14 @@ namespace IronTwitterPlugIn
                 
             }
 
-            messagesToSend.ForEach((messageToSend) => _DataAccess.SendMessage(username, password, messageToSend));
+            messagesToSend.ForEach((messageToSend) => _DataAccess.SendMessage(credentials, messageToSend));
         }
 
-        public List<IMessage> GetMessages(string username, string password)
+        public List<IMessage> GetMessages(Credentials credentials)
         {
             string resultString = String.Empty;
             
-            resultString = _DataAccess.GetMessages(username, password);
+            resultString = _DataAccess.GetMessages(credentials);
 
             var str = new StringReader(resultString);
             var converter = new JsonSerializer();
@@ -118,7 +123,7 @@ namespace IronTwitterPlugIn
 
             // Convert the sender property to proper twitter form.
             var tweets = (List<Tweet>)converter.Deserialize(str, typeof(List<Tweet>));
-            tweets.ForEach(tweet=>tweet.Sender.AccountName = "@" + tweet.Sender.AccountName);
+            //tweets.ForEach(tweet=>tweet.Sender.UserName = "@" + tweet.Sender.UserName);
 
             return new List<IMessage>(tweets.ToArray());
         }

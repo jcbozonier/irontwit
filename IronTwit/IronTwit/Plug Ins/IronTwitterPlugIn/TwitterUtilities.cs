@@ -66,12 +66,7 @@ namespace IronTwitterPlugIn
 
         public void SendMessage(string recipient, string message)
         {
-            if (_UserCredentials == null && CredentialsRequested != null)
-                CredentialsRequested(this, new CredentialEventArgs()
-                                               {
-                                                   ServiceID = SERVICE_ID,
-                                                   ServiceName = SERVICE_NAME
-                                               });
+            _RequestCredentials();
 
 
             // Get the maximum length of a message subtracting the to field
@@ -125,6 +120,7 @@ namespace IronTwitterPlugIn
 
         public List<IMessage> GetMessages()
         {
+            _RequestCredentials();
 
             string resultString = String.Empty;
             
@@ -139,6 +135,16 @@ namespace IronTwitterPlugIn
             //tweets.ForEach(tweet=>tweet.Sender.UserName = "@" + tweet.Sender.UserName);
 
             return new List<IMessage>(tweets.ToArray());
+        }
+
+        private void _RequestCredentials()
+        {
+            if (_UserCredentials == null && CredentialsRequested != null)
+                CredentialsRequested(this, new CredentialEventArgs()
+                {
+                    ServiceID = SERVICE_ID,
+                    ServiceName = SERVICE_NAME
+                });
         }
     }
 }

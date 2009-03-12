@@ -72,6 +72,7 @@
   <ItemGroup>
     <Compile Include="Application_running\Class1.cs" />
     <Compile Include="Application_running\When_messages_are_refreshed.cs" />
+    <Compile Include="TwitterServicesScope\When_receiving_messages.cs" />
     <Compile Include="TwitterServicesScope\When_sending_large_messages.cs" />
     <Compile Include="TwitterServicesScope\When_sending_normal_messages.cs" />
     <Compile Include="Starting_Application\Happy_path.cs" />

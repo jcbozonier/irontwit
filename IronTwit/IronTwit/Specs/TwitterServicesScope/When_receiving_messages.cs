@@ -69,6 +69,7 @@ namespace Unite.Specs.TwitterServicesScope
     {
         public int MessagesSent;
         public List<string> SentMessages;
+        public Credentials ProvidedCredentials;
 
         public TestRxTwitterDataAccess()
         {
@@ -77,6 +78,7 @@ namespace Unite.Specs.TwitterServicesScope
 
         public string SendMessage(Credentials credentials, string message)
         {
+            ProvidedCredentials = credentials;
             MessagesSent++;
             SentMessages.Add(message);
             return "result message";
@@ -84,6 +86,7 @@ namespace Unite.Specs.TwitterServicesScope
 
         public string GetMessages(Credentials credentials)
         {
+            ProvidedCredentials = credentials;
             return "[{text:'test message'}]";
         }
     }

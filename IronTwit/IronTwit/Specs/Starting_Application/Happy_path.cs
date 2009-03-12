@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Text;
-using Unite.UI.Utilities;
 using Unite.UI.ViewModels;
-using IronTwitterPlugIn;
 using IronTwitterPlugIn.DataObjects;
 using NUnit.Framework;
 using SpecUnit;
@@ -23,6 +18,12 @@ namespace Unite.Specs.Application_starting
         public void It_should_get_messages_for_user()
         {
             Model.Messages.ShouldNotBeEmpty();
+        }
+
+        [Test]
+        public void It_should_use_credentials_provided_by_user_to_get_messages()
+        {
+            Utilities.Credentials.ShouldEqual(InteractionContext.Credentials);
         }
 
         protected override void Because()
@@ -85,25 +86,32 @@ namespace Unite.Specs.Application_starting
     {
         public bool IsUserNotifiedOfAuthenticationFailure;
         public bool WasUserAuthenticated;
+        public Credentials Credentials;
+
+        public FakeInteractionContext()
+        {
+            Credentials = new Credentials()
+            {
+                UserName = "testuser",
+                Password = "testpassword",
+                ServiceInformation = new ServiceInformation()
+                {
+                    ServiceID = new Guid("{FC1DF655-BBA0-4036-B352-CA98E1B565D7}"),
+                    ServiceName = "test"
+                }
+            };
+        }
 
         public Credentials GetCredentials(IServiceInformation serviceInformation)
         {
-            throw new System.NotImplementedException();
+            WasUserAuthenticated = true;
+            return Credentials;
         }
 
         public Credentials GetCredentials(Guid serviceID, string serviceName)
         {
             WasUserAuthenticated = true;
-            return new Credentials()
-                       {
-                           UserName = "testuser",
-                           Password = "testpassword",
-                           ServiceInformation = new ServiceInformation()
-                                                    {
-                                                        ServiceID = serviceID,
-                                                        ServiceName = serviceName
-                                                    }
-                       };
+            return Credentials;
         }
 
         public bool AuthenticationFailedRetryQuery()
@@ -122,18 +130,29 @@ namespace Unite.Specs.Application_starting
         public string Message;
         public string Recipient;
 
+        public bool CanAccept(Credentials credentials)
+        {
+            return
+                (credentials.ServiceInformation.Equals(new ServiceInformation()
+                                                           {ServiceID = this.ServiceId, ServiceName = this.ServiceName}));
+        }
+
         public List<IMessage> GetMessages()
         {
-            Credentials = new Credentials(){UserName = "username", Password = "password"};
+            CredentialsRequested(this, new CredentialEventArgs());
 
             return new List<IMessage>(){new Tweet(){Text="testing",Recipient=new TwitterUser(){UserName = "darkxanthos"}}};
         }
 
         public void SendMessage(string recipient, string message)
         {
-            Credentials = new Credentials() { UserName = "username", Password = "password" };
             Message = message;
             Recipient = recipient;
+        }
+
+        public void SetCredentials(Credentials credentials)
+        {
+            Credentials = credentials;
         }
 
         public event EventHandler<CredentialEventArgs> CredentialsRequested;

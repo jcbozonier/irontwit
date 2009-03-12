@@ -120,6 +120,11 @@ namespace Unite.Specs.Starting_Application
         public string Message;
         public string Recipient;
 
+        public bool CanAccept(Credentials credentials)
+        {
+            return true;
+        }
+
         public List<IMessage> GetMessages()
         {
             Credentials = new Credentials() { UserName = "username", Password = "password" };
@@ -132,6 +137,11 @@ namespace Unite.Specs.Starting_Application
             Credentials = new Credentials() { UserName = "username", Password = "password" };
             Message = message;
             Recipient = recipient;
+        }
+
+        public void SetCredentials(Credentials credentials)
+        {
+            Credentials = credentials;
         }
 
         public event EventHandler<CredentialEventArgs> CredentialsRequested;

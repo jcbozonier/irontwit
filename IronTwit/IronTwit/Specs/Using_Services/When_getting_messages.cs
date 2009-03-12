@@ -61,6 +61,11 @@ namespace Unite.Specs.Using_Services
             MessageText = messageText;
         }
 
+        public bool CanAccept(Credentials credentials)
+        {
+            return true;
+        }
+
         public List<IMessage> GetMessages()
         {
             return new List<IMessage>()
@@ -76,6 +81,11 @@ namespace Unite.Specs.Using_Services
         public void SendMessage(string recipient, string message)
         {
             throw new System.NotImplementedException();
+        }
+
+        public void SetCredentials(Credentials credentials)
+        {
+            
         }
 
         public event EventHandler<CredentialEventArgs> CredentialsRequested;

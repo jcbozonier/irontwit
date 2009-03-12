@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Unite.Messaging
 {
     public class ServicesManager : IMessagingService
     {
-        private ServiceProvider Provider;
+        private IServiceProvider Provider;
 
-        public ServicesManager(ServiceProvider provider)
+        public ServicesManager(IServiceProvider provider)
         {
             Provider = provider;
             Provider.CredentialsRequested += Provider_CredentialsRequested;
@@ -19,6 +17,11 @@ namespace Unite.Messaging
         {
             if (CredentialsRequested != null)
                 CredentialsRequested(sender, e); 
+        }
+
+        public bool CanAccept(Credentials credentials)
+        {
+            return true;
         }
 
         public List<IMessage> GetMessages()
@@ -37,6 +40,16 @@ namespace Unite.Messaging
         public void SendMessage(string recipient, string message)
         {
             
+        }
+
+        public void SetCredentials(Credentials credentials)
+        {
+            var services = Provider.GetServices();
+            foreach (var service in services)
+            {
+                if(service.CanAccept(credentials))
+                    service.SetCredentials(credentials);
+            }
         }
 
         public event EventHandler<CredentialEventArgs> CredentialsRequested;

@@ -4,13 +4,22 @@ using System.Linq;
 
 namespace Unite.Messaging
 {
-    public class ServiceProvider
+    public interface IServiceProvider
+    {
+        void Add(params IMessagingService[] services);
+        IEnumerable<IMessagingService> GetServices();
+        event EventHandler<CredentialEventArgs> CredentialsRequested;
+    }
+
+    public class ServiceProvider : IServiceProvider
     {
         private readonly List<IMessagingService> Services;
 
         public ServiceProvider()
         {
             Services = new List<IMessagingService>();
+
+            // We should probably try to discover the plug ins here...?
         }
 
         public void Add(params IMessagingService[] services)

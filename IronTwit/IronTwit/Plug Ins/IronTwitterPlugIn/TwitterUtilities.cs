@@ -116,7 +116,19 @@ namespace IronTwitterPlugIn
             messagesToSend.ForEach((messageToSend) => _DataAccess.SendMessage(_UserCredentials, messageToSend));
         }
 
+        public void SetCredentials(Credentials credentials)
+        {
+            _UserCredentials = credentials;
+        }
+
         public event EventHandler<CredentialEventArgs> CredentialsRequested;
+
+        public bool CanAccept(Credentials credentials)
+        {
+            return
+                credentials.ServiceInformation.Equals(new ServiceInformation()
+                                                          {ServiceID = SERVICE_ID, ServiceName = SERVICE_NAME});
+        }
 
         public List<IMessage> GetMessages()
         {

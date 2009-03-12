@@ -29,7 +29,12 @@ namespace Unite.UI.Utilities
             return new Credentials()
                        {
                            UserName = model.UserName,
-                           Password = model.Password
+                           Password = model.Password,
+                           ServiceInformation = new ServiceInformation()
+                                                    {
+                                                        ServiceID = serviceID,
+                                                        ServiceName = serviceName
+                                                    }
                        };
         }
 

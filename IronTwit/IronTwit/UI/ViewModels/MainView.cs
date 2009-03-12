@@ -86,6 +86,8 @@ namespace Unite.UI.ViewModels
         /// </summary>
         public ReceiveMessagesCommand ReceiveMessage { get; set; }
 
+        private IMessagingService _MessagingService;
+
         public MainView(
             IInteractionContext interactionContext,
             IMessagingService messagingService)
@@ -95,7 +97,8 @@ namespace Unite.UI.ViewModels
             if(messagingService == null)
                 throw new ArgumentNullException("messagingService");
 
-            messagingService.CredentialsRequested += messagingService_CredentialsRequested;
+            _MessagingService = messagingService;
+            _MessagingService.CredentialsRequested += messagingService_CredentialsRequested;
 
             Messages = new ObservableCollection<IMessage>();
             MyReplies = new ObservableCollection<IMessage>();
@@ -105,7 +108,7 @@ namespace Unite.UI.ViewModels
             SendMessage = new SendMessageCommand(
                 () =>
                     {
-                        messagingService.SendMessage(Recipient, MessageToSend);
+                        _MessagingService.SendMessage(Recipient, MessageToSend);
                         Recipient = "";
                         MessageToSend = "";
                     });
@@ -113,7 +116,7 @@ namespace Unite.UI.ViewModels
             ReceiveMessage = new ReceiveMessagesCommand(
                 () =>
                     {
-                        var result = messagingService.GetMessages();
+                        var result = _MessagingService.GetMessages();
                         Messages.Clear();
 
                         foreach (var message in result)
@@ -127,6 +130,7 @@ namespace Unite.UI.ViewModels
         void messagingService_CredentialsRequested(object sender, CredentialEventArgs e)
         {
             var credentials = Interactions.GetCredentials(e);
+            _MessagingService.SetCredentials(credentials);
         }
 
         /// <summary>

@@ -108,23 +108,13 @@ namespace Unite.Specs.Application_running
 
     public class TestingInteractionContext : IInteractionContext
     {
-
-        public Credentials GetCredentials(IServiceInformation serviceInformation)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public Credentials GetCredentials(Guid serviceID, string serviceName)
+       public Credentials GetCredentials(IServiceInformation serviceInformation)
         {
             return new Credentials()
                        {
                            UserName = "username",
                            Password = "password",
-                           ServiceInformation = new ServiceInformation()
-                                                    {
-                                                        ServiceID = serviceID,
-                                                        ServiceName = serviceName
-                                                    }
+                           ServiceInformation = serviceInformation
                        };
         }
 

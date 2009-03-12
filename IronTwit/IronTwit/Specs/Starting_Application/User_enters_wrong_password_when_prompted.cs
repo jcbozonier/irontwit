@@ -90,20 +90,6 @@ namespace Unite.Specs.Starting_Application
             throw new System.NotImplementedException();
         }
 
-        public Credentials GetCredentials(Guid serviceID, string serviceName)
-        {
-            return new Credentials()
-            {
-                UserName = "username",
-                Password = "password",
-                ServiceInformation = new ServiceInformation()
-                {
-                    ServiceID = serviceID,
-                    ServiceName = serviceName
-                }
-            };
-        }
-
         public bool AuthenticationFailedRetryQuery()
         {
             IsUserNotifiedOfAuthenticationFailure = true;
@@ -152,11 +138,6 @@ namespace Unite.Specs.Starting_Application
         public Credentials GetCredentials(IServiceInformation serviceInformation)
         {
             throw new WebException("Authentication failure");
-        }
-
-        public Credentials GetCredentials(Guid serviceID, string serviceName)
-        {
-            throw new WebException("Authentication failure.");
         }
 
         public bool AuthenticationFailedRetryQuery()

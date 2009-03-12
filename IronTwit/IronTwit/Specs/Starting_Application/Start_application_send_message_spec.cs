@@ -172,20 +172,6 @@ namespace Unite.Specs.Application_starting.Sending_messages
             throw new System.NotImplementedException();
         }
 
-        public Credentials GetCredentials(Guid serviceID, string serviceName)
-        {
-            return new Credentials()
-            {
-                UserName = "username",
-                Password = "password",
-                ServiceInformation = new ServiceInformation()
-                {
-                    ServiceID = serviceID,
-                    ServiceName = serviceName
-                }
-            };
-        }
-
         public bool AuthenticationFailedRetryQuery()
         {
             return false;

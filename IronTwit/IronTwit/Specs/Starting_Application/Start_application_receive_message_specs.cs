@@ -98,20 +98,6 @@ namespace Unite.Specs.Application_starting.Receiving_messages
                        };
         }
 
-        public Credentials GetCredentials(Guid serviceID, string serviceName)
-        {
-            return new Credentials()
-            {
-                UserName = "username",
-                Password = "password",
-                ServiceInformation = new ServiceInformation()
-                {
-                    ServiceID = serviceID,
-                    ServiceName = serviceName
-                }
-            };
-        }
-
         public bool AuthenticationFailedRetryQuery()
         {
             return false;

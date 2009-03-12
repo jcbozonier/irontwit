@@ -78,8 +78,8 @@ namespace IronTwitterPlugIn
             // repeat until the endIndex == messageLength-1.
 
             var maxLengthOfMessageContent = (!string.IsNullOrEmpty(recipient))
-                                                ? 140 - (recipient.Length + 1) //For space below
-                                                : 140;
+                                                ? MaxMessageLength - (recipient.Length + 1) //For space below
+                                                : MaxMessageLength;
 
             var recipientMessagePortion = (!String.IsNullOrEmpty(recipient))
                                               ? recipient + " "

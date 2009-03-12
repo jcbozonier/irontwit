@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using NUnit.Framework;
+using Unite.UI.Controls;
 
 namespace Unite.Specs.ReceivingMessages
 {
@@ -22,16 +23,19 @@ namespace Unite.Specs.ReceivingMessages
 
         protected override void Because()
         {
-            
+            Control.Content = "this is a link: http://www.cnn.com";
         }
     }
 
     public abstract class MessagesWithLinks_context
     {
+        protected MessageTextView Control;
 
         [TestFixtureSetUp]
         public void Setup()
         {
+            Control = new MessageTextView();
+            
             // Create fake messaging service that can return message text.
             // Have message text view consume the text and devise a way to inspect that
             // it worked.

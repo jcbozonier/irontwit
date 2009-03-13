@@ -18,8 +18,9 @@ namespace Unite.UI
             {
                 x.ForRequestedType<Views.MainView>().TheDefaultIsConcreteType<Views.MainView>();
                 x.ForRequestedType<IInteractionContext>().TheDefaultIsConcreteType<GuiInteractionContext>();
-                x.ForRequestedType<IMessagingService>().TheDefaultIsConcreteType<ServicesManager>();
+                x.ForRequestedType<IMessagingServiceManager>().TheDefaultIsConcreteType<ServicesManager>();
                 x.ForRequestedType<IServiceProvider>().TheDefault.IsThis(serviceProviders);
+                x.ForRequestedType<IContactProvider>().TheDefaultIsConcreteType<ContactProvider>();
             });
         }
     }

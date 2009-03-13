@@ -28,5 +28,28 @@ namespace Unite.Messaging
 
         public string UserName { get; private set; }
         public ServiceInformation ServiceInfo { get; private set; }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != typeof (Identity)) return false;
+            return Equals((Identity) obj);
+        }
+
+        public bool Equals(Identity obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            return Equals(obj.UserName, UserName) && Equals(obj.ServiceInfo, ServiceInfo);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                return (UserName.GetHashCode()*397) ^ ServiceInfo.GetHashCode();
+            }
+        }
     }
 }

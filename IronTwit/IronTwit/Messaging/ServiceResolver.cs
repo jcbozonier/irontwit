@@ -5,14 +5,18 @@ using System.Text;
 
 namespace Unite.Messaging
 {
-    public class ServiceResolver
+    public interface IServiceResolver
     {
-        public ServiceResolver(IEnumerable<IMessagingService> services)
+        ServiceInformation GetService(string address);
+    }
+
+    public class ServiceResolver : IServiceResolver
+    {
+        public ServiceResolver(IServiceProvider provider)
         {
-            _Services = services;
+            _Services = provider.GetServices();
         }
 
-        private static readonly Guid TwitterServiceId = new Guid("{FC1DF655-BBA0-4036-B352-CA98E1B565D7}");
         private IEnumerable<IMessagingService> _Services;
 
         public ServiceInformation GetService(string address)

@@ -5,15 +5,15 @@ namespace Unite.Messaging
 {
     public class ServicesManager : IMessagingServiceManager
     {
-        private IServiceProvider Provider;
-        private ServiceResolver _Resolver;
+        private readonly IServiceProvider Provider;
+        private readonly IServiceResolver _Resolver;
 
         public ServicesManager(IServiceProvider provider)
         {
             Provider = provider;
             Provider.CredentialsRequested += Provider_CredentialsRequested;
 
-            _Resolver = new ServiceResolver(Provider.GetServices());
+            _Resolver = new ServiceResolver(Provider);
         }
 
         void Provider_CredentialsRequested(object sender, CredentialEventArgs e)

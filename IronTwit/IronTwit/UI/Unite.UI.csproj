@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
+    <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{DF1A7919-466C-4321-BFEF-C3AAB6BF4841}</ProjectGuid>
     <OutputType>WinExe</OutputType>
@@ -111,6 +111,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="Utilities\ContactProvider.cs" />
     <Compile Include="Utilities\InlineUrls.cs" />
     <Compile Include="Utilities\GuiInteractionContext.cs" />
     <Compile Include="ViewModels\DelegateCommand.cs" />

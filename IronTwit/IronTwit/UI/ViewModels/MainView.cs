@@ -26,11 +26,11 @@ namespace Unite.UI.ViewModels
         /// <summary>
         /// A list of all of the tweets that should be displayed.
         /// </summary>
-        public ObservableCollection<IMessage> Messages { get; set; }
+        public ObservableCollection<UiMessage> Messages { get; set; }
         /// <summary>
         /// A list of all of the user's messages.
         /// </summary>
-        public ObservableCollection<IMessage> MyReplies { get; set; }
+        public ObservableCollection<UiMessage> MyReplies { get; set; }
 
         private string _messageToSend;
         /// <summary>
@@ -81,18 +81,21 @@ namespace Unite.UI.ViewModels
 
         public MainView(
             IInteractionContext interactionContext,
-            IMessagingServiceManager messagingService)
+            IMessagingServiceManager messagingService, 
+            IContactProvider contactRepo)
         {
             if(interactionContext == null) 
                 throw new ArgumentNullException("interactionContext");
             if(messagingService == null)
                 throw new ArgumentNullException("messagingService");
 
+            _ContactRepo = contactRepo;
+
             _MessagingService = messagingService;
             _MessagingService.CredentialsRequested += messagingService_CredentialsRequested;
 
-            Messages = new ObservableCollection<IMessage>();
-            MyReplies = new ObservableCollection<IMessage>();
+            Messages = new ObservableCollection<UiMessage>();
+            MyReplies = new ObservableCollection<UiMessage>();
 
             Interactions = interactionContext;
 
@@ -109,14 +112,17 @@ namespace Unite.UI.ViewModels
                     {
                         var result = _MessagingService.GetMessages();
                         Messages.Clear();
-
+                        
                         foreach (var message in result)
                         {
-                            Messages.Add(message);
+                            var uiMessage = new UiMessage(message, _ContactRepo.Get(message.Recipient));
+                            Messages.Add(uiMessage);
                         }
                     });
 
         }
+
+        protected IContactProvider _ContactRepo;
 
         void messagingService_CredentialsRequested(object sender, CredentialEventArgs e)
         {

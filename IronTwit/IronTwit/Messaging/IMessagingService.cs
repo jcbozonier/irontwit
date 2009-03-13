@@ -18,6 +18,10 @@ namespace Unite.Messaging
     {
         public string ServiceName { get; set; }
         public Guid ServiceID { get; set; }
+        public override bool Equals(object obj)
+        {
+            return ServiceInformation.AreEqual(this, obj);
+        }
     }
 
     public interface IServiceInformation

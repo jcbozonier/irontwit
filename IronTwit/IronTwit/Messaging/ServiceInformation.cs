@@ -19,17 +19,27 @@ namespace Unite.Messaging
 
         public override bool Equals(object obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != typeof (ServiceInformation)) return false;
-            return Equals((ServiceInformation) obj);
+            return ServiceInformation.AreEqual(this, obj);
         }
 
         public bool Equals(ServiceInformation obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            return Equals(obj.ServiceName, ServiceName) && obj.ServiceID.Equals(ServiceID);
+            return ServiceInformation.AreEqual(this, obj);
+        }
+
+        public static bool AreEqual(object a, object b)
+        {
+            if (ReferenceEquals(null, a) || ReferenceEquals(null, b)) return false;
+            if (ReferenceEquals(a, b)) return true;
+            if (!(a is IServiceInformation) || !(b is IServiceInformation)) return false;
+            return AreEqual((IServiceInformation) a, (IServiceInformation) b);
+        }
+
+        public static bool AreEqual(IServiceInformation a, IServiceInformation b)
+        {
+            if (ReferenceEquals(null, a) || ReferenceEquals(null, b)) return false;
+            if (ReferenceEquals(a, b)) return true;
+            return Equals(a.ServiceName, b.ServiceName) && a.ServiceID.Equals(b.ServiceID);
         }
 
         public override int GetHashCode()

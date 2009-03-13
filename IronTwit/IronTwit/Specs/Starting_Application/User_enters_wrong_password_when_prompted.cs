@@ -88,7 +88,7 @@ namespace Unite.Specs.Starting_Application
         }
     }
 
-    public class TestTwitterUtilities : IMessagingService
+    public class TestTwitterUtilities : IMessagingServiceManager
     {
         public Guid ServiceId { get { return Guid.NewGuid(); } }
         public string ServiceName { get { return "TestTwitter"; } }
@@ -109,11 +109,11 @@ namespace Unite.Specs.Starting_Application
             throw new WebException("Authentication failure.");
         }
 
-        public void SendMessage(string recipient, string message)
+        public void SendMessage(IIdentity recipient, string message)
         {
             Credentials = new Credentials() { UserName = "username", Password = "password" };
             Message = message;
-            Recipient = recipient;
+            Recipient = recipient.UserName;
         }
 
         public void SetCredentials(Credentials credentials)
@@ -122,6 +122,21 @@ namespace Unite.Specs.Starting_Application
         }
 
         public event EventHandler<CredentialEventArgs> CredentialsRequested;
+        public bool CanFind(string address)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public ServiceInformation GetInformation()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void SendMessage(string recipient, string message)
+        {
+            Recipient = recipient;
+            Message = message;
+        }
     }
 
     public class TestingInteractionContext : IInteractionContext
@@ -148,7 +163,7 @@ namespace Unite.Specs.Starting_Application
             ObjectFactory.Initialize(x =>
             {
                 x.ForRequestedType<IInteractionContext>().TheDefaultIsConcreteType<TestingInteractionContext>();
-                x.ForRequestedType<IMessagingService>().TheDefaultIsConcreteType<TestTwitterUtilities>();
+                x.ForRequestedType<IMessagingServiceManager>().TheDefaultIsConcreteType<TestTwitterUtilities>();
             });
 
         }

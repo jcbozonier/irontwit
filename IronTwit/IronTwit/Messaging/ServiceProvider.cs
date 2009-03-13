@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 
 namespace Unite.Messaging
@@ -9,6 +10,7 @@ namespace Unite.Messaging
         void Add(params IMessagingService[] services);
         IEnumerable<IMessagingService> GetServices();
         event EventHandler<CredentialEventArgs> CredentialsRequested;
+        IMessagingService GetService(ServiceInformation info);
     }
 
     public class ServiceProvider : IServiceProvider
@@ -43,5 +45,17 @@ namespace Unite.Messaging
         }
 
         public event EventHandler<CredentialEventArgs> CredentialsRequested;
+        public IMessagingService GetService(ServiceInformation info)
+        {
+            if(Services == null)
+                throw new NullReferenceException("This service provider has a null collection of services. You should NEVER have this issue.");
+
+            foreach (var service in Services)
+            {
+                if(service.GetInformation().Equals(info)) return service;
+            }
+
+            throw new InvalidOperationException("The requested service does not exist. You should NEVER see this.");
+        }
     }
 }

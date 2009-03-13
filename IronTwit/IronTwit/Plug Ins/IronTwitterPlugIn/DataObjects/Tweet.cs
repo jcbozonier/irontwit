@@ -34,6 +34,6 @@ namespace IronTwitterPlugIn.DataObjects
             }
         }
 
-        public IRecipient Recipient { get; set; }
+        public IIdentity Recipient { get; set; }
     }
 }

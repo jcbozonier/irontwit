@@ -110,7 +110,7 @@ namespace Unite.Specs.Application_starting.Receiving_messages
             ObjectFactory.Initialize(x =>
             {
                 x.ForRequestedType<IInteractionContext>().TheDefaultIsConcreteType<TestingInteractionContext>();
-                x.ForRequestedType<IMessagingService>().TheDefaultIsConcreteType<ServicesManager>();
+                x.ForRequestedType<IMessagingServiceManager>().TheDefaultIsConcreteType<ServicesManager>();
                 x.ForRequestedType<Messaging.IServiceProvider>().TheDefault.IsThis(serviceProviders);
             });
 

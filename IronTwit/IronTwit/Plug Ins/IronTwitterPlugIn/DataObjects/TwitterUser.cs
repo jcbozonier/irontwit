@@ -6,9 +6,15 @@ using Unite.Messaging;
 
 namespace IronTwitterPlugIn.DataObjects
 {
-    public class TwitterUser : IRecipient
+    public class TwitterUser : IIdentity
     {
-        public Guid ServiceId { get { return TwitterUtilities.SERVICE_ID; } }
+        /// <summary>
+        /// I don't want anyone outside this library creating these.
+        /// </summary>
+        internal TwitterUser()
+        {
+            
+        }
 
         /// <summary>
         /// for de/serialization only (alias to UserName)
@@ -20,5 +26,9 @@ namespace IronTwitterPlugIn.DataObjects
         }
 
         public string UserName { get; set; }
+        public ServiceInformation ServiceInfo
+        {
+            get; set;
+        }
     }
 }

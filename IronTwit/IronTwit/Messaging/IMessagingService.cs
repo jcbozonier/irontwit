@@ -5,13 +5,20 @@ using System.Text;
 
 namespace Unite.Messaging
 {
+    public interface IMessagingServiceManager : IMessagingService
+    {
+        void SendMessage(string recipient, string message);
+    }
+
     public interface IMessagingService
     {
         bool CanAccept(Credentials credentials);
         List<IMessage> GetMessages();
-        void SendMessage(string recipient, string message);
+        void SendMessage(IIdentity recipient, string message);
         void SetCredentials(Credentials credentials);
         event EventHandler<CredentialEventArgs> CredentialsRequested;
+        bool CanFind(string address);
+        ServiceInformation GetInformation();
     }
 
     public class CredentialEventArgs : EventArgs

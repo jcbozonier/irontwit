@@ -31,7 +31,10 @@ namespace Unite.Specs.TwitterServicesScope
         protected override void Because()
         {
             Utilities.SendMessage(
-                Recipient,
+                new TestSender()
+                    {
+                        UserName = Recipient
+                    },
                 "This is a test message from");
         }
 
@@ -40,11 +43,14 @@ namespace Unite.Specs.TwitterServicesScope
         }
     }
 
-    public class TestSender : IRecipient
+    public class TestSender : IIdentity
     {
-        public Guid ServiceId { get { return Guid.NewGuid(); } }
-
         public string UserName { get; set; }
+
+        public ServiceInformation ServiceInfo
+        {
+            get; set;
+        }
     }
 
     [TestFixture]
@@ -79,13 +85,19 @@ namespace Unite.Specs.TwitterServicesScope
         protected override void Because()
         {
             Utilities.SendMessage(
-                Recipient,
+                new FakeRecipient(){UserName = Recipient},
                 "This is a test message from");
         }
 
         protected override void Context()
         {
         }
+    }
+
+    public class FakeRecipient : IIdentity
+    {
+        public string UserName { get; set; }
+        public ServiceInformation ServiceInfo { get; set; }
     }
 
     [TestFixture]

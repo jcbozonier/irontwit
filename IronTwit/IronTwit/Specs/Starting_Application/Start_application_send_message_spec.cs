@@ -109,7 +109,7 @@ namespace Unite.Specs.Application_starting.Sending_messages
             Utilities = new TestTwitterUtilities();
 
             ObjectFactory.EjectAllInstancesOf<IMessagingService>();
-            ObjectFactory.Inject<IMessagingService>(Utilities);
+            ObjectFactory.Inject<IMessagingServiceManager>(Utilities);
 
             Model = ObjectFactory.GetInstance<MainView>();
             Context();
@@ -121,7 +121,7 @@ namespace Unite.Specs.Application_starting.Sending_messages
         protected abstract void Context();
     }
 
-    public class TestTwitterUtilities : IMessagingService
+    public class TestTwitterUtilities : IMessagingServiceManager
     {
         public Guid ServiceId { get { return Guid.NewGuid(); } }
         public string ServiceName { get { return "TestTwitter"; } }
@@ -142,11 +142,11 @@ namespace Unite.Specs.Application_starting.Sending_messages
             return new List<IMessage>();
         }
 
-        public void SendMessage(string recipient, string message)
+        public void SendMessage(IIdentity recipient, string message)
         {
             Credentials = new Credentials() { UserName = "username", Password = "password" };
             Message = message;
-            Recipient = recipient;
+            Recipient = recipient.UserName;
         }
 
         public void SetCredentials(Credentials credentials)
@@ -155,6 +155,21 @@ namespace Unite.Specs.Application_starting.Sending_messages
         }
 
         public event EventHandler<CredentialEventArgs> CredentialsRequested;
+        public bool CanFind(string address)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public ServiceInformation GetInformation()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void SendMessage(string recipient, string message)
+        {
+            Message = message;
+            Recipient = recipient;
+        }
     }
 
     public class TestingInteractionContext : IInteractionContext

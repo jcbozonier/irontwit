@@ -61,7 +61,7 @@ namespace Unite.Specs.Application_running
     }
 
 
-    public class TestTwitterUtilities : IMessagingService
+    public class TestTwitterUtilities : IMessagingServiceManager
     {
         public Guid ServiceId { get { return Guid.NewGuid(); } }
         public string ServiceName { get { return "TestTwitter"; } }
@@ -86,16 +86,16 @@ namespace Unite.Specs.Application_running
             return _Counter == 1
                        ? new List<IMessage>()
                              {
-                                 new Tweet() {Text = "testing", Recipient = new TwitterUser() {UserName = "darkxanthos"}}
+                                 new Tweet() {Text = "testing", Recipient = new FakeUser() {UserName = "darkxanthos"}}
                              }
                        : new List<IMessage>();
         }
 
-        public void SendMessage(string recipient, string message)
+        public void SendMessage(IIdentity recipient, string message)
         {
             Credentials = new Credentials() { UserName = "username", Password = "password" };
             Message = message;
-            Recipient = recipient;
+            Recipient = recipient.UserName;
         }
 
         public void SetCredentials(Credentials credentials)
@@ -104,8 +104,36 @@ namespace Unite.Specs.Application_running
         }
 
         public event EventHandler<CredentialEventArgs> CredentialsRequested;
-    }
+        public bool CanFind(string address)
+        {
+            return true;
+        }
 
+        public ServiceInformation GetInformation()
+        {
+            return new ServiceInformation();
+        }
+
+        public void SendMessage(string recipient, string message)
+        {
+            Message = message;
+            Recipient = recipient;
+        }
+    }
+    public class FakeUser : IIdentity
+    {
+        public string UserName
+        {
+            get;
+            set;
+        }
+
+        public ServiceInformation ServiceInfo
+        {
+            get;
+            set;
+        }
+    }
     public class TestingInteractionContext : IInteractionContext
     {
        public Credentials GetCredentials(IServiceInformation serviceInformation)
@@ -135,7 +163,7 @@ namespace Unite.Specs.Application_running
             ObjectFactory.Initialize(x =>
             {
                 x.ForRequestedType<IInteractionContext>().TheDefaultIsConcreteType<TestingInteractionContext>();
-                x.ForRequestedType<IMessagingService>().TheDefaultIsConcreteType<TestTwitterUtilities>();
+                x.ForRequestedType<IMessagingServiceManager>().TheDefaultIsConcreteType<TestTwitterUtilities>();
             });
 
         }

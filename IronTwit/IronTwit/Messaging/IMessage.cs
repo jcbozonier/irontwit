@@ -8,6 +8,6 @@ namespace Unite.Messaging
     public interface IMessage
     {
         string Text { get; set; }
-        IRecipient Recipient { get; set; }
+        IIdentity Recipient { get; set; }
     }
 }

@@ -44,7 +44,7 @@ namespace Unite.Specs.Application_running.sending_messages
         protected override void Because()
         {
             Utilities.SendMessage(
-                Recipient,
+                new FakeUser(){UserName = Recipient},
                 Message);
         }
 
@@ -75,10 +75,14 @@ namespace Unite.Specs.Application_running.sending_messages
         protected abstract void Context();
     }
 
-    public class TestSender : IRecipient
+    public class TestSender : IIdentity
     {
-        public Guid ServiceId { get { return Guid.NewGuid(); } }
+        
         public string UserName { get; set; }
+        public ServiceInformation ServiceInfo
+        {
+            get; set;
+        }
     }
 
     public class TestTwitterDataAccess : ITwitterDataAccess

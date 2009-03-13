@@ -75,10 +75,11 @@ namespace IronTwitterPlugIn
                 _DataAccess = new TwitterDataAccess();
         }
 
-        public void SendMessage(string recipient, string message)
+        public void SendMessage(IIdentity theRecipient, string message)
         {
             _RequestCredentials();
 
+            var recipient = theRecipient.UserName;
 
             // Get the maximum length of a message subtracting the to field
             // go to the maxLength - 1 index of the message and search backwards for a space or end of string.
@@ -133,6 +134,21 @@ namespace IronTwitterPlugIn
         }
 
         public event EventHandler<CredentialEventArgs> CredentialsRequested;
+        public bool CanFind(string address)
+        {
+            if (string.IsNullOrEmpty(address))
+                return true;
+            if (address.Trim().Length == 0)
+                return true;
+            if (address.StartsWith("@"))
+                return true;
+            return false;
+        }
+
+        public ServiceInformation GetInformation()
+        {
+            return _ServiceInformation;
+        }
 
         public bool CanAccept(Credentials credentials)
         {

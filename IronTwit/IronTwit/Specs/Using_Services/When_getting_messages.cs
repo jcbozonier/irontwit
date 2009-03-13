@@ -78,7 +78,7 @@ namespace Unite.Specs.Using_Services
                        };
         }
 
-        public void SendMessage(string recipient, string message)
+        public void SendMessage(IIdentity recipient, string message)
         {
             throw new System.NotImplementedException();
         }
@@ -89,11 +89,25 @@ namespace Unite.Specs.Using_Services
         }
 
         public event EventHandler<CredentialEventArgs> CredentialsRequested;
+        public bool CanFind(string address)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public ServiceInformation GetInformation()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 
-    public class Recipient : IRecipient
+    public class Recipient : IIdentity
     {
         public string UserName
+        {
+            get; set;
+        }
+
+        public ServiceInformation ServiceInfo
         {
             get; set;
         }
@@ -106,7 +120,7 @@ namespace Unite.Specs.Using_Services
             get; set;
         }
 
-        public IRecipient Recipient
+        public IIdentity Recipient
         {
             get; set;
         }

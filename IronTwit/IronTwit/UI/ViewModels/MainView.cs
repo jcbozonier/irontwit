@@ -77,11 +77,11 @@ namespace Unite.UI.ViewModels
         /// </summary>
         public ReceiveMessagesCommand ReceiveMessage { get; set; }
 
-        private IMessagingService _MessagingService;
+        private IMessagingServiceManager _MessagingService;
 
         public MainView(
             IInteractionContext interactionContext,
-            IMessagingService messagingService)
+            IMessagingServiceManager messagingService)
         {
             if(interactionContext == null) 
                 throw new ArgumentNullException("interactionContext");

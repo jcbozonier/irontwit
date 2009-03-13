@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Unite.Messaging
 {
@@ -24,6 +22,12 @@ namespace Unite.Messaging
     public class CredentialEventArgs : EventArgs
     {
         public ServiceInformation ServiceInfo;
+
+        public override bool Equals(object obj)
+        {
+            return ServiceInformation.AreEqual(this, obj);
+        }
+
     }
 
     public interface IServiceInformation

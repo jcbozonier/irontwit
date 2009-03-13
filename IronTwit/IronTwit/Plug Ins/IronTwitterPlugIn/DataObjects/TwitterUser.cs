@@ -11,7 +11,7 @@ namespace IronTwitterPlugIn.DataObjects
         /// <summary>
         /// I don't want anyone outside this library creating these.
         /// </summary>
-        internal TwitterUser()
+        public TwitterUser()
         {
             
         }

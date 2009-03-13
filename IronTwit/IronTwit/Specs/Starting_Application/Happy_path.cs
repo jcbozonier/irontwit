@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Unite.UI.Utilities;
 using Unite.UI.ViewModels;
 using IronTwitterPlugIn.DataObjects;
 using NUnit.Framework;
@@ -207,6 +208,7 @@ namespace Unite.Specs.Application_starting
             {
                 x.ForRequestedType<IInteractionContext>().TheDefaultIsConcreteType<TestingInteractionContext>();
                 x.ForRequestedType<IMessagingServiceManager>().TheDefaultIsConcreteType<TestTwitterUtilities>();
+                x.ForRequestedType<IContactProvider>().TheDefaultIsConcreteType<ContactProvider>();
             });
 
         }

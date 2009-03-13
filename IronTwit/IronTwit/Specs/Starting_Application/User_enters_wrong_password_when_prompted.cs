@@ -164,6 +164,7 @@ namespace Unite.Specs.Starting_Application
             {
                 x.ForRequestedType<IInteractionContext>().TheDefaultIsConcreteType<TestingInteractionContext>();
                 x.ForRequestedType<IMessagingServiceManager>().TheDefaultIsConcreteType<TestTwitterUtilities>();
+                x.ForRequestedType<IContactProvider>().TheDefaultIsConcreteType<ContactProvider>();
             });
 
         }

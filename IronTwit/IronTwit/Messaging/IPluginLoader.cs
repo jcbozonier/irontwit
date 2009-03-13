@@ -5,7 +5,4 @@ using System.Text;
 
 namespace Unite.Messaging
 {
-    public interface IPluginLoader
-    {
-    }
 }

@@ -74,7 +74,7 @@ namespace Unite.Specs.Application_starting.Receiving_messages
 
         public string GetMessages(Credentials credentials)
         {
-            return "[{text:'Message 1'}]";
+            return "[{text:'Message 1', user:{screen_name:'darkxanthos'}}]";
         }
     }
 
@@ -111,6 +111,7 @@ namespace Unite.Specs.Application_starting.Receiving_messages
             {
                 x.ForRequestedType<IInteractionContext>().TheDefaultIsConcreteType<TestingInteractionContext>();
                 x.ForRequestedType<IMessagingServiceManager>().TheDefaultIsConcreteType<ServicesManager>();
+                x.ForRequestedType<IContactProvider>().TheDefaultIsConcreteType<ContactProvider>();
                 x.ForRequestedType<Messaging.IServiceProvider>().TheDefault.IsThis(serviceProviders);
             });
 

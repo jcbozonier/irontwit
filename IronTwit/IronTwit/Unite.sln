@@ -2,6 +2,10 @@
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unite.UI", "UI\Unite.UI.csproj", "{DF1A7919-466C-4321-BFEF-C3AAB6BF4841}"
+	ProjectSection(ProjectDependencies) = postProject
+		{6D6AD44D-28E7-4ED0-8A9F-68C36E9AFCC6} = {6D6AD44D-28E7-4ED0-8A9F-68C36E9AFCC6}
+		{7E90D07E-E532-4F57-BD4D-41A3C64F6B3E} = {7E90D07E-E532-4F57-BD4D-41A3C64F6B3E}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unite.Specs", "Specs\Unite.Specs.csproj", "{FEBEE5E9-11DA-407E-8BF8-F52A9A4B72D6}"
 EndProject

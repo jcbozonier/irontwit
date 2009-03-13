@@ -33,5 +33,10 @@ namespace Unite.UI.Views
         {
             UserName.Focus();
         }
+
+        private void Password_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            ((UserCredentialsViewModel) DataContext).Password = Password.Password;
+        }
     }
 }

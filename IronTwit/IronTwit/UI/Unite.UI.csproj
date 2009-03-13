@@ -134,10 +134,6 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Plug Ins\IronTwitterPlugIn\IronTwitterPlugIn.csproj">
-      <Project>{7E90D07E-E532-4F57-BD4D-41A3C64F6B3E}</Project>
-      <Name>IronTwitterPlugIn</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Messaging\Unite.Messaging.csproj">
       <Project>{7B3CBD74-D69D-420F-90F9-19174C7DE3FA}</Project>
       <Name>Unite.Messaging</Name>
@@ -151,4 +147,11 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <PropertyGroup>
+    <PostBuildEvent>copy /Y "$(SolutionDir)Plug Ins\IronTwitterPlugIn\bin\$(Configuration)\IronTwitterPlugIn.dll" "$(TargetDir)"
+copy /Y "$(SolutionDir)Plug Ins\IronTwitterPlugIn\bin\$(Configuration)\IronTwitterPlugIn.pdb" "$(TargetDir)"
+copy /Y "$(SolutionDir)Plug Ins\IronTwitterPlugIn\bin\$(Configuration)\Newtonsoft.Json.dll" "$(TargetDir)"
+copy /Y "$(SolutionDir)Plug Ins\IronTwitterPlugIn\bin\$(Configuration)\Yedda.Twitter.dll" "$(TargetDir)"
+</PostBuildEvent>
+  </PropertyGroup>
 </Project>

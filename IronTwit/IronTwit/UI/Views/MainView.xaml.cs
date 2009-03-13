@@ -11,10 +11,11 @@ namespace Unite.UI.Views
     /// </summary>
     public partial class MainView : Window
     {
-        public MainView()
+        public MainView(ViewModels.MainView viewModel)
         {
             InitializeComponent();
             Loaded += Window1_Loaded;
+            DataContext = viewModel;
         }
 
         void Window1_Loaded(object sender, RoutedEventArgs e)

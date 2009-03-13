@@ -14,10 +14,9 @@ namespace Unite.Messaging
         event EventHandler<CredentialEventArgs> CredentialsRequested;
     }
 
-    public class CredentialEventArgs : EventArgs, IServiceInformation
+    public class CredentialEventArgs : EventArgs
     {
-        public string ServiceName { get; set; }
-        public Guid ServiceID { get; set; }
+        public ServiceInformation ServiceInfo;
     }
 
     public interface IServiceInformation

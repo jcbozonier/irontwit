@@ -24,9 +24,8 @@ namespace Unite.UI
         {
             ContainerBootstrapper.BootstrapStructureMap();
 
-            var window = new Views.MainView();
-            window.DataContext = ObjectFactory.GetInstance<ViewModels.MainView>();
-            window.Show();
+            var view = ObjectFactory.GetInstance<Views.MainView>();
+            view.Show();
         }
     }
 }

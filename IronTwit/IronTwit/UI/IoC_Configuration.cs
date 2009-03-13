@@ -16,6 +16,7 @@ namespace Unite.UI
             // This should be the only place in the project with a reference to Twitter.
             ObjectFactory.Initialize(x =>
             {
+                x.ForRequestedType<Views.MainView>().TheDefaultIsConcreteType<Views.MainView>();
                 x.ForRequestedType<IInteractionContext>().TheDefaultIsConcreteType<GuiInteractionContext>();
                 x.ForRequestedType<IMessagingService>().TheDefaultIsConcreteType<ServicesManager>();
                 x.ForRequestedType<IServiceProvider>().TheDefault.IsThis(serviceProviders);

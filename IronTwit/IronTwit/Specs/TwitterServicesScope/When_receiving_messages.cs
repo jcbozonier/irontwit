@@ -13,6 +13,12 @@ namespace Unite.Specs.TwitterServicesScope
     public class When_receiving_messages : receiving_context
     {
         [Test]
+        public void It_should_use_the_credentials_provided_by_the_user()
+        {
+            DataAccess.ProvidedCredentials.ShouldEqual(UserCredentials);
+        }
+
+        [Test]
         public void It_should_request_credentials()
         {
             CredentialsRequested.ShouldBeTrue();
@@ -43,6 +49,7 @@ namespace Unite.Specs.TwitterServicesScope
         protected readonly int MaxMessageLength = 140;
         protected bool CredentialsRequested;
         protected List<IMessage> ReceivedMessages;
+        protected Credentials UserCredentials;
 
         [TestFixtureSetUp]
         public void Setup()
@@ -58,6 +65,13 @@ namespace Unite.Specs.TwitterServicesScope
         void Utilities_CredentialsRequested(object sender, CredentialEventArgs e)
         {
             CredentialsRequested = true;
+            UserCredentials = new Credentials()
+                                  {
+                                      UserName = "darkxanthos",
+                                      Password = "password",
+                                      ServiceInformation = e.ServiceInfo
+                                  };
+            Utilities.SetCredentials(UserCredentials);
         }
 
         protected abstract void Because();

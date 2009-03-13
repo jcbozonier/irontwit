@@ -120,7 +120,7 @@ namespace Unite.UI.ViewModels
 
         void messagingService_CredentialsRequested(object sender, CredentialEventArgs e)
         {
-            var credentials = Interactions.GetCredentials(e);
+            var credentials = Interactions.GetCredentials(e.ServiceInfo);
             _MessagingService.SetCredentials(credentials);
         }
 

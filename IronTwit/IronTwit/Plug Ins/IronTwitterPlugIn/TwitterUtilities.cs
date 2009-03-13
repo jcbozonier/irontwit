@@ -1,4 +1,6 @@
-﻿using IronTwitterPlugIn.DataObjects;
+﻿using System.Net;
+using System.Security.Authentication;
+using IronTwitterPlugIn.DataObjects;
 using Newtonsoft.Json;
 using StructureMap;
 using System;
@@ -36,6 +38,7 @@ namespace IronTwitterPlugIn
         public Guid ServiceId { get { return SERVICE_ID; } }
         public string ServiceName { get { return SERVICE_NAME; } }
 
+        private readonly ServiceInformation _ServiceInformation;
             /// <summary>
         /// This constructor should only be used if Twitter changes their default max
         /// message length. Until that time, this is only for testing.
@@ -45,7 +48,7 @@ namespace IronTwitterPlugIn
         public TwitterUtilities(ITwitterDataAccess dataAccess, int maxMessageLength)
             : this(dataAccess)
         {
-            MaxMessageLength = maxMessageLength;
+                MaxMessageLength = maxMessageLength;
         }
         
         [DefaultConstructor]
@@ -54,12 +57,20 @@ namespace IronTwitterPlugIn
             
         }
 
+        [DefaultConstructor]
         public TwitterUtilities(ITwitterDataAccess dataAccess)
         {
             // .NET Twitter fix for HTTP Error 417 with Twitter
             System.Net.ServicePointManager.Expect100Continue = false;
 
             _DataAccess = dataAccess; //testing path
+            
+            _ServiceInformation = new ServiceInformation()
+            {
+                ServiceID = SERVICE_ID,
+                ServiceName = SERVICE_NAME
+            };
+
             if (dataAccess == null) //default path
                 _DataAccess = new TwitterDataAccess();
         }
@@ -132,20 +143,32 @@ namespace IronTwitterPlugIn
 
         public List<IMessage> GetMessages()
         {
+            var tweets = new List<Tweet>();
+
             _RequestCredentials();
 
-            string resultString = String.Empty;
+            try
+            {
+                var resultString = _DataAccess.GetMessages(_UserCredentials);
+
+                var str = new StringReader(resultString);
+                var converter = new JsonSerializer
+                                    {
+                                        MissingMemberHandling = MissingMemberHandling.Ignore
+                                    };
+
+                // Convert the sender property to proper twitter form.
+                tweets = (List<Tweet>)converter.Deserialize(str, typeof(List<Tweet>));
+                //tweets.ForEach(tweet=>tweet.Sender.UserName = "@" + tweet.Sender.UserName);
+            }
+            catch (WebException err)
+            {
+                // Those credentials suck apparently.
+                _UserCredentials = null;
+                // Let everyone know how much they suck.
+                throw new AuthenticationException("Log in failed for some reason.", err);
+            }
             
-            resultString = _DataAccess.GetMessages(_UserCredentials);
-
-            var str = new StringReader(resultString);
-            var converter = new JsonSerializer();
-            converter.MissingMemberHandling = MissingMemberHandling.Ignore;
-
-            // Convert the sender property to proper twitter form.
-            var tweets = (List<Tweet>)converter.Deserialize(str, typeof(List<Tweet>));
-            //tweets.ForEach(tweet=>tweet.Sender.UserName = "@" + tweet.Sender.UserName);
-
             return new List<IMessage>(tweets.ToArray());
         }
 
@@ -154,8 +177,7 @@ namespace IronTwitterPlugIn
             if (_UserCredentials == null && CredentialsRequested != null)
                 CredentialsRequested(this, new CredentialEventArgs()
                 {
-                    ServiceID = SERVICE_ID,
-                    ServiceName = SERVICE_NAME
+                    ServiceInfo = _ServiceInformation
                 });
         }
     }

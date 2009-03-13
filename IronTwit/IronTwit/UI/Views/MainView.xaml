@@ -16,16 +16,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition />
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="0" Text="Inbox" />
-            <ComboBox Grid.Column="1" x:Name="SenderFilter" />
-            <TextBox Grid.Column="2" x:Name="SearchBox" Text="Filter on..." />
-        </Grid>
+        <TextBlock Grid.Column="0" Text="Inbox" />  
         <ListBox Grid.Row="1" Grid.IsSharedSizeScope="True" MinHeight="100" 
                  x:Name="Inbox" 
                  ItemsSource="{Binding Messages}" 

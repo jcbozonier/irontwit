@@ -14,7 +14,10 @@ namespace Unite.UI.Utilities
 
         public Credentials GetCredentials(IServiceInformation serviceInformation)
         {
-            var model = new UserCredentialsViewModel();
+            var model = new UserCredentialsViewModel()
+                            {
+                                Caption = serviceInformation.ServiceName + " Login"
+                            };
 
             var dialog = new UserCredentialsWindow
                              {

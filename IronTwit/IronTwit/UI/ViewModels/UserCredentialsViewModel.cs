@@ -35,5 +35,7 @@ namespace Unite.UI.ViewModels
                 SetValue(PasswordProperty, value);
             }
         }
+
+        public string Caption { get; set; }
     }
 }

@@ -9,9 +9,8 @@ using NUnit.Framework;
 using SpecUnit;
 
 
-namespace Unite.Specs.ServicesScope.Sending_normal_messages
+namespace Unite.Specs.TwitterServicesScope
 {
-
     [TestFixture]
     public class When_sending_a_large_message_with_no_recipient : context
     {

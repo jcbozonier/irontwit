@@ -72,37 +72,50 @@ namespace Unite.Specs.Application_running
 
         public int _Counter;
 
-        public List<IMessage> GetMessages(Credentials credentials)
+        public bool CanAccept(Credentials credentials)
         {
-            Credentials = credentials;
+            return true;
+        }
+
+        public List<IMessage> GetMessages()
+        {
+            Credentials = new Credentials() { UserName = "username", Password = "password" };
 
             _Counter++;
 
             return _Counter == 1
                        ? new List<IMessage>()
                              {
-                                 new Tweet() {Text = "testing", Sender = new TwitterUser() {UserName = "darkxanthos"}}
+                                 new Tweet() {Text = "testing", Recipient = new TwitterUser() {UserName = "darkxanthos"}}
                              }
                        : new List<IMessage>();
         }
 
-        public void SendMessage(Credentials credentials, string recipient, string message)
+        public void SendMessage(string recipient, string message)
         {
-            Credentials = credentials;
+            Credentials = new Credentials() { UserName = "username", Password = "password" };
             Message = message;
             Recipient = recipient;
         }
+
+        public void SetCredentials(Credentials credentials)
+        {
+            Credentials = credentials;
+        }
+
+        public event EventHandler<CredentialEventArgs> CredentialsRequested;
     }
 
     public class TestingInteractionContext : IInteractionContext
     {
-        public Credentials GetCredentials()
+       public Credentials GetCredentials(IServiceInformation serviceInformation)
         {
             return new Credentials()
-            {
-                UserName = "username",
-                Password = "password"
-            };
+                       {
+                           UserName = "username",
+                           Password = "password",
+                           ServiceInformation = serviceInformation
+                       };
         }
 
         public bool AuthenticationFailedRetryQuery()

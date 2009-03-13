@@ -72,7 +72,7 @@
   <ItemGroup>
     <Compile Include="Application_running\Class1.cs" />
     <Compile Include="Application_running\When_messages_are_refreshed.cs" />
-    <Compile Include="ReceivingMessages\MessagesWithLinks.cs" />
+    <Compile Include="TwitterServicesScope\When_receiving_messages.cs" />
     <Compile Include="TwitterServicesScope\When_sending_large_messages.cs" />
     <Compile Include="TwitterServicesScope\When_sending_normal_messages.cs" />
     <Compile Include="Starting_Application\Happy_path.cs" />
@@ -83,6 +83,7 @@
     <Compile Include="TwitterServicesScope\Formatting_messages_for_twitter.cs" />
     <Compile Include="UnitTests\InlineUrlsTests.cs" />
     <Compile Include="UnitTests\ServiceResolverTests.cs" />
+    <Compile Include="Using_Services\When_getting_messages.cs" />
     <Compile Include="Utilities\SpecUnit.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -98,6 +99,9 @@
       <Project>{7B3CBD74-D69D-420F-90F9-19174C7DE3FA}</Project>
       <Name>Unite.Messaging</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ReceivingMessages\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

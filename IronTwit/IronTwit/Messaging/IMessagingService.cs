@@ -7,7 +7,22 @@ namespace Unite.Messaging
 {
     public interface IMessagingService
     {
-        List<IMessage> GetMessages(Credentials credentials);
-        void SendMessage(Credentials credentials, string recipient, string message);
+        bool CanAccept(Credentials credentials);
+        List<IMessage> GetMessages();
+        void SendMessage(string recipient, string message);
+        void SetCredentials(Credentials credentials);
+        event EventHandler<CredentialEventArgs> CredentialsRequested;
+    }
+
+    public class CredentialEventArgs : EventArgs, IServiceInformation
+    {
+        public string ServiceName { get; set; }
+        public Guid ServiceID { get; set; }
+    }
+
+    public interface IServiceInformation
+    {
+        string ServiceName { get; }
+        Guid ServiceID { get; }
     }
 }

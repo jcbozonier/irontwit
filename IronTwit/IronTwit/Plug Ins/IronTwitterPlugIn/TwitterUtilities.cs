@@ -31,6 +31,8 @@ namespace IronTwitterPlugIn
         public static readonly Guid SERVICE_ID = new Guid("{FC1DF655-BBA0-4036-B352-CA98E1B565D7}");
         public static readonly string SERVICE_NAME = "Twitter";
 
+        private Credentials _UserCredentials;
+
         public Guid ServiceId { get { return SERVICE_ID; } }
         public string ServiceName { get { return SERVICE_NAME; } }
 
@@ -62,8 +64,11 @@ namespace IronTwitterPlugIn
                 _DataAccess = new TwitterDataAccess();
         }
 
-        public void SendMessage(Credentials credentials, string recipient, string message)
+        public void SendMessage(string recipient, string message)
         {
+            _RequestCredentials();
+
+
             // Get the maximum length of a message subtracting the to field
             // go to the maxLength - 1 index of the message and search backwards for a space or end of string.
             // tag this index as the end index
@@ -73,10 +78,10 @@ namespace IronTwitterPlugIn
             // repeat until the endIndex == messageLength-1.
 
             var maxLengthOfMessageContent = (!string.IsNullOrEmpty(recipient))
-                                                ? 140 - (recipient.Length + 1) //For space below
-                                                : 140;
+                                                ? MaxMessageLength - (recipient.Length + 1) //For space below
+                                                : MaxMessageLength;
 
-            var recipientMessagePortion = (!String.IsNullOrEmpty(credentials.UserName))
+            var recipientMessagePortion = (!String.IsNullOrEmpty(recipient))
                                               ? recipient + " "
                                               : "";
 
@@ -108,14 +113,30 @@ namespace IronTwitterPlugIn
                 
             }
 
-            messagesToSend.ForEach((messageToSend) => _DataAccess.SendMessage(credentials, messageToSend));
+            messagesToSend.ForEach((messageToSend) => _DataAccess.SendMessage(_UserCredentials, messageToSend));
         }
 
-        public List<IMessage> GetMessages(Credentials credentials)
+        public void SetCredentials(Credentials credentials)
         {
+            _UserCredentials = credentials;
+        }
+
+        public event EventHandler<CredentialEventArgs> CredentialsRequested;
+
+        public bool CanAccept(Credentials credentials)
+        {
+            return
+                credentials.ServiceInformation.Equals(new ServiceInformation()
+                                                          {ServiceID = SERVICE_ID, ServiceName = SERVICE_NAME});
+        }
+
+        public List<IMessage> GetMessages()
+        {
+            _RequestCredentials();
+
             string resultString = String.Empty;
             
-            resultString = _DataAccess.GetMessages(credentials);
+            resultString = _DataAccess.GetMessages(_UserCredentials);
 
             var str = new StringReader(resultString);
             var converter = new JsonSerializer();
@@ -126,6 +147,16 @@ namespace IronTwitterPlugIn
             //tweets.ForEach(tweet=>tweet.Sender.UserName = "@" + tweet.Sender.UserName);
 
             return new List<IMessage>(tweets.ToArray());
+        }
+
+        private void _RequestCredentials()
+        {
+            if (_UserCredentials == null && CredentialsRequested != null)
+                CredentialsRequested(this, new CredentialEventArgs()
+                {
+                    ServiceID = SERVICE_ID,
+                    ServiceName = SERVICE_NAME
+                });
         }
     }
 }

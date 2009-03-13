@@ -43,14 +43,6 @@ namespace Unite.Specs.Application_starting.Receiving_messages
         protected MainView Model;
         protected TestTwitterUtilities Utilities;
 
-        protected bool Application_Asked_For_User_Name_And_Password
-        {
-            get
-            {
-                return !String.IsNullOrEmpty(Model.UserName) && !String.IsNullOrEmpty(Model.Password);
-            }
-        }
-
         protected bool Message_was_sent
         {
             get;
@@ -62,13 +54,8 @@ namespace Unite.Specs.Application_starting.Receiving_messages
         public void Setup()
         {
             ContainerBootstrapper.BootstrapStructureMap();
-
-            Utilities = new TestTwitterUtilities();
-
-            ObjectFactory.EjectAllInstancesOf<IMessagingService>();
-            ObjectFactory.Inject<IMessagingService>(Utilities);
-
             Model = ObjectFactory.GetInstance<MainView>();
+            
             Context();
             Because();
         }
@@ -78,47 +65,29 @@ namespace Unite.Specs.Application_starting.Receiving_messages
         protected abstract void Context();
     }
 
-    public class TestTwitterUtilities : IMessagingService
+    public class TestDataAccess : ITwitterDataAccess
     {
-        public Guid ServiceId { get { return Guid.NewGuid(); } }
-        public string ServiceName { get { return "TestTwitter"; } }
-
-        public Credentials Credentials;
-        public string Message;
-
-        public List<IMessage> GetMessages(Credentials credentials)
+        public string SendMessage(Credentials credentials, string message)
         {
-            Credentials = credentials;
-
-            return new List<IMessage>
-                       {
-                           new Tweet()
-                               {
-                                   Text="Message 1",
-                                   Sender = new TwitterUser()
-                                              {
-                                                  UserName = "darkxanthos"
-                                              }
-                               }
-                       };
+            return "";
         }
 
-        public void SendMessage(Credentials credentials, string recipient, string message)
+        public string GetMessages(Credentials credentials)
         {
-            Credentials = credentials;
-            Message = message;
+            return "[{text:'Message 1'}]";
         }
     }
 
     public class TestingInteractionContext : IInteractionContext
     {
-        public Credentials GetCredentials()
+        public Credentials GetCredentials(IServiceInformation serviceInformation)
         {
             return new Credentials()
-            {
-                UserName = "username",
-                Password = "password"
-            };
+                       {
+                           UserName = "testuser",
+                           Password = "testpw",
+                           ServiceInformation = serviceInformation
+                       };
         }
 
         public bool AuthenticationFailedRetryQuery()
@@ -133,12 +102,16 @@ namespace Unite.Specs.Application_starting.Receiving_messages
         public static void BootstrapStructureMap()
         {
 
+            var serviceProviders = new ServiceProvider();
+            serviceProviders.Add(new TwitterUtilities(new TestDataAccess()));
+
             // Initialize the static ObjectFactory container
 
             ObjectFactory.Initialize(x =>
             {
                 x.ForRequestedType<IInteractionContext>().TheDefaultIsConcreteType<TestingInteractionContext>();
-                x.ForRequestedType<IMessagingService>().TheDefaultIsConcreteType<TestTwitterUtilities>();
+                x.ForRequestedType<IMessagingService>().TheDefaultIsConcreteType<ServicesManager>();
+                x.ForRequestedType<Messaging.IServiceProvider>().TheDefault.IsThis(serviceProviders);
             });
 
         }

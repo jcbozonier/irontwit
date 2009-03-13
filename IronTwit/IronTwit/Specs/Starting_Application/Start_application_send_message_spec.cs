@@ -95,14 +95,6 @@ namespace Unite.Specs.Application_starting.Sending_messages
         protected MainView Model;
         protected TestTwitterUtilities Utilities;
 
-        protected bool Application_Asked_For_User_Name_And_Password
-        {
-            get
-            {
-                return !String.IsNullOrEmpty(Model.UserName) && !String.IsNullOrEmpty(Model.Password);
-            }
-        }
-
         protected bool Message_was_sent
         {
             get; set;
@@ -138,30 +130,38 @@ namespace Unite.Specs.Application_starting.Sending_messages
         public string Message;
         public string Recipient;
 
-        public List<IMessage> GetMessages(Credentials credentials)
+        public bool CanAccept(Credentials credentials)
         {
-            Credentials = credentials;
+            return true;
+        }
+
+        public List<IMessage> GetMessages()
+        {
+            Credentials = new Credentials() { UserName = "username", Password = "password" };
 
             return new List<IMessage>();
         }
 
-        public void SendMessage(Credentials credentials, string recipient, string message)
+        public void SendMessage(string recipient, string message)
         {
-            Credentials = credentials;
+            Credentials = new Credentials() { UserName = "username", Password = "password" };
             Message = message;
             Recipient = recipient;
         }
+
+        public void SetCredentials(Credentials credentials)
+        {
+            Credentials = credentials;
+        }
+
+        public event EventHandler<CredentialEventArgs> CredentialsRequested;
     }
 
     public class TestingInteractionContext : IInteractionContext
     {
-        public Credentials GetCredentials()
+        public Credentials GetCredentials(IServiceInformation serviceInformation)
         {
-            return new Credentials()
-            {
-                UserName = "username",
-                Password = "password"
-            };
+            throw new System.NotImplementedException();
         }
 
         public bool AuthenticationFailedRetryQuery()

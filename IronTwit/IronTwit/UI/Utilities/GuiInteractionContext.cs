@@ -11,7 +11,8 @@ namespace Unite.UI.Utilities
 {
     public class GuiInteractionContext : IInteractionContext
     {
-        public Credentials GetCredentials()
+
+        public Credentials GetCredentials(IServiceInformation serviceInformation)
         {
             var model = new UserCredentialsViewModel();
 
@@ -24,7 +25,8 @@ namespace Unite.UI.Utilities
             return new Credentials()
                        {
                            UserName = model.UserName,
-                           Password = model.Password
+                           Password = model.Password,
+                           ServiceInformation = serviceInformation
                        };
         }
 

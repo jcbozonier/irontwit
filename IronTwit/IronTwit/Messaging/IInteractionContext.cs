@@ -8,7 +8,7 @@ namespace Unite.Messaging
 {
     public interface IInteractionContext
     {
-        Credentials GetCredentials();
+        Credentials GetCredentials(IServiceInformation serviceInformation);
         bool AuthenticationFailedRetryQuery();
     }
 }

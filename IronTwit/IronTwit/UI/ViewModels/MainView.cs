@@ -24,15 +24,6 @@ namespace Unite.UI.ViewModels
         public IInteractionContext Interactions;
 
         /// <summary>
-        /// The user's username for twitter.
-        /// </summary>
-        public string UserName { get; set; }
-        /// <summary>
-        /// The user's password for twitter. This is horrible way to hold this info imo.
-        /// </summary>
-        public string Password { get; set; }
-
-        /// <summary>
         /// A list of all of the tweets that should be displayed.
         /// </summary>
         public ObservableCollection<IMessage> Messages { get; set; }
@@ -86,7 +77,7 @@ namespace Unite.UI.ViewModels
         /// </summary>
         public ReceiveMessagesCommand ReceiveMessage { get; set; }
 
-        List<object> _ServiceProviders;
+        private IMessagingService _MessagingService;
 
         public MainView(
             IInteractionContext interactionContext,
@@ -97,8 +88,8 @@ namespace Unite.UI.ViewModels
             if(messagingService == null)
                 throw new ArgumentNullException("messagingService");
 
-            // This might be better being created in the controller. (App.xaml.cs)
-            _ServiceProviders = new List<object>();
+            _MessagingService = messagingService;
+            _MessagingService.CredentialsRequested += messagingService_CredentialsRequested;
 
             Messages = new ObservableCollection<IMessage>();
             MyReplies = new ObservableCollection<IMessage>();
@@ -108,16 +99,15 @@ namespace Unite.UI.ViewModels
             SendMessage = new SendMessageCommand(
                 () =>
                     {
-                        messagingService.SendMessage(new Credentials {UserName = UserName, Password = Password}, Recipient, MessageToSend);
-                        MessageToSend = "";
+                        _MessagingService.SendMessage(Recipient, MessageToSend);
                         Recipient = "";
+                        MessageToSend = "";
                     });
 
             ReceiveMessage = new ReceiveMessagesCommand(
                 () =>
                     {
-                        var result = messagingService.GetMessages(new Credentials{UserName = UserName, Password = Password});
-
+                        var result = _MessagingService.GetMessages();
                         Messages.Clear();
 
                         foreach (var message in result)
@@ -126,6 +116,12 @@ namespace Unite.UI.ViewModels
                         }
                     });
 
+        }
+
+        void messagingService_CredentialsRequested(object sender, CredentialEventArgs e)
+        {
+            var credentials = Interactions.GetCredentials(e);
+            _MessagingService.SetCredentials(credentials);
         }
 
         /// <summary>
@@ -138,10 +134,6 @@ namespace Unite.UI.ViewModels
             bool shouldRetryAuthorization = false;
             do
             {
-                var credentials = Interactions.GetCredentials();
-                UserName = credentials.UserName;
-                Password = credentials.Password;
-
                 ReceiveMessage.Execute(
                     null, 
                     webException => 

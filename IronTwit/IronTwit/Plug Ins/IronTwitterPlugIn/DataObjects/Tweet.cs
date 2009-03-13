@@ -25,15 +25,15 @@ namespace IronTwitterPlugIn.DataObjects
         /// </summary>
         public TwitterUser user
         {
-            get { return (TwitterUser)Sender; }
+            get { return (TwitterUser)Recipient; }
             set
             {
                 if (!value.UserName.StartsWith("@"))
                     value.UserName = "@" + value.UserName;
-                Sender = value;
+                Recipient = value;
             }
         }
 
-        public ISender Sender { get; set; }
+        public IRecipient Recipient { get; set; }
     }
 }

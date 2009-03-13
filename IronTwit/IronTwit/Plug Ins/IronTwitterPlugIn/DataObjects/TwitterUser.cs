@@ -6,7 +6,7 @@ using Unite.Messaging;
 
 namespace IronTwitterPlugIn.DataObjects
 {
-    public class TwitterUser : ISender
+    public class TwitterUser : IRecipient
     {
         public Guid ServiceId { get { return TwitterUtilities.SERVICE_ID; } }
 

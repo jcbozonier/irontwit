@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Unite.Messaging;
 
-namespace Unite.Messaging
+namespace Unite.UI.Utilities
 {
     public class UiMessage : IMessage
     {

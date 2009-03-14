@@ -7,6 +7,8 @@ using NUnit.Framework;
 using SpecUnit;
 using StructureMap;
 using Unite.Messaging;
+using Unite.Messaging.Entities;
+using Unite.Messaging.Messages;
 using Unite.UI.Utilities;
 using Unite.UI.ViewModels;
 

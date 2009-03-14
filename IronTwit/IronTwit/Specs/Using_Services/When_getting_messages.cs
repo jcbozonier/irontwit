@@ -5,6 +5,9 @@ using System.Text;
 using NUnit.Framework;
 using SpecUnit;
 using Unite.Messaging;
+using Unite.Messaging.Entities;
+using Unite.Messaging.Messages;
+using Unite.Messaging.Services;
 
 namespace Unite.Specs.Using_Services
 {
@@ -39,7 +42,7 @@ namespace Unite.Specs.Using_Services
         public void Setup()
         {
             MyCredentials = new Credentials() { UserName = "username", Password = "password" };
-            ServiceProvider = new ServiceProvider();
+            ServiceProvider = new ServiceProvider(new PluginFinder());
             ServiceProvider.Add(new FauxMessageService("test 1"), new FauxMessageService("test2"));
             ServiceManager = new ServicesManager(ServiceProvider);
 

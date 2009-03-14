@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Unite.Messaging.Entities;
+using Unite.Messaging.Messages;
 using Unite.UI.Utilities;
 using Unite.UI.ViewModels;
 using IronTwitterPlugIn.DataObjects;

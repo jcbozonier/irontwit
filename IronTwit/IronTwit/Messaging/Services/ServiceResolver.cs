@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
+using Unite.Messaging.Entities;
+using Unite.Messaging.Messages;
 
-namespace Unite.Messaging
+namespace Unite.Messaging.Services
 {
-    public interface IServiceResolver
-    {
-        ServiceInformation GetService(string address);
-    }
-
     public class ServiceResolver : IServiceResolver
     {
         public ServiceResolver(IServiceProvider provider)
@@ -17,7 +11,7 @@ namespace Unite.Messaging
             _Services = provider.GetServices();
         }
 
-        private IEnumerable<IMessagingService> _Services;
+        private readonly IEnumerable<IMessagingService> _Services;
 
         public ServiceInformation GetService(string address)
         {

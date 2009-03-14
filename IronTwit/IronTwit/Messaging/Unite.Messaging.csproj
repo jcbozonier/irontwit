@@ -45,22 +45,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Contact.cs" />
-    <Compile Include="Credentials.cs" />
-    <Compile Include="ICredentialCache.cs" />
-    <Compile Include="IInteractionContext.cs" />
-    <Compile Include="IMessage.cs" />
-    <Compile Include="IMessagingServiceRegistry.cs" />
-    <Compile Include="MessagingAccount.cs" />
-    <Compile Include="IMessagingService.cs" />
-    <Compile Include="IPluginLoader.cs" />
-    <Compile Include="Identity.cs" />
+    <Compile Include="Messages\CredentialEventArgs.cs" />
+    <Compile Include="Entities\Contact.cs" />
+    <Compile Include="Entities\Credentials.cs" />
+    <Compile Include="Entities\IServiceInformation.cs" />
+    <Compile Include="Messages\ICredentialCache.cs" />
+    <Compile Include="Prompts\IInteractionContext.cs" />
+    <Compile Include="Entities\IMessage.cs" />
+    <Compile Include="Messages\IMessagingServiceManager.cs" />
+    <Compile Include="Messages\IMessagingServiceRegistry.cs" />
+    <Compile Include="Services\IPluginFinder.cs" />
+    <Compile Include="Services\IServiceProvider.cs" />
+    <Compile Include="Messages\MessagingAccount.cs" />
+    <Compile Include="Messages\IMessagingService.cs" />
+    <Compile Include="Entities\Identity.cs" />
+    <Compile Include="Services\IServiceResolver.cs" />
+    <Compile Include="Services\PluginFinder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ServiceInformation.cs" />
-    <Compile Include="ServiceProvider.cs" />
-    <Compile Include="ServiceResolver.cs" />
-    <Compile Include="ServicesManager.cs" />
-    <Compile Include="UiMessage.cs" />
+    <Compile Include="Entities\ServiceInformation.cs" />
+    <Compile Include="Services\ServiceProvider.cs" />
+    <Compile Include="Services\ServiceResolver.cs" />
+    <Compile Include="Services\ServicesManager.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,4 +1,5 @@
 ﻿using Bound.Net;
+using Unite.Messaging.Messages;
 using Unite.UI.Utilities;
 using System;
 using System.Collections.ObjectModel;

@@ -1,4 +1,5 @@
-﻿using Unite.UI.Utilities;
+﻿using Unite.Messaging.Services;
+using Unite.UI.Utilities;
 using StructureMap;
 using Unite.Messaging;
 
@@ -16,6 +17,7 @@ namespace Unite.UI
                 x.ForRequestedType<IMessagingServiceManager>().TheDefaultIsConcreteType<ServicesManager>();
                 x.ForRequestedType<IContactProvider>().TheDefaultIsConcreteType<ContactProvider>();
                 x.ForRequestedType<IServiceProvider>().TheDefaultIsConcreteType<ServiceProvider>();
+                x.ForRequestedType<IPluginFinder>().TheDefaultIsConcreteType<PluginFinder>();
             });
         }
     }

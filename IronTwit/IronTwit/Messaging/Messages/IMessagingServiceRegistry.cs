@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Unite.Messaging
+namespace Unite.Messaging.Messages
 {
     public interface IMessagingServiceRegistry
     {

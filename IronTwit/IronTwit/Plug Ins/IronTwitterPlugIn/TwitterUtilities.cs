@@ -6,24 +6,12 @@ using StructureMap;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using Unite.Messaging;
+using Unite.Messaging.Entities;
+using Unite.Messaging.Messages;
 
 namespace IronTwitterPlugIn
 {
-    public interface ITwitterDataAccess
-    {
-        /// <summary>
-        /// Returns a status in JSON.
-        /// </summary>
-        /// <param name="credentials"></param>
-        /// <param name="message"></param>
-        /// <returns></returns>
-        string SendMessage(Credentials credentials, string message);
-        string GetMessages(Credentials credentials);
-    }
-
     [StructureMap.Pluggable("Complex")]
     public class TwitterUtilities : IMessagingService
     {
@@ -61,7 +49,7 @@ namespace IronTwitterPlugIn
         public TwitterUtilities(ITwitterDataAccess dataAccess)
         {
             // .NET Twitter fix for HTTP Error 417 with Twitter
-            System.Net.ServicePointManager.Expect100Continue = false;
+            ServicePointManager.Expect100Continue = false;
 
             _DataAccess = dataAccess; //testing path
             

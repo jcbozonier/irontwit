@@ -6,6 +6,7 @@ using IronTwitterPlugIn;
 using NUnit.Framework;
 using SpecUnit;
 using Unite.Messaging;
+using Unite.Messaging.Messages;
 
 namespace Unite.Specs.TwitterServicesScope
 {

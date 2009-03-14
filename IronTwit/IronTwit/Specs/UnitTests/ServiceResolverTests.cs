@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using IronTwitterPlugIn;
 using NUnit.Framework;
-using Unite.Messaging;
+using Unite.Messaging.Services;
 
 namespace Unite.Specs.UnitTests
 {

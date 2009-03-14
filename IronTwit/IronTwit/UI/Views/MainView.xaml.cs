@@ -14,7 +14,6 @@ namespace Unite.UI.Views
         public MainView(ViewModels.MainView viewModel)
         {
             InitializeComponent();
-            Loaded += Window1_Loaded;
             DataContext = viewModel;
         }
 
@@ -22,7 +21,5 @@ namespace Unite.UI.Views
         {
             ((ViewModels.IInitializeView)DataContext).Init();
         }
-
-        
     }
 }

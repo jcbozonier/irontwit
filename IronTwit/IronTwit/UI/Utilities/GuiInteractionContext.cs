@@ -23,6 +23,8 @@ namespace Unite.UI.Utilities
                              {
                                  DataContext = model
                              };
+            var mainWindow = Application.Current.MainWindow;
+            dialog.Owner = mainWindow;
             dialog.ShowDialog();
 
             return new Credentials()

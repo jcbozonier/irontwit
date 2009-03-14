@@ -66,6 +66,8 @@ namespace Unite.UI.ViewModels
             }
         }
 
+        public string Title { get { return "Unite Messaging - by Justin Bozonier"; } }
+
         /// <summary>
         /// Command object invoked by the InteractionContext (GUI) to send
         /// a message.

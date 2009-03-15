@@ -127,7 +127,7 @@ namespace Unite.Specs.Application_starting
         {
             CredentialsRequested(this, new CredentialEventArgs());
 
-            return new List<IMessage>(){new Tweet(){Text="testing",Recipient=new FakeUser(){UserName = "darkxanthos"}}};
+            return new List<IMessage>(){new Tweet(){Text="testing",Address=new FakeUser(){UserName = "darkxanthos"}}};
         }
 
         public void SendMessage(IIdentity recipient, string message)

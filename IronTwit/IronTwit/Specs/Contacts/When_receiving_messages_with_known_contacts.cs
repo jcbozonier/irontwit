@@ -119,7 +119,7 @@ namespace Unite.Specs.Contacts
     public class FakeMessage : IMessage
     {
         public string Text { get; set; }
-        public IIdentity Recipient { get; set; }
+        public IIdentity Address { get; set; }
     }
 
     public class FakeMessagingService : IMessagingServiceManager
@@ -144,7 +144,7 @@ namespace Unite.Specs.Contacts
                            new FakeMessage()
                                {
                                    Text = "message text",
-                                   Recipient = new Identity("darkxanthos", _Information)
+                                   Address = new Identity("darkxanthos", _Information)
                                }
                        };
         }

@@ -75,7 +75,7 @@ namespace Unite.Specs.Using_Services
                        {
                            new Message()
                                {
-                                   Recipient = new Recipient(){UserName = "darkxanthos"},
+                                   Address = new Recipient(){UserName = "darkxanthos"},
                                    Text = MessageText
                                }
                        };
@@ -123,7 +123,7 @@ namespace Unite.Specs.Using_Services
             get; set;
         }
 
-        public IIdentity Recipient
+        public IIdentity Address
         {
             get; set;
         }

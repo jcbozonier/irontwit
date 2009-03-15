@@ -1,4 +1,5 @@
 ﻿using Unite.Messaging;
+using Unite.Messaging.Entities;
 
 namespace IronTwitterPlugIn.DataObjects
 {
@@ -20,15 +21,15 @@ namespace IronTwitterPlugIn.DataObjects
         /// </summary>
         public TwitterUser user
         {
-            get { return (TwitterUser)Recipient; }
+            get { return (TwitterUser)Address; }
             set
             {
                 if (!value.UserName.StartsWith("@"))
                     value.UserName = "@" + value.UserName;
-                Recipient = value;
+                Address = value;
             }
         }
 
-        public IIdentity Recipient { get; set; }
+        public IIdentity Address { get; set; }
     }
 }

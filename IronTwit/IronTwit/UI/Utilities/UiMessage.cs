@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Unite.Messaging;
+using Unite.Messaging.Entities;
 
 namespace Unite.UI.Utilities
 {
@@ -10,7 +11,7 @@ namespace Unite.UI.Utilities
     {
         public UiMessage(IMessage message, Contact contact)
         {
-            Recipient = message.Recipient;
+            Address = message.Address;
             Text = message.Text;
             Contact = contact;
         }
@@ -20,7 +21,7 @@ namespace Unite.UI.Utilities
             get; set;
         }
 
-        public IIdentity Recipient
+        public IIdentity Address
         {
             get; set;
         }

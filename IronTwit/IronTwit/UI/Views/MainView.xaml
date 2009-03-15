@@ -44,7 +44,7 @@
                 <Button x:Name="ReceiveMessage" Grid.Row="0" Grid.Column="2" 
                     Command="{Binding ReceiveMessage}" 
                     Content="Refresh" />
-                <TextBox x:Name="MessageToSend" Text="{Binding MessageToSend}" Grid.Row="1" Grid.ColumnSpan="3" Background="{DynamicResource LightGradientBackGround}" />
+                <TextBox x:Name="MessageToSend" TextWrapping="WrapWithOverflow" Text="{Binding MessageToSend}" Grid.Row="1" Grid.ColumnSpan="3" Background="{DynamicResource LightGradientBackGround}" />
             </Grid>
         </Grid>
     </Border>

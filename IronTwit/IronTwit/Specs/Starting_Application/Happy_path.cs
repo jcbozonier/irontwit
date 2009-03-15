@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using Unite.Messaging.Entities;
+using Unite.Messaging.Messages;
 using Unite.UI.Utilities;
 using Unite.UI.ViewModels;
 using IronTwitterPlugIn.DataObjects;
@@ -125,7 +127,7 @@ namespace Unite.Specs.Application_starting
         {
             CredentialsRequested(this, new CredentialEventArgs());
 
-            return new List<IMessage>(){new Tweet(){Text="testing",Recipient=new FakeUser(){UserName = "darkxanthos"}}};
+            return new List<IMessage>(){new Tweet(){Text="testing",Address=new FakeUser(){UserName = "darkxanthos"}}};
         }
 
         public void SendMessage(IIdentity recipient, string message)

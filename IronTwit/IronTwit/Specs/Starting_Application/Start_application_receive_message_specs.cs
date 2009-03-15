@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using Unite.Messaging.Entities;
+using Unite.Messaging.Services;
 using Unite.UI.Utilities;
 using Unite.UI.ViewModels;
 using IronTwitterPlugIn;
@@ -8,6 +10,7 @@ using NUnit.Framework;
 using SpecUnit;
 using StructureMap;
 using Unite.Messaging;
+using IServiceProvider=Unite.Messaging.Services.IServiceProvider;
 
 namespace Unite.Specs.Application_starting.Receiving_messages
 {
@@ -102,7 +105,7 @@ namespace Unite.Specs.Application_starting.Receiving_messages
         public static void BootstrapStructureMap()
         {
 
-            var serviceProviders = new ServiceProvider();
+            var serviceProviders = new ServiceProvider(new PluginFinder());
             serviceProviders.Add(new TwitterUtilities(new TestDataAccess()));
 
             // Initialize the static ObjectFactory container
@@ -112,7 +115,7 @@ namespace Unite.Specs.Application_starting.Receiving_messages
                 x.ForRequestedType<IInteractionContext>().TheDefaultIsConcreteType<TestingInteractionContext>();
                 x.ForRequestedType<IMessagingServiceManager>().TheDefaultIsConcreteType<ServicesManager>();
                 x.ForRequestedType<IContactProvider>().TheDefaultIsConcreteType<ContactProvider>();
-                x.ForRequestedType<Messaging.IServiceProvider>().TheDefault.IsThis(serviceProviders);
+                x.ForRequestedType<IServiceProvider>().TheDefault.IsThis(serviceProviders);
             });
 
         }

@@ -1,21 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Unite.Messaging;
+﻿using Unite.Messaging;
+using Unite.Messaging.Entities;
 
 namespace IronTwitterPlugIn.DataObjects
 {
     public class TwitterUser : IIdentity
     {
-        /// <summary>
-        /// I don't want anyone outside this library creating these.
-        /// </summary>
-        public TwitterUser()
-        {
-            
-        }
-
         /// <summary>
         /// for de/serialization only (alias to UserName)
         /// </summary>

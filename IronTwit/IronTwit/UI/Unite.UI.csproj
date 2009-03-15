@@ -115,6 +115,7 @@
     <Compile Include="Utilities\ContactProvider.cs" />
     <Compile Include="Utilities\InlineUrls.cs" />
     <Compile Include="Utilities\GuiInteractionContext.cs" />
+    <Compile Include="Utilities\UiMessage.cs" />
     <Compile Include="ViewModels\DelegateCommand.cs" />
     <Compile Include="ViewModels\MainView.cs" />
     <Compile Include="ViewModels\ReceiveMessagesCommand.cs" />

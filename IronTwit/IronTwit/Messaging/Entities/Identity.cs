@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Unite.Messaging.Entities;
 
 namespace Unite.Messaging
 {
@@ -33,8 +34,8 @@ namespace Unite.Messaging
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != typeof (Identity)) return false;
-            return Equals((Identity) obj);
+            if (obj.GetType() != typeof(Identity)) return false;
+            return Equals((Identity)obj);
         }
 
         public bool Equals(Identity obj)
@@ -48,7 +49,7 @@ namespace Unite.Messaging
         {
             unchecked
             {
-                return (UserName.GetHashCode()*397) ^ ServiceInfo.GetHashCode();
+                return (UserName.GetHashCode() * 397) ^ ServiceInfo.GetHashCode();
             }
         }
     }

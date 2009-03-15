@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using SpecUnit;
 using StructureMap;
-using Unite.Messaging;
+using Unite.Messaging.Messages;
 using Unite.UI.ViewModels;
 
 namespace Unite.Specs.Application_running.Managing_Plugins

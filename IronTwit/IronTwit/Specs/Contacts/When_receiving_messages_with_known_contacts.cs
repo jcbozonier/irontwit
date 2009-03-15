@@ -7,6 +7,8 @@ using NUnit.Framework;
 using SpecUnit;
 using StructureMap;
 using Unite.Messaging;
+using Unite.Messaging.Entities;
+using Unite.Messaging.Messages;
 using Unite.UI.Utilities;
 using Unite.UI.ViewModels;
 
@@ -117,7 +119,7 @@ namespace Unite.Specs.Contacts
     public class FakeMessage : IMessage
     {
         public string Text { get; set; }
-        public IIdentity Recipient { get; set; }
+        public IIdentity Address { get; set; }
     }
 
     public class FakeMessagingService : IMessagingServiceManager
@@ -142,7 +144,7 @@ namespace Unite.Specs.Contacts
                            new FakeMessage()
                                {
                                    Text = "message text",
-                                   Recipient = new Identity("darkxanthos", _Information)
+                                   Address = new Identity("darkxanthos", _Information)
                                }
                        };
         }

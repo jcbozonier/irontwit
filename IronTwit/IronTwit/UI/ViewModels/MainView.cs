@@ -1,10 +1,8 @@
 ﻿using Bound.Net;
+using Unite.Messaging.Messages;
 using Unite.UI.Utilities;
 using System;
 using System.Collections.ObjectModel;
-using System.Collections.Generic;
-using System.Net;
-using System.Windows;
 using System.ComponentModel;
 using Unite.Messaging;
 
@@ -27,6 +25,7 @@ namespace Unite.UI.ViewModels
         /// A list of all of the tweets that should be displayed.
         /// </summary>
         public ObservableCollection<UiMessage> Messages { get; set; }
+
         /// <summary>
         /// A list of all of the user's messages.
         /// </summary>
@@ -68,6 +67,20 @@ namespace Unite.UI.ViewModels
 
         public string Title { get { return "Unite Messaging - by Justin Bozonier"; } }
 
+        UiMessage _SelectedMessage;
+        public UiMessage SelectedMessage
+        {
+            get
+            {
+                return _SelectedMessage;
+            }
+            set
+            {
+                _SelectedMessage = value;
+                PropertyChanged.Notify(()=>SelectedMessage);
+            }
+        }
+
         /// <summary>
         /// Command object invoked by the InteractionContext (GUI) to send
         /// a message.
@@ -92,8 +105,9 @@ namespace Unite.UI.ViewModels
                 throw new ArgumentNullException("messagingService");
 
             _ContactRepo = contactRepo;
-
             _MessagingService = messagingService;
+
+            PropertyChanged += MainView_PropertyChanged;
             _MessagingService.CredentialsRequested += messagingService_CredentialsRequested;
 
             Messages = new ObservableCollection<UiMessage>();
@@ -117,11 +131,21 @@ namespace Unite.UI.ViewModels
                         
                         foreach (var message in result)
                         {
-                            var uiMessage = new UiMessage(message, _ContactRepo.Get(message.Recipient));
+                            var uiMessage = new UiMessage(message, _ContactRepo.Get(message.Address));
                             Messages.Add(uiMessage);
                         }
                     });
 
+        }
+
+        void MainView_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            switch(e.PropertyName)
+            {
+                case "SelectedMessage":
+                    Recipient = SelectedMessage.Address.UserName;
+                    break;
+            }
         }
 
         protected IContactProvider _ContactRepo;

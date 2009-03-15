@@ -18,6 +18,7 @@
             <ListBox Grid.Row="1" Grid.IsSharedSizeScope="True" MinHeight="100" 
                  x:Name="Inbox" 
                  ItemsSource="{Binding Messages}" 
+                 SelectedItem="{Binding SelectedMessage}"
                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                  ScrollViewer.VerticalScrollBarVisibility="Visible" Background="{DynamicResource LightGradientBackGround}">
                 <ListBox.ItemTemplate>

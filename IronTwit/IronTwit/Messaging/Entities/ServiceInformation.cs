@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Unite.Messaging
+namespace Unite.Messaging.Entities
 {
     public class ServiceInformation : IServiceInformation
     {
@@ -19,12 +19,12 @@ namespace Unite.Messaging
 
         public override bool Equals(object obj)
         {
-            return ServiceInformation.AreEqual(this, obj);
+            return AreEqual(this, obj);
         }
 
         public bool Equals(ServiceInformation obj)
         {
-            return ServiceInformation.AreEqual(this, obj);
+            return AreEqual(this, obj);
         }
 
         public static bool AreEqual(object a, object b)

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using Unite.Messaging.Entities;
+using Unite.Messaging.Messages;
 
-namespace Unite.Messaging
+namespace Unite.Messaging.Services
 {
     public class ServicesManager : IMessagingServiceManager
     {

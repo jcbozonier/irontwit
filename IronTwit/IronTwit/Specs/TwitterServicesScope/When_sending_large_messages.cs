@@ -1,5 +1,6 @@
 ﻿using System;
 using Unite.Messaging;
+using Unite.Messaging.Entities;
 using Unite.UI.Utilities;
 using IronTwitterPlugIn;
 using NUnit.Framework;

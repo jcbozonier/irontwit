@@ -9,12 +9,11 @@ namespace Unite.UI.Views
     /// <summary>
     /// Interaction logic for Window1.xaml
     /// </summary>
-    public partial class MainView : Window
+    public partial class MainView : DraggableWindow
     {
         public MainView(ViewModels.MainView viewModel)
         {
             InitializeComponent();
-            Loaded += Window1_Loaded;
             DataContext = viewModel;
         }
 
@@ -22,7 +21,5 @@ namespace Unite.UI.Views
         {
             ((ViewModels.IInitializeView)DataContext).Init();
         }
-
-        
     }
 }

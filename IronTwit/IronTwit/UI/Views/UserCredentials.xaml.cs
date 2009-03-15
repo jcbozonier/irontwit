@@ -17,26 +17,26 @@ namespace Unite.UI.Views
     /// <summary>
     /// Interaction logic for UserCredentials.xaml
     /// </summary>
-    public partial class UserCredentialsWindow : Window
+    public partial class UserCredentialsWindow : DraggableWindow
     {
         public UserCredentialsWindow()
         {
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
-
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            UserName.Focus();
-        }
-
         private void Password_PasswordChanged(object sender, RoutedEventArgs e)
         {
             ((UserCredentialsViewModel) DataContext).Password = Password.Password;
+        }
+
+        private void Ok_Click(object sender, RoutedEventArgs e)
+        {
+            DialogResult = true;
+        }
+
+        private void Cancel_Click(object sender, RoutedEventArgs e)
+        {
+            DialogResult = false;
         }
     }
 }

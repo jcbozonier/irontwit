@@ -170,7 +170,7 @@ namespace IronTwitterPlugIn
                 // Those credentials suck apparently.
                 _UserCredentials = null;
                 // Let everyone know how much they suck.
-                throw new AuthenticationException("Log in failed for some reason.", err);
+                throw new WebException("Log in failed for some reason.", err);
             }
             
             return new List<IMessage>(tweets.ToArray());

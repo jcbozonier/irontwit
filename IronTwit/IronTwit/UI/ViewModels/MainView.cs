@@ -65,6 +65,8 @@ namespace Unite.UI.ViewModels
             }
         }
 
+        public string Title { get { return "Unite Messaging - by Justin Bozonier"; } }
+
         UiMessage _SelectedMessage;
         public UiMessage SelectedMessage
         {

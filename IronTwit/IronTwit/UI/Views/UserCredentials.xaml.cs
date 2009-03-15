@@ -17,7 +17,7 @@ namespace Unite.UI.Views
     /// <summary>
     /// Interaction logic for UserCredentials.xaml
     /// </summary>
-    public partial class UserCredentialsWindow : Window
+    public partial class UserCredentialsWindow : DraggableWindow
     {
         public UserCredentialsWindow()
         {

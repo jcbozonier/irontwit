@@ -4,19 +4,17 @@
     xmlns:Controls="clr-namespace:Unite.UI.Controls"
     xmlns:UI="clr-namespace:Unite.UI"
     Title="{Binding Title}" Width="437" Height="504" Loaded="Window1_Loaded" WindowStyle="None" BorderThickness="0" ResizeMode="CanResize" Background="Transparent" AllowsTransparency="True">
-    <Border BorderThickness="5,20,5,20" CornerRadius="10,10,10,10">
-        <Border.BorderBrush>
+    <Border CornerRadius="20,20,0,0">
+        <Border.Background>
             <SolidColorBrush Color="{StaticResource BackgroundDark}" />
-        </Border.BorderBrush>
+        </Border.Background>
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <Canvas Grid.Row="0">
-                <TextBlock Canvas.Top="-20" Canvas.Left="10" Text="Inbox" TextAlignment="Center" FontSize="18" />
-            </Canvas>
+            <TextBlock Grid.Row="0" Text="Inbox" TextAlignment="Center" FontSize="18" />
             <ListBox Grid.Row="1" Grid.IsSharedSizeScope="True" MinHeight="100" 
                  x:Name="Inbox" 
                  ItemsSource="{Binding Messages}" 

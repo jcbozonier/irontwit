@@ -28,6 +28,7 @@ namespace Unite.Messaging
         }
 
         public string UserName { get; private set; }
+
         public ServiceInformation ServiceInfo { get; private set; }
 
         public override bool Equals(object obj)

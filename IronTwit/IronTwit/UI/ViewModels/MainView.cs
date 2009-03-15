@@ -117,11 +117,13 @@ namespace Unite.UI.ViewModels
 
             SendMessage = new SendMessageCommand(
                 () =>
-                    {
-                        _MessagingService.SendMessage(Recipient, MessageToSend);
-                        Recipient = "";
-                        MessageToSend = "";
-                    });
+                {
+                    _MessagingService.SendMessage(Recipient, MessageToSend);
+                    Recipient = "";
+                    MessageToSend = "";
+                    if(ReceiveMessage.CanExecute(null))
+                        ReceiveMessage.Execute(null);
+                });
 
             ReceiveMessage = new ReceiveMessagesCommand(
                 () =>

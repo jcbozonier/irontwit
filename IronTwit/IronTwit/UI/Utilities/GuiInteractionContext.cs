@@ -12,7 +12,6 @@ namespace Unite.UI.Utilities
 {
     public class GuiInteractionContext : IInteractionContext
     {
-
         public Credentials GetCredentials(IServiceInformation serviceInformation)
         {
             var model = new UserCredentialsViewModel()
@@ -26,6 +25,7 @@ namespace Unite.UI.Utilities
                              };
             var mainWindow = Application.Current.MainWindow;
             dialog.Owner = mainWindow;
+            dialog.WindowStartupLocation = WindowStartupLocation.CenterOwner;
             dialog.ShowDialog();
 
             return new Credentials()

@@ -3,48 +3,73 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:Controls="clr-namespace:Unite.UI.Controls"
     xmlns:UI="clr-namespace:Unite.UI"
-    Title="{Binding Title}" Width="437" Height="504" Loaded="Window1_Loaded" WindowStyle="None" BorderThickness="0" ResizeMode="CanResize" Background="Transparent" AllowsTransparency="True">
-    <Border CornerRadius="20,20,0,0">
+    xmlns:System="clr-namespace:System;assembly=mscorlib"
+    Title="{Binding Title}" Width="437" Height="504" Loaded="Window1_Loaded" FocusManager.FocusedElement="{Binding ElementName=Recipient}" WindowStyle="None" BorderThickness="0" ResizeMode="CanResize" Background="Transparent" AllowsTransparency="True">
+    <UI:DraggableWindow.Resources>
+        <System:Double x:Key="HeaderHeight">20</System:Double>
+        <System:Double x:Key="FooterHeight">20</System:Double>
+        <GridLength x:Key="HeaderGridLength">20</GridLength>
+        <GridLength x:Key="FooterGridLength">20</GridLength>
+        <Thickness x:Key="ContentMargin">10,0</Thickness>
+    </UI:DraggableWindow.Resources>
+    <Border BorderBrush="Black" BorderThickness="1">
+        <Border.CornerRadius>
+            <CornerRadius 
+                TopLeft="{StaticResource HeaderHeight}" 
+                TopRight="{StaticResource HeaderHeight}" 
+                BottomLeft="{StaticResource FooterHeight}" 
+                BottomRight="{StaticResource FooterHeight}" />
+        </Border.CornerRadius>
         <Border.Background>
             <SolidColorBrush Color="{StaticResource BackgroundDark}" />
         </Border.Background>
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="{StaticResource HeaderGridLength}"/>
+                <RowDefinition Height="0.8*"/>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="0.2*" />
+                <RowDefinition Height="{StaticResource FooterGridLength}" />
             </Grid.RowDefinitions>
-            <TextBlock Grid.Row="0" Text="Inbox" TextAlignment="Center" FontSize="18" />
-            <ListBox Grid.Row="1" Grid.IsSharedSizeScope="True" MinHeight="100" 
-                 x:Name="Inbox" 
-                 ItemsSource="{Binding Messages}" 
-                 SelectedItem="{Binding SelectedMessage}"
-                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                 ScrollViewer.VerticalScrollBarVisibility="Visible" Background="{DynamicResource LightGradientBackGround}">
+            <TextBlock Grid.Row="0" Text="Inbox - Unit3" TextAlignment="Left" FontSize="18" Margin="{StaticResource ContentMargin}" />
+            <StackPanel Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="10,0">
+                <Grid x:Name="MinimizeButton" Background="#00000000" MouseLeftButtonUp="MinimizeButton_MouseLeftButtonUp">
+                    <Rectangle Width="12" Height="12" Fill="AntiqueWhite" Stroke="DarkGray" StrokeThickness="1" IsHitTestVisible="False" />
+                    <Path Width="10" Height="10" VerticalAlignment="Center" HorizontalAlignment="Center" Data="M2,8L8,8" Stroke="DarkGreen" StrokeStartLineCap="Round" StrokeEndLineCap="Round" StrokeThickness="2" IsHitTestVisible="False" />
+                </Grid>
+                <Grid x:Name="CloseButton" Margin="2,0,0,0" MouseLeftButtonUp="CloseButton_MouseLeftButtonUp">
+                    <Rectangle Width="12" Height="12" Fill="AntiqueWhite" Stroke="DarkGray" StrokeThickness="1"/>
+                    <Path Width="10" Height="10" VerticalAlignment="Center" HorizontalAlignment="Center" Data="M0,0L10,10M0,10L10,0" Stroke="DarkGreen" StrokeStartLineCap="Round" StrokeEndLineCap="Round" StrokeThickness="2" />
+                </Grid>
+            </StackPanel>
+            <ListBox Grid.Row="1" Grid.IsSharedSizeScope="True" MinHeight="100" Margin="{StaticResource ContentMargin}" 
+                     x:Name="Inbox" 
+                     ItemsSource="{Binding Messages}" 
+                     SelectedItem="{Binding SelectedMessage}"
+                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                     ScrollViewer.VerticalScrollBarVisibility="Visible" Background="{DynamicResource LightGradientBackGround}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Controls:MessageView />
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-            <Grid Grid.Row="2" Background="{DynamicResource LightGradientBackGround}">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
+            <Grid Grid.Row="2" Margin="{StaticResource ContentMargin}" >
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition MinHeight="100" />
+                    <RowDefinition Height="40" />
                 </Grid.RowDefinitions>
-                <TextBox x:Name="Recipient" Text="{Binding Recipient}" Grid.Row="0" Grid.Column="0" />
-                <Button x:Name="SendMessage" Grid.Row="0" Grid.Column="1" 
-                    Command="{Binding SendMessage}" 
-                    Content="Send" />
-                <Button x:Name="ReceiveMessage" Grid.Row="0" Grid.Column="2" 
-                    Command="{Binding ReceiveMessage}" 
-                    Content="Refresh" />
-                <TextBox x:Name="MessageToSend" TextWrapping="WrapWithOverflow" Text="{Binding MessageToSend}" Grid.Row="1" Grid.ColumnSpan="3" Background="{DynamicResource LightGradientBackGround}" />
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="85"/>
+                    <ColumnDefinition Width="85"/>
+                </Grid.ColumnDefinitions>
+                <TextBox x:Name="Recipient" Grid.Column="0" VerticalAlignment="Center" Text="{Binding Recipient}" />
+                <Button x:Name="SendMessage" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right"  Width="75" Command="{Binding SendMessage}" Content="Send" Click="SendMessage_Click" />
+                <Button x:Name="ReceiveMessage" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right" Width="75" Command="{Binding ReceiveMessage}" Content="Refresh" />
+            </Grid>
+            <TextBox x:Name="MessageToSend" Grid.Row="3" TextWrapping="WrapWithOverflow" Margin="{StaticResource ContentMargin}" Text="{Binding MessageToSend}" Background="{DynamicResource LightGradientBackGround}" KeyUp="MessageToSend_KeyUp" />
+            <Grid Grid.Row="4" Width="20" Height="20" HorizontalAlignment="Right" VerticalAlignment="Bottom" Background="#00000000" Cursor="SizeNWSE" MouseLeftButtonDown="Resizer_MouseDown" MouseLeftButtonUp="Resizer_MouseUp" MouseMove="Resizer_MouseMove">
+                <Path x:Name="Resizer" Width="20" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" Data="M15,0A15,15 90 0 1 0,15M18,0A18,18 90 0 1 0,18" Stroke="DarkSeaGreen" StrokeStartLineCap="Round" StrokeEndLineCap="Round" StrokeThickness="1" />
             </Grid>
         </Grid>
     </Border>

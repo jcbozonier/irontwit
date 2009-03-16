@@ -1,47 +1,72 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows;
+using System.Windows.Input;
 
 namespace Unite.UI
 {
     public class DraggableWindow : Window
     {
-        private Point _dragOffset;
+        private Point? _mouseDownPoint;
         private bool _dragging;
 
-        protected override void OnMouseLeftButtonDown(System.Windows.Input.MouseButtonEventArgs e)
-        {
-            this.CaptureMouse();
-            _dragging = true;
+        protected Point _resizeMouseDownPoint;
+        protected Size _mouseDownSize;
+        protected bool _resizing;
 
-            _dragOffset = e.MouseDevice.GetPosition(null);
+        protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
+        {
+            Console.WriteLine("DraggableWindow.OnMouseLeftButtonDown");
+            _mouseDownPoint = e.MouseDevice.GetPosition(null);
 
             base.OnMouseLeftButtonDown(e);
         }
 
-        protected override void OnMouseLeftButtonUp(System.Windows.Input.MouseButtonEventArgs e)
+        protected override void OnMouseLeftButtonUp(MouseButtonEventArgs e)
         {
-            _dragging = false;
-            this.ReleaseMouseCapture();
+            _mouseDownPoint = null;
+
+            if (_dragging)
+            {
+                _dragging = false;
+                ReleaseMouseCapture();
+            }
 
             base.OnMouseLeftButtonUp(e);
         }
 
-        protected override void OnMouseMove(System.Windows.Input.MouseEventArgs e)
+        protected override void OnMouseMove(MouseEventArgs e)
         {
-            if (!_dragging)
+            if (e.LeftButton != MouseButtonState.Pressed || _mouseDownPoint == null || _resizing)
+            {
+                base.OnMouseMove(e);
                 return;
+            }
 
-            var currentOffsetPosition = e.MouseDevice.GetPosition(null);
-            var dragVector = Point.Subtract(currentOffsetPosition, _dragOffset);
+            var currentPosition = e.MouseDevice.GetPosition(null);
+            var moveVector = Point.Subtract(currentPosition, (Point)_mouseDownPoint);
+
+            if (_dragging)
+            {
+                DragWindow(e, moveVector);
+                return;
+            }
+
+            if (moveVector.Length >= 3) //this is a drag
+            {
+                _dragging = true;
+                CaptureMouse();
+                return;
+            }
+
+            base.OnMouseMove(e);
+        }
+
+        private void DragWindow(MouseEventArgs e, Vector dragVector)
+        {
             var newPosition = PointToScreen(new Point(dragVector.X, dragVector.Y));
 
             Left = newPosition.X;
             Top = newPosition.Y;
-
-            base.OnMouseMove(e);
         }
     }
 }

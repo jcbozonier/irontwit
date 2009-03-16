@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Windows;
 using System.Windows.Input;
-using Unite.UI.Utilities;
-using Unite.UI.ViewModels;
 
 namespace Unite.UI.Views
 {
@@ -48,12 +44,12 @@ namespace Unite.UI.Views
 
             if (_resizing)
             {
-                ResizeWindow(e, moveVector);
+                ResizeWindow(moveVector);
                 return;
             }
         }
 
-        private void ResizeWindow(MouseEventArgs e, Vector dragVector)
+        private void ResizeWindow(Vector dragVector)
         {
             var newWidth = _mouseDownSize.Width  + dragVector.X;
             var newHeight = _mouseDownSize.Height + dragVector.Y;
@@ -77,7 +73,18 @@ namespace Unite.UI.Views
             {
                 SendMessage.Focus(); //need to cause MessageToSend to lose focus so binding will update viewmodel
                 SendMessage.Command.Execute(null);
+                OnMessageSent();
             }
+        }
+
+        private void SendMessage_Click(object sender, RoutedEventArgs e)
+        {
+            OnMessageSent();
+        }
+
+        private void OnMessageSent()
+        {
+            Recipient.Focus();
         }
     }
 }

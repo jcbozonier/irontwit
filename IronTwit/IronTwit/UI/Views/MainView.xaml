@@ -64,7 +64,7 @@
                     <ColumnDefinition Width="85"/>
                 </Grid.ColumnDefinitions>
                 <TextBox x:Name="Recipient" Grid.Column="0" VerticalAlignment="Center" Text="{Binding Recipient}" />
-                <Button x:Name="SendMessage" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right"  Width="75" Command="{Binding SendMessage}" Content="Send" />
+                <Button x:Name="SendMessage" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right"  Width="75" Command="{Binding SendMessage}" Content="Send" Click="SendMessage_Click" />
                 <Button x:Name="ReceiveMessage" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right" Width="75" Command="{Binding ReceiveMessage}" Content="Refresh" />
             </Grid>
             <TextBox x:Name="MessageToSend" Grid.Row="3" TextWrapping="WrapWithOverflow" Margin="{StaticResource ContentMargin}" Text="{Binding MessageToSend}" Background="{DynamicResource LightGradientBackGround}" KeyUp="MessageToSend_KeyUp" />

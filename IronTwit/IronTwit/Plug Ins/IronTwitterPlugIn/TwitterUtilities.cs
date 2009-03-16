@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using System.Security.Authentication;
+using System.Threading;
 using IronTwitterPlugIn.DataObjects;
 using Newtonsoft.Json;
 using StructureMap;
@@ -9,6 +10,7 @@ using System.IO;
 using Unite.Messaging;
 using Unite.Messaging.Entities;
 using Unite.Messaging.Messages;
+using Unite.Messaging.Services;
 
 namespace IronTwitterPlugIn
 {
@@ -143,6 +145,22 @@ namespace IronTwitterPlugIn
             return
                 credentials.ServiceInformation.Equals(new ServiceInformation()
                                                           {ServiceID = SERVICE_ID, ServiceName = SERVICE_NAME});
+        }
+
+        public event EventHandler<MessagesReceivedEventArgs> MessagesReceived;
+        public void StartReceiving()
+        {
+            var receivingThread = new Thread(() =>
+                                                 {
+                                                     var messages = GetMessages();
+                                                     if(MessagesReceived != null)
+                                                         MessagesReceived(this, new MessagesReceivedEventArgs(messages));
+                                                 });
+        }
+
+        public void StopReceiving()
+        {
+            
         }
 
         public List<IMessage> GetMessages()

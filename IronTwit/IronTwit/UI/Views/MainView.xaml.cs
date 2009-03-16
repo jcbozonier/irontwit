@@ -74,7 +74,10 @@ namespace Unite.UI.Views
         private void MessageToSend_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
+            {
+                SendMessage.Focus(); //need to cause MessageToSend to lose focus so binding will update viewmodel
                 SendMessage.Command.Execute(null);
+            }
         }
     }
 }

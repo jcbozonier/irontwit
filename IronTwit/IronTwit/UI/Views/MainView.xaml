@@ -67,7 +67,7 @@
                 <Button x:Name="SendMessage" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right"  Width="75" Command="{Binding SendMessage}" Content="Send" />
                 <Button x:Name="ReceiveMessage" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right" Width="75" Command="{Binding ReceiveMessage}" Content="Refresh" />
             </Grid>
-            <TextBox x:Name="MessageToSend" Grid.Row="3" Margin="{StaticResource ContentMargin}" Text="{Binding MessageToSend}" Background="{DynamicResource LightGradientBackGround}" KeyUp="MessageToSend_KeyUp" />
+            <TextBox x:Name="MessageToSend" Grid.Row="3" TextWrapping="WrapWithOverflow" Margin="{StaticResource ContentMargin}" Text="{Binding MessageToSend}" Background="{DynamicResource LightGradientBackGround}" KeyUp="MessageToSend_KeyUp" />
             <Grid Grid.Row="4" Width="20" Height="20" HorizontalAlignment="Right" VerticalAlignment="Bottom" Background="#00000000" Cursor="SizeNWSE" MouseLeftButtonDown="Resizer_MouseDown" MouseLeftButtonUp="Resizer_MouseUp" MouseMove="Resizer_MouseMove">
                 <Path x:Name="Resizer" Width="20" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" Data="M15,0A15,15 90 0 1 0,15M18,0A18,18 90 0 1 0,18" Stroke="DarkSeaGreen" StrokeStartLineCap="Round" StrokeEndLineCap="Round" StrokeThickness="1" />
             </Grid>

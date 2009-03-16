@@ -1,4 +1,5 @@
-﻿using Unite.Messaging.Services;
+﻿using System.Threading;
+using Unite.Messaging.Services;
 using Unite.UI.Utilities;
 using StructureMap;
 using Unite.Messaging;
@@ -13,7 +14,8 @@ namespace Unite.UI
             ObjectFactory.Initialize(x =>
             {
                 x.ForRequestedType<Views.MainView>().TheDefaultIsConcreteType<Views.MainView>();
-                x.ForRequestedType<IInteractionContext>().TheDefaultIsConcreteType<GuiInteractionContext>();
+                x.ForRequestedType<IInteractionContext>().TheDefault.IsThis(
+                    new GuiInteractionContext(Thread.CurrentThread));
                 x.ForRequestedType<IMessagingServiceManager>().TheDefaultIsConcreteType<ServicesManager>();
                 x.ForRequestedType<IContactProvider>().TheDefaultIsConcreteType<ContactProvider>();
                 x.ForRequestedType<IServiceProvider>().TheDefaultIsConcreteType<ServiceProvider>();

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Unite.Messaging.Entities;
 using Unite.Messaging.Messages;
+using Unite.Messaging.Services;
 using Unite.UI.Utilities;
 using Unite.UI.ViewModels;
 using IronTwitterPlugIn.DataObjects;
@@ -155,6 +156,18 @@ namespace Unite.Specs.Application_starting
                            ServiceName = ServiceName
                        };
         }
+
+        public void StartReceiving()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void StopReceiving()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public event EventHandler<MessagesReceivedEventArgs> MessagesReceived;
 
         public void SendMessage(string recipient, string message)
         {

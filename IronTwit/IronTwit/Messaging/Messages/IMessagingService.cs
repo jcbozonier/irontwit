@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Unite.Messaging.Entities;
+using Unite.Messaging.Services;
 
 namespace Unite.Messaging.Messages
 {
@@ -13,5 +14,8 @@ namespace Unite.Messaging.Messages
         event EventHandler<CredentialEventArgs> CredentialsRequested;
         bool CanFind(string address);
         ServiceInformation GetInformation();
+        void StartReceiving();
+        void StopReceiving();
+        event EventHandler<MessagesReceivedEventArgs> MessagesReceived;
     }
 }

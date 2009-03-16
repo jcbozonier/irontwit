@@ -76,6 +76,36 @@ namespace Unite.Messaging.Services
                        };
         }
 
+        public void StartReceiving()
+        {
+            var services = Provider.GetServices();
+
+            foreach (var service in services)
+            {
+                service.MessagesReceived += service_MessagesReceived;
+                service.StartReceiving();
+            }
+        }
+
+        void service_MessagesReceived(object sender, MessagesReceivedEventArgs e)
+        {
+            if (MessagesReceived != null)
+                MessagesReceived(sender, e);
+        }
+
+        public void StopReceiving()
+        {
+            var services = Provider.GetServices();
+
+            foreach (var service in services)
+            {
+                service.MessagesReceived -= service_MessagesReceived;
+                service.StopReceiving();
+            }
+        }
+
+        public event EventHandler<MessagesReceivedEventArgs> MessagesReceived;
+
         public void SendMessage(string recipient, string message)
         {
             var serviceToUse = _Resolver.GetService(recipient);

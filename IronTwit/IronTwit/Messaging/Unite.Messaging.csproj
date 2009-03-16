@@ -60,6 +60,7 @@
     <Compile Include="Messages\IMessagingService.cs" />
     <Compile Include="Entities\Identity.cs" />
     <Compile Include="Services\IServiceResolver.cs" />
+    <Compile Include="Services\MessageReceivedEventArgs.cs" />
     <Compile Include="Services\PluginFinder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Entities\ServiceInformation.cs" />

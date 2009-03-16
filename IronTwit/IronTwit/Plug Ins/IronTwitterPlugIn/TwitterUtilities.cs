@@ -147,20 +147,31 @@ namespace IronTwitterPlugIn
                                                           {ServiceID = SERVICE_ID, ServiceName = SERVICE_NAME});
         }
 
+        private bool _StopReceiving;
+
         public event EventHandler<MessagesReceivedEventArgs> MessagesReceived;
         public void StartReceiving()
         {
+            _StopReceiving = false;
+
             var receivingThread = new Thread(() =>
                                                  {
-                                                     var messages = GetMessages();
-                                                     if(MessagesReceived != null)
-                                                         MessagesReceived(this, new MessagesReceivedEventArgs(messages));
+                                                     while(!_StopReceiving)
+                                                     {
+                                                         var messages = GetMessages();
+                                                         if (MessagesReceived != null)
+                                                             MessagesReceived(this,
+                                                                              new MessagesReceivedEventArgs(messages));
+                                                         Thread.Sleep(10*1000);
+                                                     }
                                                  });
+            receivingThread.Start();
+
         }
 
         public void StopReceiving()
         {
-            
+            _StopReceiving = true;
         }
 
         public List<IMessage> GetMessages()

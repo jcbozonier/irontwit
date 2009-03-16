@@ -101,6 +101,18 @@ namespace Unite.Specs.Using_Services
         {
             throw new System.NotImplementedException();
         }
+
+        public void StartReceiving()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void StopReceiving()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public event EventHandler<MessagesReceivedEventArgs> MessagesReceived;
     }
 
     public class Recipient : IIdentity

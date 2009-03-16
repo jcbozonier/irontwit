@@ -1,4 +1,7 @@
-﻿using Bound.Net;
+﻿using System.Collections.Generic;
+using System.Threading;
+using System.Windows.Threading;
+using Bound.Net;
 using Unite.Messaging.Messages;
 using Unite.UI.Utilities;
 using System;
@@ -94,6 +97,8 @@ namespace Unite.UI.ViewModels
 
         private IMessagingServiceManager _MessagingService;
 
+        private Thread _CurrentThread;
+
         public MainView(
             IInteractionContext interactionContext,
             IMessagingServiceManager messagingService, 
@@ -104,11 +109,14 @@ namespace Unite.UI.ViewModels
             if(messagingService == null)
                 throw new ArgumentNullException("messagingService");
 
+            _CurrentThread = Thread.CurrentThread;
+
             _ContactRepo = contactRepo;
             _MessagingService = messagingService;
 
             PropertyChanged += MainView_PropertyChanged;
             _MessagingService.CredentialsRequested += messagingService_CredentialsRequested;
+            _MessagingService.MessagesReceived += new EventHandler<Unite.Messaging.Services.MessagesReceivedEventArgs>(_MessagingService_MessagesReceived);
 
             Messages = new ObservableCollection<UiMessage>();
             MyReplies = new ObservableCollection<UiMessage>();
@@ -140,6 +148,27 @@ namespace Unite.UI.ViewModels
 
         }
 
+        void _MessagingService_MessagesReceived(object sender, Unite.Messaging.Services.MessagesReceivedEventArgs e)
+        {
+            var dispatcher = Dispatcher.FromThread(_CurrentThread);
+            dispatcher.Invoke(DispatcherPriority.Normal, (Action) (() =>
+                                                                       {
+                                                                           var uiMessages =
+                                                                               e.Messages.Convert(
+                                                                                   (message) =>
+                                                                                   new UiMessage(message,
+                                                                                                 _ContactRepo.Get(
+                                                                                                     message.Address)));
+
+                                                                           Messages.Clear();
+
+                                                                           foreach (var message in uiMessages)
+                                                                           {
+                                                                               Messages.Add(message);
+                                                                           }
+                                                                       }));
+        }
+
         void MainView_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             switch(e.PropertyName)
@@ -165,15 +194,7 @@ namespace Unite.UI.ViewModels
         /// </summary>
         public void Init()
         {
-            bool shouldRetryAuthorization = false;
-            do
-            {
-                ReceiveMessage.Execute(
-                    null, 
-                    webException => 
-                        shouldRetryAuthorization = Interactions.AuthenticationFailedRetryQuery());
-
-            } while (shouldRetryAuthorization);
+            _MessagingService.StartReceiving();
         }
 
         /// <summary>

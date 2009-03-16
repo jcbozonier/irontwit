@@ -9,6 +9,7 @@ using StructureMap;
 using Unite.Messaging;
 using Unite.Messaging.Entities;
 using Unite.Messaging.Messages;
+using Unite.Messaging.Services;
 using Unite.UI.Utilities;
 using Unite.UI.ViewModels;
 
@@ -169,6 +170,18 @@ namespace Unite.Specs.Contacts
         {
             throw new System.NotImplementedException();
         }
+
+        public void StartReceiving()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void StopReceiving()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public event EventHandler<MessagesReceivedEventArgs> MessagesReceived;
 
         public void SendMessage(string recipient, string message)
         {

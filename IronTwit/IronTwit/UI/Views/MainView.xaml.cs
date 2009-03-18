@@ -15,6 +15,12 @@ namespace Unite.UI.Views
             DataContext = viewModel;
         }
 
+        protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
+        {
+            base.OnClosing(e);
+            ((ViewModels.MainView)DataContext).Dispose();
+        }
+
         void Window1_Loaded(object sender, RoutedEventArgs e)
         {
             ((ViewModels.IInitializeView)DataContext).Init();

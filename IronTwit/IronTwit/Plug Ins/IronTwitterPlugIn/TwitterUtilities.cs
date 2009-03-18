@@ -149,6 +149,7 @@ namespace IronTwitterPlugIn
 
         private bool _StopReceiving;
 
+        private const int POLLING_INTERVAL_SECONDS = 10;
         public event EventHandler<MessagesReceivedEventArgs> MessagesReceived;
         public void StartReceiving()
         {
@@ -156,17 +157,21 @@ namespace IronTwitterPlugIn
 
             var receivingThread = new Thread(() =>
                                                  {
-                                                     while(!_StopReceiving)
+                                                     DateTime lastPollTime = DateTime.MinValue;
+                                                     while (!_StopReceiving)
                                                      {
-                                                         var messages = GetMessages();
-                                                         if (MessagesReceived != null)
-                                                             MessagesReceived(this,
-                                                                              new MessagesReceivedEventArgs(messages));
-                                                         Thread.Sleep(10*1000);
+                                                         if (DateTime.Now.Subtract(lastPollTime).TotalSeconds >= POLLING_INTERVAL_SECONDS)
+                                                         {
+                                                             var messages = GetMessages();
+                                                             if (MessagesReceived != null)
+                                                                 MessagesReceived(this,
+                                                                                  new MessagesReceivedEventArgs(messages));
+                                                             lastPollTime = DateTime.Now;
+                                                         }
+                                                         Thread.Sleep(250);
                                                      }
                                                  });
             receivingThread.Start();
-
         }
 
         public void StopReceiving()

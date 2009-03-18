@@ -11,7 +11,7 @@ using Unite.Messaging;
 
 namespace Unite.UI.ViewModels
 {
-    public interface IInitializeView
+    public interface IInitializeView : IDisposable
     {
         void Init();
     }
@@ -201,5 +201,10 @@ namespace Unite.UI.ViewModels
         /// Gets called whenever a property is changed.
         /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
+
+        public void Dispose()
+        {
+            _MessagingService.StopReceiving();
+        }
     }
 }

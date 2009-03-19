@@ -40,7 +40,6 @@ namespace Unite.Specs.Application_starting.Receiving_messages
         }
     }
 
-    [TestFixture]
     public abstract class context
     {
         protected MainView Model;
@@ -53,7 +52,7 @@ namespace Unite.Specs.Application_starting.Receiving_messages
         }
 
 
-        [SetUp]
+        [TestFixtureSetUp]
         public void Setup()
         {
             ContainerBootstrapper.BootstrapStructureMap();

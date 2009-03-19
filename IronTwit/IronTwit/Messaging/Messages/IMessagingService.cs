@@ -12,6 +12,7 @@ namespace Unite.Messaging.Messages
         void SendMessage(IIdentity recipient, string message);
         void SetCredentials(Credentials credentials);
         event EventHandler<CredentialEventArgs> CredentialsRequested;
+        event EventHandler<CredentialEventArgs> AuthorizationFailed;
         bool CanFind(string address);
         ServiceInformation GetInformation();
         void StartReceiving();

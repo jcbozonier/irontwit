@@ -15,29 +15,6 @@ using Unite.Messaging;
 namespace Unite.Specs.Application_running
 {
     [TestFixture]
-    public class When_messages_are_refreshed : context
-    {
-        protected override void Context()
-        {
-            Model = ObjectFactory.GetInstance<MainView>();
-            Model.Init();
-
-            Model.Messages.Count.ShouldEqual(1);
-        }
-
-        protected override void Because()
-        {
-            Model.ReceiveMessage.Execute(null);
-        }
-        
-        [Test]
-        public void It_should_clear_previous_messages()
-        {
-            Model.Messages.Count.ShouldEqual(0);
-        }
-    }
-
-    [TestFixture]
     public abstract class context
     {
         protected MainView Model;

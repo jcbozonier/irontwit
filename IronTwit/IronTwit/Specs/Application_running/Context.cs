@@ -56,6 +56,8 @@ namespace Unite.Specs.Application_running
         }
 
         public event EventHandler<CredentialEventArgs> CredentialsRequested;
+        public event EventHandler<CredentialEventArgs> AuthorizationFailed;
+
         public bool CanFind(string address)
         {
             return true;
@@ -68,12 +70,13 @@ namespace Unite.Specs.Application_running
 
         public void StartReceiving()
         {
-            throw new System.NotImplementedException();
+            if(MessagesReceived != null)
+                MessagesReceived(this, new MessagesReceivedEventArgs(new []{new Message(){Text = "Message", Address = new Identity("yada yada", GetInformation())}}));
         }
 
         public void StopReceiving()
         {
-            throw new System.NotImplementedException();
+            
         }
 
         public event EventHandler<MessagesReceivedEventArgs> MessagesReceived;

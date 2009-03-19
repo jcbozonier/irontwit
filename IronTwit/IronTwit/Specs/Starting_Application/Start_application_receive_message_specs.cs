@@ -53,7 +53,7 @@ namespace Unite.Specs.Application_starting.Receiving_messages
         }
 
 
-        [TestFixtureSetUp]
+        [SetUp]
         public void Setup()
         {
             ContainerBootstrapper.BootstrapStructureMap();

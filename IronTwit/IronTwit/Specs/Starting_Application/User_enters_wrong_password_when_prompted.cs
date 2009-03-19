@@ -1,15 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Text;
 using Unite.Messaging.Entities;
 using Unite.Messaging.Messages;
 using Unite.Messaging.Services;
 using Unite.UI.Utilities;
 using Unite.UI.ViewModels;
-using IronTwitterPlugIn;
-using IronTwitterPlugIn.DataObjects;
 using NUnit.Framework;
 using SpecUnit;
 using StructureMap;
@@ -107,9 +103,12 @@ namespace Unite.Specs.Starting_Application
 
         public List<IMessage> GetMessages()
         {
-            Credentials = new Credentials() { UserName = "username", Password = "password" };
+            var firstCredentials = new Credentials() { UserName = "username", Password = "password" };
+            Credentials = firstCredentials;
             
-            throw new WebException("Authentication failure.");
+            AuthorizationFailed(this, new CredentialEventArgs(){ServiceInfo = new ServiceInformation(){ServiceID = ServiceId, ServiceName = ServiceName}});
+
+            return new List<IMessage>();
         }
 
         public void SendMessage(IIdentity recipient, string message)
@@ -125,6 +124,8 @@ namespace Unite.Specs.Starting_Application
         }
 
         public event EventHandler<CredentialEventArgs> CredentialsRequested;
+        public event EventHandler<CredentialEventArgs> AuthorizationFailed;
+
         public bool CanFind(string address)
         {
             throw new System.NotImplementedException();
@@ -137,7 +138,7 @@ namespace Unite.Specs.Starting_Application
 
         public void StartReceiving()
         {
-            throw new System.NotImplementedException();
+            MessagesReceived(this, new MessagesReceivedEventArgs(GetMessages()));
         }
 
         public void StopReceiving()

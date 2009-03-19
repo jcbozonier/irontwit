@@ -161,6 +161,8 @@ namespace Unite.Specs.Contacts
         }
 
         public event EventHandler<CredentialEventArgs> CredentialsRequested;
+        public event EventHandler<CredentialEventArgs> AuthorizationFailed;
+
         public bool CanFind(string address)
         {
             throw new System.NotImplementedException();

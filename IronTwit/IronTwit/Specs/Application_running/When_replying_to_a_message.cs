@@ -17,6 +17,7 @@ namespace Unite.Specs.Application_running
     {
         private string Sender;
 
+        [Ignore]
         [Test]
         public void It_should_show_the_message_sender_in_the_recipient_field()
         {

@@ -60,17 +60,4 @@ namespace Unite.Specs.Application_running
 
         protected abstract void Context();
     }
-
-    public class Message : IMessage
-    {
-        public string Text
-        {
-            get; set;
-        }
-
-        public IIdentity Address
-        {
-            get; set;
-        }
-    }
 }

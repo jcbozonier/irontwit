@@ -76,16 +76,6 @@ namespace Unite.Specs.Application_running.sending_messages
         protected abstract void Context();
     }
 
-    public class TestSender : IIdentity
-    {
-        
-        public string UserName { get; set; }
-        public ServiceInformation ServiceInfo
-        {
-            get; set;
-        }
-    }
-
     public class TestTwitterDataAccess : ITwitterDataAccess
     {
         public int MessagesSent;

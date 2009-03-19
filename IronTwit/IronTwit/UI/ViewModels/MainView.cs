@@ -3,6 +3,7 @@ using System.Threading;
 using System.Windows.Threading;
 using Bound.Net;
 using Unite.Messaging.Messages;
+using Unite.Messaging.Services;
 using Unite.UI.Utilities;
 using System;
 using System.Collections.ObjectModel;
@@ -116,7 +117,8 @@ namespace Unite.UI.ViewModels
 
             PropertyChanged += MainView_PropertyChanged;
             _MessagingService.CredentialsRequested += messagingService_CredentialsRequested;
-            _MessagingService.MessagesReceived += new EventHandler<Unite.Messaging.Services.MessagesReceivedEventArgs>(_MessagingService_MessagesReceived);
+            _MessagingService.AuthorizationFailed += new EventHandler<CredentialEventArgs>(_MessagingService_AuthorizationFailed);
+            _MessagingService.MessagesReceived += _MessagingService_MessagesReceived;
 
             Messages = new ObservableCollection<UiMessage>();
             MyReplies = new ObservableCollection<UiMessage>();
@@ -148,25 +150,47 @@ namespace Unite.UI.ViewModels
 
         }
 
-        void _MessagingService_MessagesReceived(object sender, Unite.Messaging.Services.MessagesReceivedEventArgs e)
+        void _MessagingService_AuthorizationFailed(object sender, CredentialEventArgs e)
         {
-            var dispatcher = Dispatcher.FromThread(_CurrentThread);
-            dispatcher.Invoke(DispatcherPriority.Normal, (Action) (() =>
-                                                                       {
-                                                                           var uiMessages =
-                                                                               e.Messages.Convert(
-                                                                                   (message) =>
-                                                                                   new UiMessage(message,
-                                                                                                 _ContactRepo.Get(
-                                                                                                     message.Address)));
+            if (!Interactions.AuthenticationFailedRetryQuery()) return;
 
-                                                                           Messages.Clear();
+            messagingService_CredentialsRequested(this, e);
+        }
 
-                                                                           foreach (var message in uiMessages)
-                                                                           {
-                                                                               Messages.Add(message);
-                                                                           }
-                                                                       }));
+        void _MessagingService_MessagesReceived(object sender, MessagesReceivedEventArgs e)
+        {
+            if (_CurrentThread != Thread.CurrentThread)
+            {
+                var dispatcher = Dispatcher.FromThread(_CurrentThread);
+                dispatcher.Invoke(
+                    DispatcherPriority.Normal,
+                    (Action) (() => _GetMessagesFromEvent(e)));
+            }
+            else
+            {
+                _GetMessagesFromEvent(e);
+            }
+        }
+
+        private void _GetMessagesFromEvent(MessagesReceivedEventArgs e)
+        {
+            var uiMessages =
+                e.Messages.Convert
+                    (
+                    message =>
+                    new UiMessage
+                        (
+                        message,
+                        _ContactRepo.Get(message.Address)
+                        )
+                    );
+
+            Messages.Clear();
+
+            foreach (var message in uiMessages)
+            {
+                Messages.Add(message);
+            }
         }
 
         void MainView_PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -186,6 +210,8 @@ namespace Unite.UI.ViewModels
             var credentials = Interactions.GetCredentials(e.ServiceInfo);
             _MessagingService.SetCredentials(credentials);
         }
+
+
 
         /// <summary>
         /// This must be called when the application first starts so

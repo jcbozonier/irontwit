@@ -14,8 +14,14 @@ namespace Unite.Messaging.Services
         {
             Provider = provider;
             Provider.CredentialsRequested += Provider_CredentialsRequested;
-
+            Provider.AuthorizationFailed += Provider_AuthorizationFailed;
             _Resolver = new ServiceResolver(Provider);
+        }
+
+        void Provider_AuthorizationFailed(object sender, CredentialEventArgs e)
+        {
+            if (AuthorizationFailed != null)
+                AuthorizationFailed(sender, e);
         }
 
         void Provider_CredentialsRequested(object sender, CredentialEventArgs e)
@@ -60,6 +66,7 @@ namespace Unite.Messaging.Services
         }
 
         public event EventHandler<CredentialEventArgs> CredentialsRequested;
+        public event EventHandler<CredentialEventArgs> AuthorizationFailed;
 
         public bool CanFind(string address)
         {

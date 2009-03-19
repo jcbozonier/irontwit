@@ -58,6 +58,8 @@ namespace Unite.Specs.UnitTests
             }
 
             public event EventHandler<CredentialEventArgs> CredentialsRequested;
+            public event EventHandler<CredentialEventArgs> AuthorizationFailed;
+
             public IMessagingService GetService(ServiceInformation info)
             {
                 return _services.FirstOrDefault(service => service.GetInformation().Equals(info));

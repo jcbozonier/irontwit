@@ -124,6 +124,8 @@ namespace IronTwitterPlugIn
         }
 
         public event EventHandler<CredentialEventArgs> CredentialsRequested;
+        public event EventHandler<CredentialEventArgs> AuthorizationFailed;
+
         public bool CanFind(string address)
         {
             if (string.IsNullOrEmpty(address))
@@ -204,7 +206,8 @@ namespace IronTwitterPlugIn
                 // Those credentials suck apparently.
                 _UserCredentials = null;
                 // Let everyone know how much they suck.
-                throw new WebException("Log in failed for some reason.", err);
+                if(AuthorizationFailed != null)
+                    AuthorizationFailed(this, new CredentialEventArgs(){ServiceInfo = _ServiceInformation});
             }
             
             return new List<IMessage>(tweets.ToArray());

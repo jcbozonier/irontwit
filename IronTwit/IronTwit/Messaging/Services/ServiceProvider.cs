@@ -46,13 +46,20 @@ namespace Unite.Messaging.Services
         private void Add(IMessagingService service)
         {
             service.CredentialsRequested += _GetCredentials;
+            service.AuthorizationFailed += service_AuthorizationFailed;
             Services.Add(service);
+        }
+
+        void service_AuthorizationFailed(object sender, CredentialEventArgs e)
+        {
+            if (AuthorizationFailed != null)
+                AuthorizationFailed(sender, e);
         }
 
         private void _GetCredentials(object sender, CredentialEventArgs e)
         {
             if (CredentialsRequested != null)
-                CredentialsRequested(this, e);
+                CredentialsRequested(sender, e);
         }
 
         public IEnumerable<IMessagingService> GetServices()
@@ -61,6 +68,8 @@ namespace Unite.Messaging.Services
         }
 
         public event EventHandler<CredentialEventArgs> CredentialsRequested;
+        public event EventHandler<CredentialEventArgs> AuthorizationFailed;
+
         public IMessagingService GetService(ServiceInformation info)
         {
             if(Services == null)

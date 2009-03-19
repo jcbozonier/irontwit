@@ -92,6 +92,8 @@ namespace Unite.Specs.Using_Services
         }
 
         public event EventHandler<CredentialEventArgs> CredentialsRequested;
+        public event EventHandler<CredentialEventArgs> AuthorizationFailed;
+
         public bool CanFind(string address)
         {
             throw new System.NotImplementedException();

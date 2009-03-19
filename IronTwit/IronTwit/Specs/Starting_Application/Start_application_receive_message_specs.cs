@@ -40,7 +40,6 @@ namespace Unite.Specs.Application_starting.Receiving_messages
         }
     }
 
-    [TestFixture]
     public abstract class context
     {
         protected MainView Model;

@@ -4,11 +4,14 @@ using System.Linq;
 using System.Text;
 using IronTwitterPlugIn;
 using NUnit.Framework;
+using Unite.Messaging.Entities;
+using Unite.Messaging.Messages;
 using Unite.Messaging.Services;
+using IServiceProvider=Unite.Messaging.Services.IServiceProvider;
 
 namespace Unite.Specs.UnitTests
 {
-    [Ignore]
+    //[Ignore]
     [TestFixture]
     public class ServiceResolverTests
     {
@@ -18,52 +21,55 @@ namespace Unite.Specs.UnitTests
 
         private ServiceResolver _resolver;
 
-        [TestFixtureSetUp]
-        public void FixtureSetup()
-        {
-            _resolver = new ServiceResolver(null);
-        }
-
         [Test]
         public void DetectTwitterAddress()
         {
-            Assert.AreEqual(TwitterUtilities.SERVICE_ID, _resolver.GetService(TwitterAddress),
+            Assert.AreEqual(TwitterUtilities.SERVICE_ID, _resolver.GetService(TwitterAddress).ServiceID,
                             "Resolved service for Twitter address");
-            Assert.AreEqual(TwitterUtilities.SERVICE_ID, _resolver.GetService(null), "Resolved service for null");
-            Assert.AreEqual(TwitterUtilities.SERVICE_ID, _resolver.GetService(""), "Resolved service for string.Empty");
-            Assert.AreEqual(TwitterUtilities.SERVICE_ID, _resolver.GetService(" "), "Resolved service for whitespace");
+            Assert.AreEqual(TwitterUtilities.SERVICE_ID, _resolver.GetService(null).ServiceID, "Resolved service for null");
+            Assert.AreEqual(TwitterUtilities.SERVICE_ID, _resolver.GetService("").ServiceID, "Resolved service for string.Empty");
+            Assert.AreEqual(TwitterUtilities.SERVICE_ID, _resolver.GetService(" ").ServiceID, "Resolved service for whitespace");
         }
 
         [Test]
         public void DetectEmailAddress()
         {
-            try
-            {
-                _resolver.GetService(EmailAddress);
-            }
-            catch (Exception ex)
-            {
-                Assert.AreEqual(typeof(NotSupportedException), ex.GetType(), "Email is not supported");
-                Assert.AreEqual("Email", ex.Message, "Service not supported");
-                return;
-            }
-            Assert.Fail("Should have thrown NotSupported Exception");
+            Assert.AreEqual(null, _resolver.GetService(EmailAddress), "Provider for Email addresses (not implemented yet)");
         }
 
         [Test]
         public void DetectGChatAddress()
         {
-            try
+            Assert.AreEqual(null, _resolver.GetService(GChatAddress), "Provider for GChat addresses (not implemented yet)");
+        }
+
+        internal class TestServiceProvider : IServiceProvider
+        {
+            private List<IMessagingService> _services = new List<IMessagingService>();
+
+            public void Add(params IMessagingService[] services)
             {
-                _resolver.GetService(GChatAddress);
+                _services.AddRange(services);
             }
-            catch (Exception ex)
+
+            public IEnumerable<IMessagingService> GetServices()
             {
-                Assert.AreEqual(typeof(NotSupportedException), ex.GetType(), "GChat is not supported");
-                Assert.AreEqual("GChat", ex.Message, "Service not supported");
-                return;
+                return _services;
             }
-            Assert.Fail("Should have thrown NotSupported Exception");
+
+            public event EventHandler<CredentialEventArgs> CredentialsRequested;
+            public IMessagingService GetService(ServiceInformation info)
+            {
+                return _services.FirstOrDefault(service => service.GetInformation().Equals(info));
+            }
+        }
+
+        [TestFixtureSetUp]
+        public void FixtureSetup()
+        {
+            IServiceProvider serviceProvider = new TestServiceProvider();
+            serviceProvider.Add(new TwitterUtilities());
+            _resolver = new ServiceResolver(serviceProvider);
         }
     }
 }

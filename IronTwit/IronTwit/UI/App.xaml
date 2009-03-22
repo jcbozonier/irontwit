@@ -2,8 +2,13 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Application.Resources>
+        <FontFamily x:Key="Unit3FontFamily">Segoe UI</FontFamily>
         <Color x:Key="BackgroundDark">#FFD3FD9E</Color>
-        <LinearGradientBrush x:Key="LightGradientBackGround" EndPoint="0.5,1" StartPoint="0.5,0">
+        <LinearGradientBrush x:Key="DarkGrayGradientBackground" StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Offset="0" Color="#F0303030" />
+            <GradientStop Offset="1" Color="#E8101010" />
+        </LinearGradientBrush>
+        <LinearGradientBrush x:Key="LightGreenGradientBackground" EndPoint="0.5,1" StartPoint="0.5,0">
             <GradientStop Color="#FFFFFFFF" Offset="0"/>
             <GradientStop Color="#FFD3FD9E" Offset="1"/>
         </LinearGradientBrush>

@@ -66,5 +66,16 @@ namespace Unite.Specs.UnitTests
             Assert.AreEqual(urlB.Length, inlineUriB.Length, "Length of second InlineUri");
             Assert.AreEqual(urlB, inlineUriB.OriginalString, "Second InlineUri original string");
         }
+
+        [Test]
+        public void NullOrEmptyMessageText()
+        {
+            string text = null;
+            var inlineUris = UI.Utilities.InlineUris.Get(text);
+            Assert.AreEqual(0, inlineUris.Count, "Count of Inline Uris for null text");
+            text = "";
+            inlineUris = UI.Utilities.InlineUris.Get(text);
+            Assert.AreEqual(0, inlineUris.Count, "Count of Inline Uris for empty string text");
+        }
     }
 }

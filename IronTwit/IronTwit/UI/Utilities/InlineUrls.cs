@@ -20,6 +20,9 @@ namespace Unite.UI.Utilities
         {
             var uris = new List<InlineUri>();
 
+            if (string.IsNullOrEmpty(text))
+                return uris;
+
             Match match;
             int index = 0;
             while (true)

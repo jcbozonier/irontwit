@@ -81,6 +81,9 @@ namespace Unite.UI.Controls
             ClearHyperlinks();
             MessageText.Inlines.Clear();
 
+            if (messageText == null)
+                messageText = "";
+
             var inlineUris = Utilities.InlineUris.Get(messageText);
             var charIndex = 0;
             foreach (var inlineUri in inlineUris)

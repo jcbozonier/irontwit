@@ -89,17 +89,8 @@ namespace Unite.Specs.Application_running
     }
     public class FakeUser : IIdentity
     {
-        public string UserName
-        {
-            get;
-            set;
-        }
-
-        public ServiceInformation ServiceInfo
-        {
-            get;
-            set;
-        }
+        public string UserName { get; set; }
+        public ServiceInformation ServiceInfo { get; set; }
     }
     public class TestingInteractionContext : IInteractionContext
     {

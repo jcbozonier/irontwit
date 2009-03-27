@@ -12,5 +12,192 @@
             <GradientStop Color="#FFFFFFFF" Offset="0"/>
             <GradientStop Color="#FFD3FD9E" Offset="1"/>
         </LinearGradientBrush>
+        <LinearGradientBrush x:Key="GlossyBlack_GlossGradient" EndPoint="0.0149999996647239,0.0160000007599592" StartPoint="0.486000001430511,0.723999977111816">
+            <GradientStop Color="#0CFFFFFF"/>
+            <GradientStop Color="#4CFFFFFF" Offset="1"/>
+        </LinearGradientBrush>
+        <LinearGradientBrush x:Key="GlossyBlack_BackgroundGradient" EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="#FF3B3B3B"/>
+            <GradientStop Color="#FF000000" Offset="1"/>
+        </LinearGradientBrush>
+        <LinearGradientBrush x:Key="GlossyBlack_StrokeGradient" EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="#7FFFFFFF"/>
+            <GradientStop Color="#33FFFFFF" Offset="1"/>
+        </LinearGradientBrush>
+        <RadialGradientBrush x:Key="GlossyBlack_HighlightGradient">
+            <RadialGradientBrush.RelativeTransform>
+                <TransformGroup>
+                    <ScaleTransform CenterX="0.5" CenterY="0.5" ScaleX="2.177" ScaleY="1.451"/>
+                    <SkewTransform CenterX="0.5" CenterY="0.5"/>
+                    <RotateTransform CenterX="0.5" CenterY="0.5"/>
+                    <TranslateTransform Y="0.562"/>
+                </TransformGroup>
+            </RadialGradientBrush.RelativeTransform>
+            <GradientStop Color="#4CFFFFFF"/>
+            <GradientStop Color="#00000000" Offset="1"/>
+        </RadialGradientBrush>
+        <RadialGradientBrush x:Key="GlossyBlack_MouseOverBackgroundGradient">
+            <RadialGradientBrush.RelativeTransform>
+                <TransformGroup>
+                    <ScaleTransform CenterX="0.5" CenterY="0.5" ScaleX="2.177" ScaleY="1.451"/>
+                    <SkewTransform CenterX="0.5" CenterY="0.5"/>
+                    <RotateTransform CenterX="0.5" CenterY="0.5"/>
+                    <TranslateTransform Y="0.562"/>
+                </TransformGroup>
+            </RadialGradientBrush.RelativeTransform>
+            <GradientStop Color="#CCFFFFFF"/>
+            <GradientStop Color="#00000000" Offset="1"/>
+        </RadialGradientBrush>
+        <LinearGradientBrush x:Key="GlossyBlack_PressedBackgroundGradient" EndPoint="0.5,0" StartPoint="0.5,1">
+            <GradientStop Color="#FF3B3B3B"/>
+            <GradientStop Color="#FF000000" Offset="1"/>
+        </LinearGradientBrush>
+        <RadialGradientBrush x:Key="GlossyBlack_PressedHighlightGradient">
+            <RadialGradientBrush.RelativeTransform>
+                <TransformGroup>
+                    <ScaleTransform CenterX="0.5" CenterY="0.5" ScaleX="2.177" ScaleY="1.451"/>
+                    <SkewTransform CenterX="0.5" CenterY="0.5"/>
+                    <RotateTransform CenterX="0.5" CenterY="0.5"/>
+                    <TranslateTransform Y="0.562"/>
+                </TransformGroup>
+            </RadialGradientBrush.RelativeTransform>
+            <GradientStop Color="#19FFFFFF"/>
+            <GradientStop Color="#00000000" Offset="1"/>
+        </RadialGradientBrush>
+        <LinearGradientBrush x:Key="GlossyBlack_DisabledBackgroundGradient" EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="#FF3B3B3B"/>
+            <GradientStop Color="#FF000000" Offset="1"/>
+        </LinearGradientBrush>
+        <Style x:Key="MarginlessGlossyBlackButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="IsEnabled" Value="true"/>
+            <Setter Property="IsTabStop" Value="true"/>
+            <Setter Property="Background" Value="#FF003255"/>
+            <Setter Property="Foreground" Value="#FFFFFFFF"/>
+            <Setter Property="MinWidth" Value="5"/>
+            <Setter Property="MinHeight" Value="5"/>
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Cursor" Value="Arrow"/>
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Grid>
+                            <Grid.Resources>
+                                <Color x:Key="LinearBevelLightStartColor">#FCFFFFFF</Color>
+                                <Color x:Key="LinearBevelLightEndColor">#F4FFFFFF</Color>
+                                <Color x:Key="LinearBevelDarkStartColor">#E0FFFFFF</Color>
+                                <Color x:Key="LinearBevelDarkEndColor">#B2FFFFFF</Color>
+                                <Color x:Key="MouseOverLinearBevelDarkEndColor">#7FFFFFFF</Color>
+                                <Color x:Key="HoverLinearBevelLightStartColor">#FCFFFFFF</Color>
+                                <Color x:Key="HoverLinearBevelLightEndColor">#EAFFFFFF</Color>
+                                <Color x:Key="HoverLinearBevelDarkStartColor">#D8FFFFFF</Color>
+                                <Color x:Key="HoverLinearBevelDarkEndColor">#4CFFFFFF</Color>
+                                <Color x:Key="CurvedBevelFillStartColor">#B3FFFFFF</Color>
+                                <Color x:Key="CurvedBevelFillEndColor">#3CFFFFFF</Color>
+                                <SolidColorBrush x:Key="BorderBrush" Color="#FF000000"/>
+                                <SolidColorBrush x:Key="AccentBrush" Color="#FFFFFFFF"/>
+                                <SolidColorBrush x:Key="DisabledBrush" Color="#A5FFFFFF"/>
+                                <LinearGradientBrush x:Key="FocusedStrokeBrush" EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#B2FFFFFF" Offset="0"/>
+                                    <GradientStop Color="#51FFFFFF" Offset="1"/>
+                                    <GradientStop Color="#66FFFFFF" Offset="0.325"/>
+                                    <GradientStop Color="#1EFFFFFF" Offset="0.325"/>
+                                </LinearGradientBrush>
+                            </Grid.Resources>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+
+                                    <VisualStateGroup.Transitions>
+                                        <VisualTransition GeneratedDuration="00:00:00.2000000"/>
+                                    </VisualStateGroup.Transitions>
+
+                                    <VisualState x:Name="Normal">
+                                        <Storyboard/>
+                                    </VisualState>
+                                    <VisualState x:Name="MouseOver">
+                                        <Storyboard>
+                                            <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Duration="00:00:00.0010000" Storyboard.TargetName="MouseOverState" Storyboard.TargetProperty="(UIElement.Opacity)">
+                                                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="1"/>
+                                            </DoubleAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Pressed">
+                                        <Storyboard>
+                                            <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Duration="00:00:00.0010000" Storyboard.TargetName="PressedState" Storyboard.TargetProperty="(UIElement.Opacity)">
+                                                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="1"/>
+                                            </DoubleAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Disabled">
+                                        <Storyboard>
+                                            <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Duration="00:00:00.0010000" Storyboard.TargetName="DisabledState" Storyboard.TargetProperty="(UIElement.Opacity)">
+                                                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="1"/>
+                                            </DoubleAnimationUsingKeyFrames>
+                                            <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Duration="00:00:00.0010000" Storyboard.TargetName="gloss" Storyboard.TargetProperty="(UIElement.Opacity)">
+                                                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
+                                            </DoubleAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="FocusStates">
+                                    <VisualStateGroup.Transitions>
+                                        <VisualTransition GeneratedDuration="00:00:00.1000000"/>
+                                    </VisualStateGroup.Transitions>
+                                    <VisualState x:Name="Focused">
+                                        <Storyboard>
+                                            <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Duration="00:00:00.0010000" Storyboard.TargetName="MouseOverState" Storyboard.TargetProperty="(UIElement.Opacity)">
+                                                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="1"/>
+                                            </DoubleAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Unfocused">
+                                        <Storyboard/>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Grid HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Stretch" Width="Auto" Height="Auto" x:Name="NormalState">
+                                <Rectangle HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Stretch" RadiusX="0" RadiusY="0" Fill="{StaticResource GlossyBlack_BackgroundGradient}"/>
+                                <Rectangle HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Stretch" RadiusX="0" RadiusY="0" Stroke="{StaticResource GlossyBlack_StrokeGradient}"/>
+                                <Rectangle HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Stretch" RadiusX="0" RadiusY="0" Fill="{StaticResource GlossyBlack_HighlightGradient}"/>
+                            </Grid>
+                            <Grid HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Stretch" Width="Auto" Height="Auto" x:Name="MouseOverState" Opacity="0">
+                                <Rectangle HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Stretch" RadiusX="0" RadiusY="0" Fill="{StaticResource GlossyBlack_BackgroundGradient}"/>
+                                <Rectangle HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Stretch" RadiusX="0" RadiusY="0" Stroke="{StaticResource GlossyBlack_StrokeGradient}"/>
+                                <Rectangle HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Stretch" RadiusX="0" RadiusY="0" Fill="{StaticResource GlossyBlack_MouseOverBackgroundGradient}"/>
+                            </Grid>
+                            <Grid HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Stretch" Width="Auto" Height="Auto" x:Name="PressedState" Opacity="0">
+                                <Rectangle HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Stretch" RadiusX="0" RadiusY="0" Fill="{StaticResource GlossyBlack_PressedBackgroundGradient}"/>
+                                <Rectangle HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Stretch" RadiusX="0" RadiusY="0" Stroke="{StaticResource GlossyBlack_StrokeGradient}"/>
+                                <Rectangle HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Stretch" RadiusX="0" RadiusY="0" Fill="{StaticResource GlossyBlack_PressedHighlightGradient}"/>
+                            </Grid>
+                            <Grid HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Stretch" Width="Auto" Height="Auto" x:Name="DisabledState" Opacity="0">
+                                <Rectangle HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Stretch" RadiusX="0" RadiusY="0" Fill="{StaticResource GlossyBlack_DisabledBackgroundGradient}"/>
+                                <Rectangle HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Stretch" RadiusX="0" RadiusY="0" Stroke="{StaticResource GlossyBlack_StrokeGradient}"/>
+                                <Rectangle HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Stretch" RadiusX="0" RadiusY="0" Opacity="0">
+                                    <Rectangle.Fill>
+                                        <RadialGradientBrush>
+                                            <RadialGradientBrush.RelativeTransform>
+                                                <TransformGroup>
+                                                    <ScaleTransform CenterX="0.5" CenterY="0.5" ScaleX="2.177" ScaleY="1.451"/>
+                                                    <SkewTransform CenterX="0.5" CenterY="0.5"/>
+                                                    <RotateTransform CenterX="0.5" CenterY="0.5"/>
+                                                    <TranslateTransform Y="0.562"/>
+                                                </TransformGroup>
+                                            </RadialGradientBrush.RelativeTransform>
+                                            <GradientStop Color="#4CFFFFFF"/>
+                                            <GradientStop Color="#00000000" Offset="1"/>
+                                        </RadialGradientBrush>
+                                    </Rectangle.Fill>
+                                </Rectangle>
+                            </Grid>
+                            <ContentPresenter Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}" x:Name="contentPresenter" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <Path Height="Auto" HorizontalAlignment="Stretch" Margin="0,0,0,6" VerticalAlignment="Stretch" Stretch="Fill" Data="M100,12.903966 C59.117226,15.115555 23.108757,29.203354 -1.2437163E-14,60 L-3.2684966E-13,0 C12,-2.8610229E-06 100,0 100,0" x:Name="gloss" Fill="{StaticResource GlossyBlack_GlossGradient}"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Application.Resources>
 </Application>

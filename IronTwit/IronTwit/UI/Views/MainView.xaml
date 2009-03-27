@@ -36,14 +36,20 @@
 			</Grid.RowDefinitions>
 			<TextBlock Grid.Row="0" Text="Inbox - Unit3" TextAlignment="Left" FontSize="18" Margin="{StaticResource ContentMargin}" />
 			<StackPanel Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="{StaticResource ContentMargin}">
-				<Grid x:Name="MinimizeButton" Background="#00000000" MouseLeftButtonUp="MinimizeButton_MouseLeftButtonUp">
-					<Rectangle Width="12" Height="12" Fill="Silver" Stroke="DarkGray" StrokeThickness="1" IsHitTestVisible="False" />
-					<Path Width="10" Height="10" VerticalAlignment="Center" HorizontalAlignment="Center" Data="M2,8L8,8" Stroke="Black" StrokeStartLineCap="Round" StrokeEndLineCap="Round" StrokeThickness="2" IsHitTestVisible="False" />
-				</Grid>
-				<Grid x:Name="CloseButton" Margin="4,0,0,0" MouseLeftButtonUp="CloseButton_MouseLeftButtonUp">
-					<Rectangle Width="12" Height="12" Fill="Silver" Stroke="DarkGray" StrokeThickness="1"/>
-					<Path Width="10" Height="10" VerticalAlignment="Center" HorizontalAlignment="Center" Data="M1,1L9,9M1,9L9,1" Stroke="Black" StrokeStartLineCap="Round" StrokeEndLineCap="Round" StrokeThickness="2" />
-				</Grid>
+                <Button x:Name="MinimizeButton" Width="12" Height="12" Click="MinimizeButton_Click" Style="{StaticResource MarginlessGlossyBlackButtonStyle}">
+                    <Button.Content>
+                        <Grid Width="12" Height="12">
+                            <Path Width="10" Height="10" VerticalAlignment="Center" HorizontalAlignment="Center" Data="M2,8L8,8" Stroke="Silver" StrokeStartLineCap="Round" StrokeEndLineCap="Round" StrokeThickness="2" IsHitTestVisible="False" />
+                        </Grid>
+                    </Button.Content>
+                </Button>
+				<Button x:Name="CloseButton" Width="12" Height="12" Margin="4,0,0,0" Click="CloseButton_Click" Style="{StaticResource MarginlessGlossyBlackButtonStyle}">
+                    <Button.Content>
+                        <Grid Width="12" Height="12">
+                            <Path Width="10" Height="10" VerticalAlignment="Center" HorizontalAlignment="Center" Data="M1,1L9,9M1,9L9,1" Stroke="Silver" StrokeStartLineCap="Round" StrokeEndLineCap="Round" StrokeThickness="2" IsHitTestVisible="False" />
+                        </Grid>
+                    </Button.Content>
+				</Button>
 			</StackPanel>
             <Border Grid.Row="1" Grid.IsSharedSizeScope="True" MinHeight="100" Margin="{StaticResource ContentMargin}" Background="Black">
                 <ListBox

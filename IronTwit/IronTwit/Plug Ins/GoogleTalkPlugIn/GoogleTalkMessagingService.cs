@@ -33,11 +33,11 @@ namespace GoogleTalkPlugIn
 
         public void SendMessage(IIdentity recipient, string message)
         {
-            if(_Credentials == null)
-                if(CredentialsRequested != null)
-                    CredentialsRequested(this, new CredentialEventArgs() { ServiceInfo = _ServiceInformation });
+            CredentialsRequested(this, new CredentialEventArgs() { ServiceInfo = _ServiceInformation });
             if(_Credentials == null)
                 throw new Exception("Your credentials can not still be null. This should NEVER happen.");
+
+            _Client = new JabberClient();
 
             var client = _Client;
 
@@ -51,6 +51,12 @@ namespace GoogleTalkPlugIn
             client.Port = 5222;
             client.Resource = "Unit3";
 
+            client.OnError += (s,e) =>
+                                  {
+                                      throw new Exception(e.Message);
+                                  };
+
+
             client.OnAuthError += (s, e) =>
                                       {
                                           if(AuthorizationFailed != null)
@@ -60,6 +66,7 @@ namespace GoogleTalkPlugIn
             client.OnAuthenticate += s =>
                                          {
                                              client.Message(recipient.UserName, message);
+                                             client.Dispose();
                                          };
             client.Connect();
         }

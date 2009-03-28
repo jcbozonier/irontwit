@@ -35,6 +35,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\ThirdParty\JabberLibrary\jabber-net.dll</HintPath>
     </Reference>
+    <Reference Include="netlib.Dns, Version=1.1.3111.26991, Culture=neutral, PublicKeyToken=924c5b18328d6f09, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\ThirdParty\JabberLibrary\netlib.Dns.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -47,6 +51,10 @@
     </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="zlib.net, Version=1.0.3.0, Culture=neutral, PublicKeyToken=924c5b18328d6f09, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\ThirdParty\JabberLibrary\zlib.net.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GoogleTalkDataAccess.cs" />

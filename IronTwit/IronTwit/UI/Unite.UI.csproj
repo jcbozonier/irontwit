@@ -147,6 +147,7 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -169,7 +170,11 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>copy /Y "$(SolutionDir)Plug Ins\IronTwitterPlugIn\bin\$(Configuration)\IronTwitterPlugIn.dll" "$(TargetDir)"
+    <PostBuildEvent>copy /Y "$(SolutionDir)Plug Ins\GoogleTalkPlugIn\bin\$(Configuration)\netlib.dns.dll" "$(TargetDir)"
+copy /Y "$(SolutionDir)Plug Ins\GoogleTalkPlugIn\bin\$(Configuration)\jabber-net.dll" "$(TargetDir)"
+copy /Y "$(SolutionDir)Plug Ins\GoogleTalkPlugIn\bin\$(Configuration)\GoogleTalkPlugIn.dll" "$(TargetDir)"
+copy /Y "$(SolutionDir)Plug Ins\GoogleTalkPlugIn\bin\$(Configuration)\GoogleTalkPlugIn.pdb" "$(TargetDir)"
+copy /Y "$(SolutionDir)Plug Ins\IronTwitterPlugIn\bin\$(Configuration)\IronTwitterPlugIn.dll" "$(TargetDir)"
 copy /Y "$(SolutionDir)Plug Ins\IronTwitterPlugIn\bin\$(Configuration)\IronTwitterPlugIn.pdb" "$(TargetDir)"
 copy /Y "$(SolutionDir)Plug Ins\IronTwitterPlugIn\bin\$(Configuration)\Newtonsoft.Json.dll" "$(TargetDir)"
 copy /Y "$(SolutionDir)Plug Ins\IronTwitterPlugIn\bin\$(Configuration)\Yedda.Twitter.dll" "$(TargetDir)"

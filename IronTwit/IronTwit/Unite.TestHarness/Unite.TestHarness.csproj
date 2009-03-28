@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{6D6AD44D-28E7-4ED0-8A9F-68C36E9AFCC6}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{12FCE33F-792C-4AC6-8733-A75017ADC6A7}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>GoogleTalkPlugIn</RootNamespace>
-    <AssemblyName>GoogleTalkPlugIn</AssemblyName>
+    <RootNamespace>Unite.TestHarness</RootNamespace>
+    <AssemblyName>Unite.TestHarness</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -33,7 +33,11 @@
   <ItemGroup>
     <Reference Include="jabber-net, Version=2.1.0.710, Culture=neutral, PublicKeyToken=924c5b18328d6f09, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\ThirdParty\JabberLibrary\jabber-net.dll</HintPath>
+      <HintPath>..\..\ThirdParty\JabberLibrary\jabber-net.dll</HintPath>
+    </Reference>
+    <Reference Include="netlib.Dns, Version=1.1.3111.26991, Culture=neutral, PublicKeyToken=924c5b18328d6f09, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\ThirdParty\JabberLibrary\netlib.Dns.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
@@ -47,17 +51,14 @@
     </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="zlib.net, Version=1.0.3.0, Culture=neutral, PublicKeyToken=924c5b18328d6f09, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\ThirdParty\JabberLibrary\zlib.net.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GoogleTalkDataAccess.cs" />
-    <Compile Include="GoogleTalkMessagingService.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Messaging\Unite.Messaging.csproj">
-      <Project>{7B3CBD74-D69D-420F-90F9-19174C7DE3FA}</Project>
-      <Name>Unite.Messaging</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
+    <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{FEBEE5E9-11DA-407E-8BF8-F52A9A4B72D6}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -34,6 +34,10 @@
     <Reference Include="Bound.Net, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\ThirdParty\WpfBindingHelpers\Bound.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="jabber-net, Version=2.1.0.710, Culture=neutral, PublicKeyToken=924c5b18328d6f09, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\ThirdParty\JabberLibrary\jabber-net.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework, Version=2.5.0.8332, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -78,6 +82,7 @@
     <Compile Include="Application_running\Context.cs" />
     <Compile Include="Application_running\When_replying_to_a_message.cs" />
     <Compile Include="Contacts\When_receiving_messages_with_known_contacts.cs" />
+    <Compile Include="NetworkServiceTests\using_jabber.cs" />
     <Compile Include="TwitterServicesScope\When_receiving_messages.cs" />
     <Compile Include="TwitterServicesScope\When_sending_large_messages.cs" />
     <Compile Include="TwitterServicesScope\When_sending_normal_messages.cs" />
@@ -93,6 +98,10 @@
     <Compile Include="Utilities\SpecUnit.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Plug Ins\GoogleTalkPlugIn\GoogleTalkPlugIn.csproj">
+      <Project>{6D6AD44D-28E7-4ED0-8A9F-68C36E9AFCC6}</Project>
+      <Name>GoogleTalkPlugIn</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Plug Ins\IronTwitterPlugIn\IronTwitterPlugIn.csproj">
       <Project>{7E90D07E-E532-4F57-BD4D-41A3C64F6B3E}</Project>
       <Name>IronTwitterPlugIn</Name>

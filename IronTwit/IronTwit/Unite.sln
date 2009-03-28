@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unite.Messaging", "Messagin
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleTalkPlugIn", "Plug Ins\GoogleTalkPlugIn\GoogleTalkPlugIn.csproj", "{6D6AD44D-28E7-4ED0-8A9F-68C36E9AFCC6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unite.TestHarness", "Unite.TestHarness\Unite.TestHarness.csproj", "{12FCE33F-792C-4AC6-8733-A75017ADC6A7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +45,10 @@ Global
 		{6D6AD44D-28E7-4ED0-8A9F-68C36E9AFCC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6D6AD44D-28E7-4ED0-8A9F-68C36E9AFCC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6D6AD44D-28E7-4ED0-8A9F-68C36E9AFCC6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12FCE33F-792C-4AC6-8733-A75017ADC6A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12FCE33F-792C-4AC6-8733-A75017ADC6A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12FCE33F-792C-4AC6-8733-A75017ADC6A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12FCE33F-792C-4AC6-8733-A75017ADC6A7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -13,9 +13,10 @@ namespace GoogleTalkPlugIn
 {
     public class GoogleTalkMessagingService : IMessagingService
     {
-        private JabberClient _Client;
+        private readonly GoogleTalkDataAccess _DataAccess;
+
         private Credentials _Credentials;
-        private CredentialEventArgs _CredEventArgs;
+        private readonly CredentialEventArgs _CredEventArgs;
 
         private static readonly ServiceInformation _ServiceInformation = new ServiceInformation()
                                                              {
@@ -30,52 +31,38 @@ namespace GoogleTalkPlugIn
                                      ServiceInfo = _ServiceInformation
                                  };
 
-            var client = new JabberClient();
+            _DataAccess = new GoogleTalkDataAccess();
+            _DataAccess.OnMessage += _DataAccess_OnMessage;
+            _DataAccess.OnAuthError += _DataAccess_OnAuthError;
+        }
 
-            client.AutoPresence = true;
-            client.AutoRoster = false;
-            client.AutoReconnect = 1;
+        void _DataAccess_OnAuthError(object sender, EventArgs e)
+        {
+            if (AuthorizationFailed != null)
+                AuthorizationFailed(this, _CredEventArgs);
+        }
 
-            client.Server = "gmail.com";
-            client.Port = 5222;
-            client.Resource = "Unit3";
+        void _DataAccess_OnMessage(object sender, GTalkMessageEventArgs e)
+        {
+            _ReceiveMessage(e.User, e.Message);
+        }
 
-            client.OnError += (s, e) =>
-            {
-                throw new Exception(e.Message);
-            };
-
-
-            client.OnAuthError += (s, e) =>
-            {
-                if (AuthorizationFailed != null)
-                    AuthorizationFailed(this, _CredEventArgs);
-            };
-
-            client.OnAuthenticate += s =>
-            {
-
-            };
-
-            client.OnMessage += (s, e) =>
-            {
-                var user = new GTalkUser()
-                {
-                    ServiceInfo = _ServiceInformation,
-                    UserName = e.From.User
-                };
-                var messageReceived = new GTalkMessage()
-                {
-                    Address = user,
-                    Text = e.Body
-                };
-                if (MessagesReceived != null)
-                    MessagesReceived(
-                        this,
-                        new MessagesReceivedEventArgs(new[] { messageReceived }));
-            };
-
-            _Client = client;
+        private void _ReceiveMessage(string username, string message)
+        {
+            var user = new GTalkUser()
+                           {
+                               ServiceInfo = _ServiceInformation,
+                               UserName = username
+                           };
+            var messageReceived = new GTalkMessage()
+                                      {
+                                          Address = user,
+                                          Text = message
+                                      };
+            if (MessagesReceived != null)
+                MessagesReceived(
+                    this,
+                    new MessagesReceivedEventArgs(new[] { messageReceived }));
         }
 
         public bool CanAccept(Credentials credentials)
@@ -95,14 +82,13 @@ namespace GoogleTalkPlugIn
             if(_Credentials == null)
                 throw new Exception("Your credentials can not still be null. This should NEVER happen.");
 
-            _Client.Message(recipient.UserName, message);
+            _DataAccess.Message(recipient.UserName, message);
         }
 
         public void SetCredentials(Credentials credentials)
         {
             _Credentials = credentials;
-            _Client.User = _Credentials.UserName;
-            _Client.Password = _Credentials.Password;
+            _DataAccess.Login(_Credentials.UserName, _Credentials.Password);
         }
 
         public bool CanFind(string address)
@@ -120,25 +106,22 @@ namespace GoogleTalkPlugIn
         public void StartReceiving()
         {
             _AuthenticateIfNeeded();
-            _IsConnected = true;
         }
 
         private void _AuthenticateIfNeeded()
         {
-            if(String.IsNullOrEmpty(_Client.User))
+            if(!_DataAccess.IsConnected)
             {
                 if (CredentialsRequested != null)
                     CredentialsRequested(this, _CredEventArgs);
-                _Client.Connect();
+                _DataAccess.Login(_Credentials.UserName, _Credentials.Password);
             }   
         }
 
         public void StopReceiving()
         {
-            _Client.Close();
+            _DataAccess.Logoff();
         }
-
-        private bool _IsConnected;
 
         public event EventHandler<CredentialEventArgs> AuthorizationFailed;
         public event EventHandler<CredentialEventArgs> CredentialsRequested;

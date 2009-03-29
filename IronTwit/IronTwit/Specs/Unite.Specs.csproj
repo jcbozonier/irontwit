@@ -82,7 +82,6 @@
     <Compile Include="Application_running\Context.cs" />
     <Compile Include="Application_running\When_replying_to_a_message.cs" />
     <Compile Include="Contacts\When_receiving_messages_with_known_contacts.cs" />
-    <Compile Include="NetworkServiceTests\using_jabber.cs" />
     <Compile Include="TwitterServicesScope\When_receiving_messages.cs" />
     <Compile Include="TwitterServicesScope\When_sending_large_messages.cs" />
     <Compile Include="TwitterServicesScope\When_sending_normal_messages.cs" />
@@ -116,6 +115,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="NetworkServiceTests\" />
     <Folder Include="ReceivingMessages\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

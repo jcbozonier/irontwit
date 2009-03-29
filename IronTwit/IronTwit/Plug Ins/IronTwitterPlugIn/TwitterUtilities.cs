@@ -160,18 +160,13 @@ namespace IronTwitterPlugIn
 
             var receivingThread = new Thread(() =>
                                                  {
-                                                     DateTime lastPollTime = DateTime.MinValue;
                                                      while (!_StopReceiving)
                                                      {
-                                                         if (DateTime.Now.Subtract(lastPollTime).TotalSeconds >= POLLING_INTERVAL_SECONDS)
-                                                         {
-                                                             var messages = GetMessages();
-                                                             if (MessagesReceived != null)
-                                                                 MessagesReceived(this,
-                                                                                  new MessagesReceivedEventArgs(messages));
-                                                             lastPollTime = DateTime.Now;
-                                                         }
-
+                                                         
+                                                         var messages = GetMessages();
+                                                         if (MessagesReceived != null)
+                                                             MessagesReceived(this, new MessagesReceivedEventArgs(messages));
+                                                         
                                                          // 100 api calls over an hour.
                                                          Thread.Sleep(60*60*1000/99);
                                                      }

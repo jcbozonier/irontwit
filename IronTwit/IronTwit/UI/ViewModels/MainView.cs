@@ -99,6 +99,7 @@ namespace Unite.UI.ViewModels
         private IMessagingServiceManager _MessagingService;
 
         private Thread _CurrentThread;
+        private Dispatcher _CurrentDispatcher;
 
         public MainView(
             IInteractionContext interactionContext,
@@ -111,6 +112,7 @@ namespace Unite.UI.ViewModels
                 throw new ArgumentNullException("messagingService");
 
             _CurrentThread = Thread.CurrentThread;
+            _CurrentDispatcher = Dispatcher.CurrentDispatcher;
 
             _ContactRepo = contactRepo;
             _MessagingService = messagingService;
@@ -161,8 +163,7 @@ namespace Unite.UI.ViewModels
         {
             if (_CurrentThread != Thread.CurrentThread)
             {
-                var dispatcher = Dispatcher.FromThread(_CurrentThread);
-                dispatcher.Invoke(
+                _CurrentDispatcher.Invoke(
                     DispatcherPriority.Normal,
                     (Action) (() => _GetMessagesFromEvent(e)));
             }

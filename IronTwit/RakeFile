@@ -1,0 +1,92 @@
+require "BuildUtils.rb"
+
+include FileTest
+
+require 'rubygems'
+
+gem 'rubyzip'
+require 'zip/zip'
+require 'zip/zipfilesystem'
+require "fileutils"
+
+COMPILE_TARGET = "release"
+RESULTS_DIR = "results"
+PRODUCT = "Falcon MobileServer"
+COPYRIGHT = 'Copyright 2008 JMT Systems Consulting, LLC';
+COMMON_ASSEMBLY_INFO = 'CommonAssemblyInfo';
+CLR_VERSION = "v3.5"
+
+VERSION_PREFIX = "2.0.0."
+BUILD_NUMBER = ENV["BUILD_NUMBER"].nil? ? "0" : ENV["BUILD_NUMBER"]
+
+VERSION_NUMBER = VERSION_PREFIX + BUILD_NUMBER;
+
+INSTALLER_FILENAME = File.basename("Unit3.msi", ".msi") + "-" + VERSION_NUMBER + ".msi"
+
+props = { :archive => "build" }
+
+desc "Compiles, unit tests, generates the database, and then runs integration tests"
+task :all => [:default]
+
+desc "**Default**, compiles and runs tests"
+task :default => [:compile, :unit_test, :move_artifacts]
+
+desc "Rebuild, cleans, compiles, and runs tests"
+task :rebuild => [:clean, :compile, :unit_test, :move_artifacts]
+
+desc "Update the version information for the build"
+task :version do
+  puts "Updating Project Version to #{VERSION_NUMBER}"
+  
+  builder = AsmInfoBuilder.new(VERSION_NUMBER, {'Product' => PRODUCT, 'Copyright' => COPYRIGHT})
+  buildNumber = builder.buildnumber
+  builder.write COMMON_ASSEMBLY_INFO  
+end
+
+desc "Prepares the working directory for a new build"
+task :clean do
+	puts "Performing build clean..."
+	Dir.glob(File.join(props[:archive], "*")){|file| 		
+	  FileUtils.rm(file) if File.file?(file)
+	}	
+	Dir.mkdir props[:archive] unless exists?(props[:archive])
+	
+	file = "Server/Falcon.Server.Setup/setup.exe"
+	FileUtils.rm(file) if File.file?(file)
+end
+
+desc "Compiles the app"
+task :compile do
+	puts "Compiling the application..."
+	MSBuildRunner.compile :compilemode => COMPILE_TARGET, :solutionfile => 'IronTwit/Unite.sln', :clrversion => CLR_VERSION
+end
+
+desc "Move Compilation Output to Build Directory"
+task :move_artifacts => :clean do #=> [:compile, :bootstrapper]
+  puts "Gathering build artifacts..."
+  
+  def archive_files(source, glob_mask, destination)
+	Dir.glob(File.join(source, glob_mask)) { |file| 		
+		copy(file, destination) if File.file?(file)
+	}
+  end
+  
+  outDir = "Server/Falcon.Server.Ui/bin/#{COMPILE_TARGET}"
+  msiDir = "Server/Falcon.Server.Setup/bin/#{COMPILE_TARGET}" 
+  setupDir = "Server/Falcon.Server.Setup/"
+  
+  archive_files(outDir, "*.{dll,pdb,msi,exe}", props[:archive])
+  archive_files(msiDir, "*.{msi,wixpdb}", props[:archive])
+  archive_files(setupDir, "setup.exe", props[:archive])
+  
+  Dir.glob(File.join(props[:archive], "*.{msi}")) { |file|
+	FileUtils.mv(file, File.join(props[:archive], INSTALLER_FILENAME));
+  }
+end
+
+desc "Runs unit tests"
+task :unit_test do
+  puts "Running unit tests..."
+  runner = NUnitRunner.new :compilemode => COMPILE_TARGET, :results => 'build', :source => './IronTwit', :platform => nil
+  runner.executeTestInProject("Specs", "Unite.Specs")
+end

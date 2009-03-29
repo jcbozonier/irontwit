@@ -43,6 +43,7 @@ task :version do
   builder.write COMMON_ASSEMBLY_INFO  
 end
 
+# TODO Make clean actually clean build directories.
 desc "Prepares the working directory for a new build"
 task :clean do
 	#puts "Performing build clean..."

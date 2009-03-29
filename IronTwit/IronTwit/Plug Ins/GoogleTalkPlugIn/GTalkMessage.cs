@@ -18,6 +18,11 @@ namespace GoogleTalkPlugIn
         {
             get; set;
         }
+
+        public DateTime TimeStamp
+        {
+            get; set;
+        }
     }
 
     internal class GTalkUser : IIdentity

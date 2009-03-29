@@ -38,7 +38,11 @@ namespace Unite.Specs.Application_running
             return _Counter == 1
                        ? new List<IMessage>()
                              {
-                                 new Tweet() {Text = "testing", Address = new FakeUser() {UserName = "darkxanthos"}}
+                                 new Tweet() {
+                                     Text = "testing", 
+                                     Address = new FakeUser() {UserName = "darkxanthos"},
+                                    TimeStamp = DateTime.Now
+                                 }
                              }
                        : new List<IMessage>();
         }
@@ -71,7 +75,15 @@ namespace Unite.Specs.Application_running
         public void StartReceiving()
         {
             if(MessagesReceived != null)
-                MessagesReceived(this, new MessagesReceivedEventArgs(new []{new Message(){Text = "Message", Address = new Identity("yada yada", GetInformation())}}));
+                MessagesReceived(this, new MessagesReceivedEventArgs(new []
+                                                                         {
+                                                                             new Message()
+                                                                                 {
+                                                                                     Text = "Message", 
+                                                                                     Address = new Identity("yada yada", GetInformation()),
+                                                                                     TimeStamp = DateTime.Now
+                                                                                 }
+                                                                         }));
         }
 
         public void StopReceiving()

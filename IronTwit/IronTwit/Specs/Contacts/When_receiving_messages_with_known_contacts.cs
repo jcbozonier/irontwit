@@ -121,6 +121,10 @@ namespace Unite.Specs.Contacts
     {
         public string Text { get; set; }
         public IIdentity Address { get; set; }
+        public DateTime TimeStamp
+        {
+            get; set;
+        }
     }
 
     public class FakeMessagingService : IMessagingServiceManager

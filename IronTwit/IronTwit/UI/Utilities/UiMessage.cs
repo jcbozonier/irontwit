@@ -13,6 +13,7 @@ namespace Unite.UI.Utilities
         {
             Address = message.Address;
             Text = message.Text;
+            TimeStamp = message.TimeStamp;
             Contact = contact;
         }
 
@@ -22,6 +23,11 @@ namespace Unite.UI.Utilities
         }
 
         public IIdentity Address
+        {
+            get; set;
+        }
+
+        public DateTime TimeStamp
         {
             get; set;
         }

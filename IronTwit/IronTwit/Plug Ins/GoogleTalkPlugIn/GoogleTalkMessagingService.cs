@@ -44,7 +44,7 @@ namespace GoogleTalkPlugIn
 
         void _DataAccess_OnMessage(object sender, GTalkMessageEventArgs e)
         {
-            _ReceiveMessage(e.User, e.Message);
+            _ReceiveMessage(e.User ?? _Credentials.UserName, e.Message);
         }
 
         private void _ReceiveMessage(string username, string message)
@@ -82,13 +82,16 @@ namespace GoogleTalkPlugIn
             if(_Credentials == null)
                 throw new Exception("Your credentials can not still be null. This should NEVER happen.");
 
-            _DataAccess.Message(recipient.UserName, message);
+            var realUsername = !recipient.UserName.ToLowerInvariant().EndsWith("@gmail.com")
+                                   ? recipient.UserName + "@gmail.com"
+                                   : recipient.UserName;
+
+            _DataAccess.Message(realUsername, message);
         }
 
         public void SetCredentials(Credentials credentials)
         {
             _Credentials = credentials;
-            _DataAccess.Login(_Credentials.UserName, _Credentials.Password);
         }
 
         public bool CanFind(string address)

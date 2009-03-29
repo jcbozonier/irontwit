@@ -128,5 +128,10 @@ namespace Unite.Specs.Application_running
         {
             get; set;
         }
+
+        public DateTime TimeStamp
+        {
+            get; set;
+        }
     }
 }

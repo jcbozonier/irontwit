@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
+using System.Windows.Data;
 using System.Windows.Threading;
 using Bound.Net;
+using Unite.Messaging.Entities;
 using Unite.Messaging.Messages;
 using Unite.Messaging.Services;
 using Unite.UI.Utilities;
@@ -141,15 +143,27 @@ namespace Unite.UI.ViewModels
                 () =>
                     {
                         var result = _MessagingService.GetMessages();
-                        Messages.Clear();
-                        
-                        foreach (var message in result)
-                        {
-                            var uiMessage = new UiMessage(message, _ContactRepo.Get(message.Address));
-                            Messages.Add(uiMessage);
-                        }
+
+                        _UpdateUIWithMessages(result);
                     });
 
+        }
+
+        private void _UpdateUIWithMessages(IEnumerable<IMessage> result)
+        {
+            var messageList = new List<UiMessage>(Messages);
+            Messages.Clear();
+
+            foreach (var message in result)
+            {
+                var uiMessage = new UiMessage(message, _ContactRepo.Get(message.Address));
+                Messages.Add(uiMessage);
+            }
+
+            foreach (var message in messageList)
+            {
+                Messages.Add(message);
+            }
         }
 
         void _MessagingService_AuthorizationFailed(object sender, CredentialEventArgs e)
@@ -175,27 +189,14 @@ namespace Unite.UI.ViewModels
 
         private void _GetMessagesFromEvent(MessagesReceivedEventArgs e)
         {
-            var uiMessages =
-                e.Messages.Convert
-                    (
-                    message =>
-                    new UiMessage
-                        (
-                        message,
-                        _ContactRepo.Get(message.Address)
-                        )
-                    );
-
-            Messages.Clear();
-
-            foreach (var message in uiMessages)
-            {
-                Messages.Add(message);
-            }
+            _UpdateUIWithMessages(e.Messages);
         }
 
         void MainView_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
+            if(SelectedMessage == null || SelectedMessage.Address == null)
+                return;
+
             switch(e.PropertyName)
             {
                 case "SelectedMessage":

@@ -22,7 +22,8 @@ namespace Unite.Specs.Using_Services
 
         protected override void Because()
         {
-            Messages = ServiceManager.GetMessages();
+
+            Messages = new List<IMessage>(ServiceManager.GetMessages());
         }
 
         protected override void Context()
@@ -35,7 +36,7 @@ namespace Unite.Specs.Using_Services
     {
         protected IMessagingService ServiceManager;
         protected ServiceProvider ServiceProvider;
-        protected IEnumerable<IMessage> Messages;
+        protected List<IMessage> Messages;
         protected Credentials MyCredentials;
 
         [TestFixtureSetUp]
@@ -76,7 +77,8 @@ namespace Unite.Specs.Using_Services
                            new Message()
                                {
                                    Address = new Recipient(){UserName = "darkxanthos"},
-                                   Text = MessageText
+                                   Text = MessageText,
+                                   TimeStamp = DateTime.Now
                                }
                        };
         }
@@ -138,6 +140,11 @@ namespace Unite.Specs.Using_Services
         }
 
         public IIdentity Address
+        {
+            get; set;
+        }
+
+        public DateTime TimeStamp
         {
             get; set;
         }

@@ -44,7 +44,7 @@ namespace IronTwitterPlugIn
         [DefaultConstructor]
         public TwitterUtilities() : this(null)
         {
-            
+            _ReceivedTweets = new Dictionary<int, bool>();
         }
 
         [DefaultConstructor]
@@ -197,7 +197,6 @@ namespace IronTwitterPlugIn
 
                 // Convert the sender property to proper twitter form.
                 tweets = (List<Tweet>)converter.Deserialize(str, typeof(List<Tweet>));
-                //tweets.ForEach(tweet=>tweet.Sender.UserName = "@" + tweet.Sender.UserName);
             }
             catch (WebException err)
             {
@@ -207,9 +206,20 @@ namespace IronTwitterPlugIn
                 if(AuthorizationFailed != null)
                     AuthorizationFailed(this, new CredentialEventArgs(){ServiceInfo = _ServiceInformation});
             }
-            
+
+            tweets.RemoveAll(tweet => _ReceivedTweets.ContainsKey(tweet.id));
+            tweets.ForEach(tweet=>
+                               {
+                                   if(!_ReceivedTweets.ContainsKey(tweet.id))
+                                   {
+                                       _ReceivedTweets.Add(tweet.id, true);
+                                   }
+                               });
+
             return new List<IMessage>(tweets.ToArray());
         }
+
+        private Dictionary<int,bool> _ReceivedTweets;
 
         private void _RequestCredentials()
         {

@@ -16,6 +16,7 @@ namespace GoogleTalkPlugIn
         {
             var client = new JabberClient();
 
+            client.AutoLogin = true;
             client.AutoPresence = true;
             client.AutoRoster = false;
             client.AutoReconnect = 1;
@@ -34,7 +35,10 @@ namespace GoogleTalkPlugIn
                 throw new Exception(e.Message);
             };
             client.OnAuthError += (s, e) => OnAuthError(s, null);
-            client.OnMessage += (s, e) => OnMessage(s, new GTalkMessageEventArgs(e.From.User, e.Body));
+            client.OnMessage += (s, e) =>
+                                    {
+                                        OnMessage(s, new GTalkMessageEventArgs(e.From.User, e.Body));
+                                    };
 
             _Client = client;
         }

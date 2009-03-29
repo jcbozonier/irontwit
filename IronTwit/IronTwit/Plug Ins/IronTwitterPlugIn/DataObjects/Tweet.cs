@@ -1,4 +1,5 @@
-﻿using Unite.Messaging;
+﻿using System;
+using Unite.Messaging;
 using Unite.Messaging.Entities;
 
 namespace IronTwitterPlugIn.DataObjects
@@ -29,7 +30,12 @@ namespace IronTwitterPlugIn.DataObjects
                 Address = value;
             }
         }
+        public int id { get; set; }
 
         public IIdentity Address { get; set; }
+        public DateTime TimeStamp
+        {
+            get; set;
+        }
     }
 }

@@ -45,14 +45,14 @@ end
 
 desc "Prepares the working directory for a new build"
 task :clean do
-	puts "Performing build clean..."
-	Dir.glob(File.join(props[:archive], "*")){|file| 		
-	  FileUtils.rm(file) if File.file?(file)
-	}	
-	Dir.mkdir props[:archive] unless exists?(props[:archive])
-	
-	file = "Server/Falcon.Server.Setup/setup.exe"
-	FileUtils.rm(file) if File.file?(file)
+	#puts "Performing build clean..."
+	#Dir.glob(File.join(props[:archive], "*")){|file| 		
+	#  FileUtils.rm(file) if File.file?(file)
+	#}	
+	#Dir.mkdir props[:archive] unless exists?(props[:archive])
+	#
+	#file = "Server/Falcon.Server.Setup/setup.exe"
+#	FileUtils.rm(file) if File.file?(file)
 end
 
 desc "Compiles the app"
@@ -87,6 +87,6 @@ end
 desc "Runs unit tests"
 task :unit_test do
   puts "Running unit tests..."
-  runner = NUnitRunner.new :compilemode => COMPILE_TARGET, :results => 'build', :source => './IronTwit', :platform => nil
+  runner = NUnitRunner.new :compilemode => COMPILE_TARGET, :results => './build', :source => './IronTwit', :platform => nil
   runner.executeTestInProject("Specs", "Unite.Specs")
 end

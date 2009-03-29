@@ -9,6 +9,8 @@ class NUnitRunner
 		@compilePlatform = paths.fetch(:platform, 'x86')
 		@compileTarget = paths.fetch(:compilemode, 'debug')
 		
+		@resultsDir = File.expand_path(@resultsDir)
+		
 		if ENV["teamcity.dotnet.nunitlauncher"] # check if we are running in TeamCity
 			# We are not using the TeamCity nunit launcher. We use NUnit with the TeamCity NUnit Addin which needs tO be copied to our NUnit addins folder
 			# http://blogs.jetbrains.com/teamcity/2008/07/28/unfolding-teamcity-addin-for-nunit-secrets/
@@ -17,7 +19,8 @@ class NUnitRunner
 			cp @teamCityAddinPath + '-2.4.7.dll', 'tools/nunit/addins'
 		end
 	
-		@nunitExe = File.join('ThirdParty', 'UnitTesting', "nunit-console#{(@compilePlatform.nil? ? '' : "-#{@compilePlatform}")}.exe").gsub('/','\\') + ' /nothread'
+		@nunitExe = File.join('ThirdParty', 'UnitTesting', "nunit-console#{(@compilePlatform.nil? ? '' : "-#{@compilePlatform}")}.exe").gsub('/','\\')
+		@nunitExe = "\"" + File.expand_path(@nunitExe) + "\""  + ' /nothread'
 	end
 	
 	def executeTests(assemblies)
@@ -41,7 +44,8 @@ class NUnitRunner
 	end
 	
 	def executeTestOnAssembly(file, assemblyName)
-		sh "#{@nunitExe} \"#{file}\" /xml:" + File.join(@resultsDir, "#{assemblyName}-test.xml")
+		result = File.expand_path(File.join(@resultsDir, "#{assemblyName}-test.xml"))
+		sh "#{@nunitExe} \"#{file}\" /xml:\"#{result}\""
 	end
 end
 

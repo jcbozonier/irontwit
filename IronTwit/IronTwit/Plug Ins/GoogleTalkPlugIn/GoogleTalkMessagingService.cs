@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using jabber.client;
+using jabber.protocol.client;
 using Unite.Messaging;
 using Unite.Messaging.Entities;
 using Unite.Messaging.Messages;
@@ -14,6 +15,7 @@ namespace GoogleTalkPlugIn
     {
         private JabberClient _Client;
         private Credentials _Credentials;
+        private CredentialEventArgs _CredEventArgs;
 
         private static readonly ServiceInformation _ServiceInformation = new ServiceInformation()
                                                              {
@@ -21,9 +23,64 @@ namespace GoogleTalkPlugIn
                                                                  ServiceName = "GoogleTalk"
                                                              };
 
+        public GoogleTalkMessagingService()
+        {
+            _CredEventArgs = new CredentialEventArgs()
+                                 {
+                                     ServiceInfo = _ServiceInformation
+                                 };
+
+            var client = new JabberClient();
+
+            client.AutoPresence = true;
+            client.AutoRoster = false;
+            client.AutoReconnect = 1;
+
+            client.Server = "gmail.com";
+            client.Port = 5222;
+            client.Resource = "Unit3";
+
+            client.OnError += (s, e) =>
+            {
+                throw new Exception(e.Message);
+            };
+
+
+            client.OnAuthError += (s, e) =>
+            {
+                if (AuthorizationFailed != null)
+                    AuthorizationFailed(this, _CredEventArgs);
+            };
+
+            client.OnAuthenticate += s =>
+            {
+
+            };
+
+            client.OnMessage += (s, e) =>
+            {
+                var user = new GTalkUser()
+                {
+                    ServiceInfo = _ServiceInformation,
+                    UserName = e.From.User
+                };
+                var messageReceived = new GTalkMessage()
+                {
+                    Address = user,
+                    Text = e.Body
+                };
+                if (MessagesReceived != null)
+                    MessagesReceived(
+                        this,
+                        new MessagesReceivedEventArgs(new[] { messageReceived }));
+            };
+
+            _Client = client;
+        }
+
         public bool CanAccept(Credentials credentials)
         {
-            return !credentials.UserName.Contains("@");
+            return !String.IsNullOrEmpty(credentials.UserName) && credentials.ServiceInformation == _ServiceInformation;
         }
 
         public List<IMessage> GetMessages()
@@ -33,51 +90,20 @@ namespace GoogleTalkPlugIn
 
         public void SendMessage(IIdentity recipient, string message)
         {
-            CredentialsRequested(this, new CredentialEventArgs() { ServiceInfo = _ServiceInformation });
+            _AuthenticateIfNeeded();
+            
             if(_Credentials == null)
                 throw new Exception("Your credentials can not still be null. This should NEVER happen.");
 
-            _Client = new JabberClient();
-
-            var client = _Client;
-
-            client.AutoPresence = false;
-            client.AutoRoster = false;
-            client.AutoReconnect = -1;
-
-            client.User = _Credentials.UserName;
-            client.Password = _Credentials.Password;
-            client.Server = "gmail.com";
-            client.Port = 5222;
-            client.Resource = "Unit3";
-
-            client.OnError += (s,e) =>
-                                  {
-                                      throw new Exception(e.Message);
-                                  };
-
-
-            client.OnAuthError += (s, e) =>
-                                      {
-                                          if(AuthorizationFailed != null)
-                                              AuthorizationFailed(this, new CredentialEventArgs(){ServiceInfo = _ServiceInformation});
-                                      };
-
-            client.OnAuthenticate += s =>
-                                         {
-                                             client.Message(recipient.UserName, message);
-                                             client.Dispose();
-                                         };
-            client.Connect();
+            _Client.Message(recipient.UserName, message);
         }
 
         public void SetCredentials(Credentials credentials)
         {
             _Credentials = credentials;
+            _Client.User = _Credentials.UserName;
+            _Client.Password = _Credentials.Password;
         }
-
-        public event EventHandler<CredentialEventArgs> CredentialsRequested;
-        public event EventHandler<CredentialEventArgs> AuthorizationFailed;
 
         public bool CanFind(string address)
         {
@@ -93,14 +119,29 @@ namespace GoogleTalkPlugIn
 
         public void StartReceiving()
         {
-            //throw new System.NotImplementedException();
+            _AuthenticateIfNeeded();
+            _IsConnected = true;
+        }
+
+        private void _AuthenticateIfNeeded()
+        {
+            if(String.IsNullOrEmpty(_Client.User))
+            {
+                if (CredentialsRequested != null)
+                    CredentialsRequested(this, _CredEventArgs);
+                _Client.Connect();
+            }   
         }
 
         public void StopReceiving()
         {
-            //throw new System.NotImplementedException();
+            _Client.Close();
         }
 
+        private bool _IsConnected;
+
+        public event EventHandler<CredentialEventArgs> AuthorizationFailed;
+        public event EventHandler<CredentialEventArgs> CredentialsRequested;
         public event EventHandler<MessagesReceivedEventArgs> MessagesReceived;
     }
 }

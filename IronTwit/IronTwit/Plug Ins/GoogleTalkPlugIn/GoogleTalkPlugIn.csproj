@@ -59,6 +59,7 @@
   <ItemGroup>
     <Compile Include="GoogleTalkDataAccess.cs" />
     <Compile Include="GoogleTalkMessagingService.cs" />
+    <Compile Include="GTalkMessage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

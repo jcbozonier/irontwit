@@ -117,7 +117,7 @@ namespace Unite.UI.ViewModels
 
             PropertyChanged += MainView_PropertyChanged;
             _MessagingService.CredentialsRequested += messagingService_CredentialsRequested;
-            _MessagingService.AuthorizationFailed += new EventHandler<CredentialEventArgs>(_MessagingService_AuthorizationFailed);
+            _MessagingService.AuthorizationFailed += _MessagingService_AuthorizationFailed;
             _MessagingService.MessagesReceived += _MessagingService_MessagesReceived;
 
             Messages = new ObservableCollection<UiMessage>();

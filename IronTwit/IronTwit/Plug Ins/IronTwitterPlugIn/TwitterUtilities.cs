@@ -145,6 +145,7 @@ namespace IronTwitterPlugIn
         public bool CanAccept(Credentials credentials)
         {
             return
+                String.IsNullOrEmpty(credentials.UserName) || 
                 credentials.ServiceInformation.Equals(new ServiceInformation()
                                                           {ServiceID = SERVICE_ID, ServiceName = SERVICE_NAME});
         }
@@ -170,7 +171,9 @@ namespace IronTwitterPlugIn
                                                                                   new MessagesReceivedEventArgs(messages));
                                                              lastPollTime = DateTime.Now;
                                                          }
-                                                         Thread.Sleep(250);
+
+                                                         // 100 api calls over an hour.
+                                                         Thread.Sleep(60*60*1000/99);
                                                      }
                                                  });
             receivingThread.Start();

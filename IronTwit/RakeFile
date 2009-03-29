@@ -7,10 +7,6 @@ require 'zip/zip'
 require 'zip/zipfilesystem'
 require "fileutils"
 
-script_file = File.expand_path(File.dirname(__FILE__))
-script_path = Pathname.new(filepath).dirname
-Dir.chdir(script_path)
-
 require "BuildUtils.rb"
 
 COMPILE_TARGET = "release"

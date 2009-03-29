@@ -1,34 +1,34 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <!--This file represents the results of running a test suite-->
-<test-results name="C:/Users/James/Documents/Visual Studio 2008/Projects/irontwit/IronTwit/IronTwit/Specs/bin/release/Unite.Specs.dll" total="41" errors="0" failures="0" not-run="1" ignored="1" skipped="0" invalid="0" date="2009-03-29" time="10:35:39">
+<test-results name="C:/Users/James/Documents/Visual Studio 2008/Projects/irontwit/IronTwit/IronTwit/Specs/bin/release/Unite.Specs.dll" total="41" errors="0" failures="0" not-run="1" ignored="1" skipped="0" invalid="0" date="2009-03-29" time="10:53:50">
   <environment nunit-version="2.5.0.8332" clr-version="2.0.50727.1826" os-version="Microsoft Windows NT 6.0.6001 Service Pack 1" platform="Win32NT" cwd="C:\Users\James\Documents\Visual Studio 2008\Projects\irontwit\IronTwit" machine-name="CERRUNNOS" user="James" user-domain="CERRUNNOS" />
   <culture-info current-culture="en-US" current-uiculture="en-US" />
-  <test-suite name="C:/Users/James/Documents/Visual Studio 2008/Projects/irontwit/IronTwit/IronTwit/Specs/bin/release/Unite.Specs.dll" executed="True" success="True" time="0.782" asserts="0">
+  <test-suite name="C:/Users/James/Documents/Visual Studio 2008/Projects/irontwit/IronTwit/IronTwit/Specs/bin/release/Unite.Specs.dll" executed="True" success="True" time="0.915" asserts="0">
     <results>
-      <test-suite name="Unite" executed="True" success="True" time="0.769" asserts="0">
+      <test-suite name="Unite" executed="True" success="True" time="0.901" asserts="0">
         <results>
-          <test-suite name="Specs" executed="True" success="True" time="0.769" asserts="0">
+          <test-suite name="Specs" executed="True" success="True" time="0.900" asserts="0">
             <results>
-              <test-suite name="Application_running" executed="True" success="True" time="0.433" asserts="0">
+              <test-suite name="Application_running" executed="True" success="True" time="0.553" asserts="0">
                 <results>
-                  <test-suite name="Managing_Plugins" executed="True" success="True" time="0.325" asserts="0">
+                  <test-suite name="Managing_Plugins" executed="True" success="True" time="0.341" asserts="0">
                     <results>
-                      <test-suite name="When_a_message_is_received_while_messages_already_exist" executed="True" success="True" time="0.324" asserts="1">
+                      <test-suite name="When_a_message_is_received_while_messages_already_exist" executed="True" success="True" time="0.340" asserts="1">
                         <results>
-                          <test-case name="Unite.Specs.Application_running.Managing_Plugins.When_a_message_is_received_while_messages_already_exist.It_should_increase_the_number_of_viewable_messages_by_one" executed="True" success="True" time="0.004" asserts="1" />
+                          <test-case name="Unite.Specs.Application_running.Managing_Plugins.When_a_message_is_received_while_messages_already_exist.It_should_increase_the_number_of_viewable_messages_by_one" executed="True" success="True" time="0.005" asserts="1" />
                           <test-case name="Unite.Specs.Application_running.Managing_Plugins.When_a_message_is_received_while_messages_already_exist.It_should_place_the_most_recent_message_at_the_top_of_the_list" executed="True" success="True" time="0.000" asserts="1" />
                         </results>
                       </test-suite>
                     </results>
                   </test-suite>
-                  <test-suite name="sending_messages" executed="True" success="True" time="0.061" asserts="0">
+                  <test-suite name="sending_messages" executed="True" success="True" time="0.066" asserts="0">
                     <results>
                       <test-suite name="context" executed="False">
                         <reason>
                           <message><![CDATA[Unite.Specs.Application_running.sending_messages.context is an abstract class]]></message>
                         </reason>
                       </test-suite>
-                      <test-suite name="When_sending_a_large_message_with_no_recipient" executed="True" success="True" time="0.059" asserts="0">
+                      <test-suite name="When_sending_a_large_message_with_no_recipient" executed="True" success="True" time="0.063" asserts="0">
                         <results>
                           <test-case name="Unite.Specs.Application_running.sending_messages.When_sending_a_large_message_with_no_recipient.It_clips_each_message_to_be_at_or_below_the_max_message_length" executed="True" success="True" time="0.002" asserts="3" />
                           <test-case name="Unite.Specs.Application_running.sending_messages.When_sending_a_large_message_with_no_recipient.It_includes_the_recipient_in_each_message" executed="True" success="True" time="0.001" asserts="3" />
@@ -38,7 +38,7 @@
                       </test-suite>
                     </results>
                   </test-suite>
-                  <test-suite name="When_clicking_on_a_message" executed="True" success="True" time="0.042" asserts="0">
+                  <test-suite name="When_clicking_on_a_message" executed="True" success="True" time="0.141" asserts="0">
                     <results>
                       <test-case name="Unite.Specs.Application_running.When_clicking_on_a_message.It_should_show_the_message_sender_in_the_recipient_field" executed="False">
                         <reason>
@@ -49,39 +49,39 @@
                   </test-suite>
                 </results>
               </test-suite>
-              <test-suite name="Application_starting" executed="True" success="True" time="0.188" asserts="0">
+              <test-suite name="Application_starting" executed="True" success="True" time="0.198" asserts="0">
                 <results>
                   <test-suite name="context" executed="False">
                     <reason>
                       <message><![CDATA[Unite.Specs.Application_starting.context is an abstract class]]></message>
                     </reason>
                   </test-suite>
-                  <test-suite name="Receiving_messages" executed="True" success="True" time="0.154" asserts="0">
+                  <test-suite name="Receiving_messages" executed="True" success="True" time="0.162" asserts="0">
                     <results>
-                      <test-suite name="When_refresh_is_requested" executed="True" success="True" time="0.154" asserts="0">
+                      <test-suite name="When_refresh_is_requested" executed="True" success="True" time="0.162" asserts="0">
                         <results>
-                          <test-case name="Unite.Specs.Application_starting.Receiving_messages.When_refresh_is_requested.It_should_be_able_to_refresh" executed="True" success="True" time="0.001" asserts="1" />
+                          <test-case name="Unite.Specs.Application_starting.Receiving_messages.When_refresh_is_requested.It_should_be_able_to_refresh" executed="True" success="True" time="0.000" asserts="1" />
                           <test-case name="Unite.Specs.Application_starting.Receiving_messages.When_refresh_is_requested.It_should_get_items" executed="True" success="True" time="0.001" asserts="1" />
                         </results>
                       </test-suite>
                     </results>
                   </test-suite>
-                  <test-suite name="Sending_messages" executed="True" success="True" time="0.020" asserts="0">
+                  <test-suite name="Sending_messages" executed="True" success="True" time="0.022" asserts="0">
                     <results>
                       <test-suite name="context" executed="False">
                         <reason>
                           <message><![CDATA[Unite.Specs.Application_starting.Sending_messages.context is an abstract class]]></message>
                         </reason>
                       </test-suite>
-                      <test-suite name="When_user_requests_to_send_message" executed="True" success="True" time="0.020" asserts="0">
+                      <test-suite name="When_user_requests_to_send_message" executed="True" success="True" time="0.021" asserts="0">
                         <results>
-                          <test-case name="Unite.Specs.Application_starting.Sending_messages.When_user_requests_to_send_message.It_should_be_able_to_send_the_message" executed="True" success="True" time="0.000" asserts="1" />
+                          <test-case name="Unite.Specs.Application_starting.Sending_messages.When_user_requests_to_send_message.It_should_be_able_to_send_the_message" executed="True" success="True" time="0.001" asserts="1" />
                           <test-case name="Unite.Specs.Application_starting.Sending_messages.When_user_requests_to_send_message.It_should_be_sent" executed="True" success="True" time="0.006" asserts="1" />
-                          <test-case name="Unite.Specs.Application_starting.Sending_messages.When_user_requests_to_send_message.It_should_be_sent_to_the_correct_recipient" executed="True" success="True" time="0.001" asserts="1" />
+                          <test-case name="Unite.Specs.Application_starting.Sending_messages.When_user_requests_to_send_message.It_should_be_sent_to_the_correct_recipient" executed="True" success="True" time="0.000" asserts="1" />
                           <test-case name="Unite.Specs.Application_starting.Sending_messages.When_user_requests_to_send_message.It_should_clear_the_message_field" executed="True" success="True" time="0.000" asserts="1" />
                           <test-case name="Unite.Specs.Application_starting.Sending_messages.When_user_requests_to_send_message.It_should_clear_the_recipient_field" executed="True" success="True" time="0.000" asserts="1" />
-                          <test-case name="Unite.Specs.Application_starting.Sending_messages.When_user_requests_to_send_message.It_should_match_the_one_provided_by_the_user" executed="True" success="True" time="0.001" asserts="1" />
-                          <test-case name="Unite.Specs.Application_starting.Sending_messages.When_user_requests_to_send_message.It_should_update_the_UI_with_the_new_data" executed="True" success="True" time="0.000" asserts="1" />
+                          <test-case name="Unite.Specs.Application_starting.Sending_messages.When_user_requests_to_send_message.It_should_match_the_one_provided_by_the_user" executed="True" success="True" time="0.000" asserts="1" />
+                          <test-case name="Unite.Specs.Application_starting.Sending_messages.When_user_requests_to_send_message.It_should_update_the_UI_with_the_new_data" executed="True" success="True" time="0.001" asserts="1" />
                           <test-case name="Unite.Specs.Application_starting.Sending_messages.When_user_requests_to_send_message.It_should_use_the_correct_password" executed="True" success="True" time="0.002" asserts="1" />
                           <test-case name="Unite.Specs.Application_starting.Sending_messages.When_user_requests_to_send_message.It_should_use_the_correct_user_name" executed="True" success="True" time="0.000" asserts="1" />
                         </results>
@@ -90,22 +90,22 @@
                   </test-suite>
                   <test-suite name="When_main_view_is_shown_for_the_first_time" executed="True" success="True" time="0.008" asserts="0">
                     <results>
-                      <test-case name="Unite.Specs.Application_starting.When_main_view_is_shown_for_the_first_time.It_should_get_messages_for_user" executed="True" success="True" time="0.001" asserts="1" />
-                      <test-case name="Unite.Specs.Application_starting.When_main_view_is_shown_for_the_first_time.It_should_use_credentials_provided_by_user_to_get_messages" executed="True" success="True" time="0.001" asserts="1" />
+                      <test-case name="Unite.Specs.Application_starting.When_main_view_is_shown_for_the_first_time.It_should_get_messages_for_user" executed="True" success="True" time="0.002" asserts="1" />
+                      <test-case name="Unite.Specs.Application_starting.When_main_view_is_shown_for_the_first_time.It_should_use_credentials_provided_by_user_to_get_messages" executed="True" success="True" time="0.000" asserts="1" />
                     </results>
                   </test-suite>
                 </results>
               </test-suite>
-              <test-suite name="Contacts" executed="True" success="True" time="0.010" asserts="0">
+              <test-suite name="Contacts" executed="True" success="True" time="0.011" asserts="0">
                 <results>
                   <test-suite name="When_receiving_a_message_with_a_known_contact" executed="True" success="True" time="0.007" asserts="0">
                     <results>
-                      <test-case name="Unite.Specs.Contacts.When_receiving_a_message_with_a_known_contact.Its_name_should_appear_in_message_list" executed="True" success="True" time="0.001" asserts="1" />
+                      <test-case name="Unite.Specs.Contacts.When_receiving_a_message_with_a_known_contact.Its_name_should_appear_in_message_list" executed="True" success="True" time="0.000" asserts="1" />
                     </results>
                   </test-suite>
                   <test-suite name="When_receiving_a_message_with_an_unknown_contact" executed="True" success="True" time="0.002" asserts="0">
                     <results>
-                      <test-case name="Unite.Specs.Contacts.When_receiving_a_message_with_an_unknown_contact.It_should_have_the_name_be_the_same_as_the_username" executed="True" success="True" time="0.001" asserts="1" />
+                      <test-case name="Unite.Specs.Contacts.When_receiving_a_message_with_an_unknown_contact.It_should_have_the_name_be_the_same_as_the_username" executed="True" success="True" time="0.000" asserts="1" />
                     </results>
                   </test-suite>
                 </results>
@@ -117,14 +117,14 @@
                       <message><![CDATA[Unite.Specs.Starting_Application.context is an abstract class]]></message>
                     </reason>
                   </test-suite>
-                  <test-suite name="When_wrong_credentials_are_provided_to_the_app" executed="True" success="True" time="0.006" asserts="0">
+                  <test-suite name="When_wrong_credentials_are_provided_to_the_app" executed="True" success="True" time="0.007" asserts="0">
                     <results>
                       <test-case name="Unite.Specs.Starting_Application.When_wrong_credentials_are_provided_to_the_app.It_should_tell_the_user_and_ask_if_the_user_wants_to_try_again" executed="True" success="True" time="0.000" asserts="1" />
                     </results>
                   </test-suite>
                 </results>
               </test-suite>
-              <test-suite name="TwitterServicesScope" executed="True" success="True" time="0.014" asserts="0">
+              <test-suite name="TwitterServicesScope" executed="True" success="True" time="0.013" asserts="0">
                 <results>
                   <test-suite name="context" executed="False">
                     <reason>
@@ -138,57 +138,57 @@
                   </test-suite>
                   <test-suite name="When_receiving_messages" executed="True" success="True" time="0.003" asserts="0">
                     <results>
-                      <test-case name="Unite.Specs.TwitterServicesScope.When_receiving_messages.It_should_get_all_messages" executed="True" success="True" time="0.001" asserts="1" />
+                      <test-case name="Unite.Specs.TwitterServicesScope.When_receiving_messages.It_should_get_all_messages" executed="True" success="True" time="0.000" asserts="1" />
                       <test-case name="Unite.Specs.TwitterServicesScope.When_receiving_messages.It_should_request_credentials" executed="True" success="True" time="0.000" asserts="1" />
                       <test-case name="Unite.Specs.TwitterServicesScope.When_receiving_messages.It_should_use_the_credentials_provided_by_the_user" executed="True" success="True" time="0.000" asserts="1" />
                     </results>
                   </test-suite>
-                  <test-suite name="When_sending_a_large_message_with_no_recipient" executed="True" success="True" time="0.002" asserts="0">
+                  <test-suite name="When_sending_a_large_message_with_no_recipient" executed="True" success="True" time="0.003" asserts="0">
                     <results>
                       <test-case name="Unite.Specs.TwitterServicesScope.When_sending_a_large_message_with_no_recipient.It_clips_each_message_to_be_at_or_below_the_max_message_length" executed="True" success="True" time="0.001" asserts="1" />
-                      <test-case name="Unite.Specs.TwitterServicesScope.When_sending_a_large_message_with_no_recipient.It_should_not_be_broken_up_into_multiple_messages" executed="True" success="True" time="0.000" asserts="1" />
+                      <test-case name="Unite.Specs.TwitterServicesScope.When_sending_a_large_message_with_no_recipient.It_should_not_be_broken_up_into_multiple_messages" executed="True" success="True" time="0.001" asserts="1" />
                     </results>
                   </test-suite>
-                  <test-suite name="When_sending_a_large_message_with_recipient_first_time" executed="True" success="True" time="0.004" asserts="0">
+                  <test-suite name="When_sending_a_large_message_with_recipient_first_time" executed="True" success="True" time="0.003" asserts="0">
                     <results>
                       <test-case name="Unite.Specs.TwitterServicesScope.When_sending_a_large_message_with_recipient_first_time.It_clips_each_message_to_be_at_or_below_the_max_message_length" executed="True" success="True" time="0.001" asserts="1" />
                       <test-case name="Unite.Specs.TwitterServicesScope.When_sending_a_large_message_with_recipient_first_time.It_includes_the_recipient_in_the_message" executed="True" success="True" time="0.001" asserts="1" />
-                      <test-case name="Unite.Specs.TwitterServicesScope.When_sending_a_large_message_with_recipient_first_time.It_should_not_be_broken_up_into_multiple_messages" executed="True" success="True" time="0.001" asserts="1" />
+                      <test-case name="Unite.Specs.TwitterServicesScope.When_sending_a_large_message_with_recipient_first_time.It_should_not_be_broken_up_into_multiple_messages" executed="True" success="True" time="0.000" asserts="1" />
                       <test-case name="Unite.Specs.TwitterServicesScope.When_sending_a_large_message_with_recipient_first_time.It_should_request_user_credentials" executed="True" success="True" time="0.000" asserts="1" />
                     </results>
                   </test-suite>
                 </results>
               </test-suite>
-              <test-suite name="UnitTests" executed="True" success="True" time="0.097" asserts="0">
+              <test-suite name="UnitTests" executed="True" success="True" time="0.100" asserts="0">
                 <results>
-                  <test-suite name="Formatting_messages_for_twitter" executed="True" success="True" time="0.001" asserts="0">
+                  <test-suite name="Formatting_messages_for_twitter" executed="True" success="True" time="0.000" asserts="0">
                     <results>
                       <test-case name="Unite.Specs.UnitTests.Formatting_messages_for_twitter.TestOne" executed="True" success="True" time="0.000" asserts="0" />
                     </results>
                   </test-suite>
-                  <test-suite name="InlineUrlsTests" executed="True" success="True" time="0.089" asserts="0">
+                  <test-suite name="InlineUrlsTests" executed="True" success="True" time="0.092" asserts="0">
                     <results>
-                      <test-case name="Unite.Specs.UnitTests.InlineUrlsTests.NullOrEmptyMessageText" executed="True" success="True" time="0.059" asserts="2" />
-                      <test-case name="Unite.Specs.UnitTests.InlineUrlsTests.SimpleUrlAtBeginningOfMessage" executed="True" success="True" time="0.024" asserts="4" />
-                      <test-case name="Unite.Specs.UnitTests.InlineUrlsTests.SimpleUrlAtEndOfMessage" executed="True" success="True" time="0.000" asserts="4" />
-                      <test-case name="Unite.Specs.UnitTests.InlineUrlsTests.SimpleUrlInMiddleOfMessage" executed="True" success="True" time="0.001" asserts="4" />
+                      <test-case name="Unite.Specs.UnitTests.InlineUrlsTests.NullOrEmptyMessageText" executed="True" success="True" time="0.061" asserts="2" />
+                      <test-case name="Unite.Specs.UnitTests.InlineUrlsTests.SimpleUrlAtBeginningOfMessage" executed="True" success="True" time="0.026" asserts="4" />
+                      <test-case name="Unite.Specs.UnitTests.InlineUrlsTests.SimpleUrlAtEndOfMessage" executed="True" success="True" time="0.001" asserts="4" />
+                      <test-case name="Unite.Specs.UnitTests.InlineUrlsTests.SimpleUrlInMiddleOfMessage" executed="True" success="True" time="0.000" asserts="4" />
                       <test-case name="Unite.Specs.UnitTests.InlineUrlsTests.TwoUrlsInMiddleAndAtEnd" executed="True" success="True" time="0.001" asserts="7" />
                     </results>
                   </test-suite>
                   <test-suite name="ServiceResolverTests" executed="True" success="True" time="0.003" asserts="0">
                     <results>
-                      <test-case name="Unite.Specs.UnitTests.ServiceResolverTests.DetectEmailAddress" executed="True" success="True" time="0.000" asserts="1" />
+                      <test-case name="Unite.Specs.UnitTests.ServiceResolverTests.DetectEmailAddress" executed="True" success="True" time="0.001" asserts="1" />
                       <test-case name="Unite.Specs.UnitTests.ServiceResolverTests.DetectGChatAddress" executed="True" success="True" time="0.000" asserts="1" />
-                      <test-case name="Unite.Specs.UnitTests.ServiceResolverTests.DetectTwitterAddress" executed="True" success="True" time="0.000" asserts="4" />
+                      <test-case name="Unite.Specs.UnitTests.ServiceResolverTests.DetectTwitterAddress" executed="True" success="True" time="0.001" asserts="4" />
                     </results>
                   </test-suite>
                 </results>
               </test-suite>
-              <test-suite name="Using_Services" executed="True" success="True" time="0.002" asserts="0">
+              <test-suite name="Using_Services" executed="True" success="True" time="0.003" asserts="0">
                 <results>
                   <test-suite name="When_getting_messages" executed="True" success="True" time="0.002" asserts="0">
                     <results>
-                      <test-case name="Unite.Specs.Using_Services.When_getting_messages.It_should_get_messages_from_all_available_services" executed="True" success="True" time="0.001" asserts="1" />
+                      <test-case name="Unite.Specs.Using_Services.When_getting_messages.It_should_get_messages_from_all_available_services" executed="True" success="True" time="0.000" asserts="1" />
                     </results>
                   </test-suite>
                 </results>

@@ -44,7 +44,7 @@ namespace IronTwitterPlugIn
         [DefaultConstructor]
         public TwitterUtilities() : this(null)
         {
-            _ReceivedTweets = new Dictionary<int, bool>();
+            
         }
 
         [DefaultConstructor]
@@ -63,6 +63,8 @@ namespace IronTwitterPlugIn
 
             if (dataAccess == null) //default path
                 _DataAccess = new TwitterDataAccess();
+
+            _ReceivedTweets = new Dictionary<int, bool>();
         }
 
         public void SendMessage(IIdentity theRecipient, string message)
@@ -130,7 +132,7 @@ namespace IronTwitterPlugIn
         {
             if (string.IsNullOrEmpty(address))
                 return true;
-            if (address.Trim().Length == 0)
+            if (address.Trim() == String.Empty)
                 return true;
             if (address.StartsWith("@"))
                 return true;
@@ -145,14 +147,14 @@ namespace IronTwitterPlugIn
         public bool CanAccept(Credentials credentials)
         {
             return
-                String.IsNullOrEmpty(credentials.UserName) || 
+                credentials.UserName==null || 
+                credentials.UserName.Trim() == String.Empty || 
                 credentials.ServiceInformation.Equals(new ServiceInformation()
                                                           {ServiceID = SERVICE_ID, ServiceName = SERVICE_NAME});
         }
 
         private bool _StopReceiving;
 
-        private const int POLLING_INTERVAL_SECONDS = 10;
         public event EventHandler<MessagesReceivedEventArgs> MessagesReceived;
         public void StartReceiving()
         {

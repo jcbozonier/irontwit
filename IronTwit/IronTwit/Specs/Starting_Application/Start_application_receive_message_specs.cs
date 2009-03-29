@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using Unite.Messaging.Entities;
+﻿using Unite.Messaging.Entities;
 using Unite.Messaging.Services;
 using Unite.UI.Utilities;
 using Unite.UI.ViewModels;
 using IronTwitterPlugIn;
-using IronTwitterPlugIn.DataObjects;
 using NUnit.Framework;
 using SpecUnit;
 using StructureMap;

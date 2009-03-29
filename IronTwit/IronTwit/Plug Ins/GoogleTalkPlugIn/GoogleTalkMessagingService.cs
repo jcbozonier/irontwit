@@ -67,7 +67,7 @@ namespace GoogleTalkPlugIn
 
         public bool CanAccept(Credentials credentials)
         {
-            return !String.IsNullOrEmpty(credentials.UserName) && credentials.ServiceInformation == _ServiceInformation;
+            return credentials.ServiceInformation == _ServiceInformation;
         }
 
         public List<IMessage> GetMessages()
@@ -98,7 +98,14 @@ namespace GoogleTalkPlugIn
         {
             // If the address contains an ampersand it can't start with it
             // or it just shouldn't have one at all.
-            return (!address.StartsWith("@") && address.Contains("@")) || !address.Contains("@");
+            return address != null &&
+                   address.Trim() != String.Empty &&
+                   (
+                       (
+                            (!address.StartsWith("@") && address.Contains("@")
+                       ) ||
+                       !address.Contains("@"))
+                   );
         }
 
         public ServiceInformation GetInformation()

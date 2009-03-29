@@ -12,6 +12,7 @@ using IServiceProvider=Unite.Messaging.Services.IServiceProvider;
 namespace Unite.Specs.Application_starting.Receiving_messages
 {
     [TestFixture]
+    [Ignore]
     public class When_refresh_is_requested : context
     {
         [Test]

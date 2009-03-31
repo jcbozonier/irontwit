@@ -46,14 +46,14 @@ end
 # TODO Make clean actually clean build directories.
 desc "Prepares the working directory for a new build"
 task :clean do
-	#puts "Performing build clean..."
-	#Dir.glob(File.join(props[:archive], "*")){|file| 		
-	#  FileUtils.rm(file) if File.file?(file)
-	#}	
-	#Dir.mkdir props[:archive] unless exists?(props[:archive])
-	#
-	#file = "Server/Falcon.Server.Setup/setup.exe"
-#	FileUtils.rm(file) if File.file?(file)
+	puts "Performing build clean..."
+	Dir.glob(File.join(props[:archive], "*")){|file| 		
+	  FileUtils.rm(file) if File.file?(file)
+	}	
+	Dir.mkdir props[:archive] unless exists?(props[:archive])
+	
+	file = "Server/Falcon.Server.Setup/setup.exe"
+	FileUtils.rm(file) if File.file?(file)
 end
 
 desc "Compiles the app"
@@ -63,7 +63,7 @@ task :compile do
 end
 
 desc "Move Compilation Output to Build Directory"
-task :move_artifacts => :clean do #=> [:compile, :bootstrapper]
+task :move_artifacts do 
   puts "Gathering build artifacts..."
   
   def archive_files(source, glob_mask, destination)
@@ -72,17 +72,9 @@ task :move_artifacts => :clean do #=> [:compile, :bootstrapper]
 	}
   end
   
-  outDir = "Server/Falcon.Server.Ui/bin/#{COMPILE_TARGET}"
-  msiDir = "Server/Falcon.Server.Setup/bin/#{COMPILE_TARGET}" 
-  setupDir = "Server/Falcon.Server.Setup/"
+  msiDir = "IronTwit/Unite.Setup/bin/#{COMPILE_TARGET}" 
   
-  archive_files(outDir, "*.{dll,pdb,msi,exe}", props[:archive])
-  archive_files(msiDir, "*.{msi,wixpdb}", props[:archive])
-  archive_files(setupDir, "setup.exe", props[:archive])
-  
-  Dir.glob(File.join(props[:archive], "*.{msi}")) { |file|
-	FileUtils.mv(file, File.join(props[:archive], INSTALLER_FILENAME));
-  }
+  archive_files(msiDir, "*.{msi}", props[:archive])
 end
 
 desc "Runs unit tests"

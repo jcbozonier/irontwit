@@ -10,7 +10,7 @@
 
   <!-- Some constants so we can drop it like it's hot. -->
   <?define RTMProductVersion="0.0.0" ?>
-  <?define ProductVersion="0.0.$(var.BuildNumber)" ?>
+  <?define ProductVersion="0.1.$(var.BuildNumber)" ?>
   <?define UpgradeCode="7A143F4B-00FE-4119-A637-2D53AB44B751"?>
   <?define Manufacturer="Unite Community"?>
 

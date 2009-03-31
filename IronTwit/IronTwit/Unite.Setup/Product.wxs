@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+
+  <!-- Set version based on build_number env. variable. -->
+  <?ifdef env.BUILD_NUMBER ?>
+    <?define BuildNumber="$(env.BUILD_NUMBER)"?>
+  <?else?>
+    <?define BuildNumber="0"?>
+  <?endif?>
+
+  <!-- Some constants so we can drop it like it's hot. -->
+  <?define RTMProductVersion="0.0.0" ?>
+  <?define ProductVersion="0.0.$(var.BuildNumber)" ?>
+  <?define UpgradeCode="7A143F4B-00FE-4119-A637-2D53AB44B751"?>
+  <?define Manufacturer="Unite Community"?>
+
+  <Product Id="*"
+           Name="Unite"
+           Language="1033"
+           Version="$(var.ProductVersion)"
+           Manufacturer="$(var.Manufacturer)"
+           UpgradeCode="$(var.UpgradeCode)">
+
+    <Package InstallerVersion="200"
+             Compressed="yes"
+             Manufacturer="$(var.Manufacturer)"/>
+    <Media Id="1" Cabinet="media1.cab" EmbedCab="yes" />
+
+    <Upgrade Id="$(var.UpgradeCode)">
+      <UpgradeVersion Minimum="$(var.ProductVersion)"
+                      IncludeMinimum="no"
+                      OnlyDetect="yes"
+                      Language="1033"
+                      Property="NEWPRODUCTFOUND" />
+      <UpgradeVersion Minimum="$(var.RTMProductVersion)"
+                      IncludeMinimum="yes"
+                      Maximum="$(var.ProductVersion)"
+                      IncludeMaximum="no"
+                      Language="1033"
+                      Property="UPGRADEFOUND" />
+    </Upgrade>
+
+    <DirectoryRef Id="ApplicationProgramsFolder">
+      <Component Id="ApplicationShortcut" Guid="93CDED4E-5E88-409B-8F55-07B9EC6BCAD5">
+        <Shortcut Id="ApplicationStartMenuShortcut"
+                  Name="Unite"
+                  Description="Unite Communication Aggregator"
+                  Target="[INSTALLLOCATION]Unite.UI.exe"
+                  WorkingDirectory="INSTALLLOCATION"/>
+
+        <RemoveFolder Id="ApplicationProgramsFolder" On="uninstall" />
+        <RegistryValue Root="HKCU" Key="Software\Unite"
+                       Name="ApplicationShortcutInstalled"
+                       Type="integer" Value="1" KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+
+    <DirectoryRef Id="DesktopFolder">
+      <Component Id="DesktopShortcut" Guid="B44BEAD5-4F3F-46CA-AA72-F1D2737B348F">
+        <CreateFolder/>
+        <Shortcut Id="DesktopShortcut"
+                  Directory="DesktopFolder"
+                  Name="Unite"
+                  WorkingDirectory="INSTALLLOCATION"
+                  Target="[INSTALLLOCATION]Unite.UI.exe"/>
+        <RegistryValue Root="HKCU" Key="Software\Unite"
+                         Name="DesktopShortcutInstalled"
+                         Type="integer" Value="1" KeyPath="yes"/>
+      </Component>
+    </DirectoryRef>
+
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="INSTALLLOCATION" Name="Unite">
+        </Directory>
+      </Directory>
+      <Directory Id="ProgramMenuFolder">
+        <Directory Id="ApplicationProgramsFolder" Name="Unite"/>
+      </Directory>
+      <Directory Id="DesktopFolder" Name="Desktop"/>
+    </Directory>
+
+    <DirectoryRef Id="INSTALLLOCATION">
+      <Component Id="Unite.UI.exe" Guid="E27EC952-4F9D-48AE-8CE1-3C9A503660B1">
+        <File Id="Unite.UI.exe" Source="$(var.Unite.UI.TargetDir)\Unite.UI.exe" KeyPath="yes" Checksum="yes" />
+      </Component>
+      <Component Id="Bound.Net.dll" Guid="A26E1575-3DB8-4C71-A634-1B07D0A78FB6">
+        <File Id="Bound.Net.dll" Source="$(var.Unite.UI.TargetDir)\Bound.Net.dll" KeyPath="yes" Checksum="yes" />
+      </Component>
+      <Component Id="GoogleTalkPlugin.dll" Guid="A4E6AF37-BEEB-409E-B981-880589FC6496">
+        <File Id="GoogleTalkPlugin.dll" Source="$(var.Unite.UI.TargetDir)\GoogleTalkPlugin.dll" KeyPath="yes" Checksum="yes" />
+      </Component>
+      <Component Id="IronTwitterPlugIn.dll" Guid="CD98530C-7E34-474D-AFD1-92B8D71C7FA9">
+        <File Id="IronTwitterPlugIn.dll" Source="$(var.Unite.UI.TargetDir)\IronTwitterPlugIn.dll" KeyPath="yes" Checksum="yes" />
+      </Component>
+      <Component Id="jabber_net.dll" Guid="DDB4C76F-57ED-452F-BEEB-F33D8236577A">
+        <File Id="jabber_net.dll" Source="$(var.Unite.UI.TargetDir)\jabber-net.dll" KeyPath="yes" Checksum="yes" />
+      </Component>
+      <Component Id="netlib.Dns.dll" Guid="54CD5CEB-9EEA-47C5-B275-C383497C30CD">
+        <File Id="netlib.Dns.dll" Source="$(var.Unite.UI.TargetDir)\netlib.Dns.dll" KeyPath="yes" Checksum="yes" />
+      </Component>
+      <Component Id="Newtonsoft.Json.dll" Guid="26C2AB9B-7C5D-4252-81A3-84D651791814">
+        <File Id="Newtonsoft.Json.dll" Source="$(var.Unite.UI.TargetDir)\Newtonsoft.Json.dll" KeyPath="yes" Checksum="yes" />
+      </Component>
+      <Component Id="StructureMap.AutoMocking.dll" Guid="C99F137C-1830-45CD-9D52-DE5664D0BEE4">
+        <File Id="StructureMap.AutoMocking.dll" Source="$(var.Unite.UI.TargetDir)\StructureMap.AutoMocking.dll" KeyPath="yes" Checksum="yes" />
+      </Component>
+      <Component Id="StructureMap.dll" Guid="D8A0413A-D6C3-443A-8361-F8CBE945B6DE">
+        <File Id="StructureMap.dll" Source="$(var.Unite.UI.TargetDir)\StructureMap.dll" KeyPath="yes" Checksum="yes" />
+      </Component>
+      <Component Id="Unite.Messaging.dll" Guid="9253F0E9-CDA0-4407-916C-60D3CDB35A38">
+        <File Id="Unite.Messaging.dll" Source="$(var.Unite.UI.TargetDir)\Unite.Messaging.dll" KeyPath="yes" Checksum="yes" />
+      </Component>
+      <Component Id="WPF.Themes.dll" Guid="4DD0143F-E654-49AF-826A-C280B5BAF7D7">
+        <File Id="WPF.Themes.dll" Source="$(var.Unite.UI.TargetDir)\WPF.Themes.dll" KeyPath="yes" Checksum="yes" />
+      </Component>
+      <Component Id="WPFToolkit.dll" Guid="1B6DE18F-9271-4A12-A33C-DE52E9F1775A">
+        <File Id="WPFToolkit.dll" Source="$(var.Unite.UI.TargetDir)\WPFToolkit.dll" KeyPath="yes" Checksum="yes" />
+      </Component>
+      <Component Id="Yedda.Twitter.dll" Guid="DF81F2F9-206A-484D-A0DB-E9C0F2FE1C86">
+        <File Id="Yedda.Twitter.dll" Source="$(var.Unite.UI.TargetDir)\Yedda.Twitter.dll" KeyPath="yes" Checksum="yes" />
+      </Component>
+    </DirectoryRef>
+
+    <Feature Id="ProductFeature" Title="Unite" Level="1">
+      <ComponentRef Id="Unite.UI.exe"/>
+      <ComponentRef Id="Bound.Net.dll"  />
+      <ComponentRef Id="GoogleTalkPlugin.dll"  />
+      <ComponentRef Id="IronTwitterPlugIn.dll"  />
+      <ComponentRef Id="jabber_net.dll"   />
+      <ComponentRef Id="netlib.Dns.dll"  />
+      <ComponentRef Id="Newtonsoft.Json.dll"  />
+      <ComponentRef Id="StructureMap.AutoMocking.dll"  />
+      <ComponentRef Id="StructureMap.dll"  />
+      <ComponentRef Id="Unite.Messaging.dll"  />
+      <ComponentRef Id="WPF.Themes.dll"  />
+      <ComponentRef Id="WPFToolkit.dll" />
+      <ComponentRef Id="Yedda.Twitter.dll"  />
+      <ComponentRef Id="ApplicationShortcut"  />
+      <ComponentRef Id="DesktopShortcut"  />
+    </Feature>
+
+    <!-- Prevent downgrading -->
+    <CustomAction Id="PreventDowngrading" Error="Newer version already installed." />
+
+    <!-- Sequences -->
+    <InstallExecuteSequence>
+      <Custom Action="PreventDowngrading" After="FindRelatedProducts">NEWPRODUCTFOUND</Custom>
+      <RemoveExistingProducts After="InstallFinalize" />
+    </InstallExecuteSequence>
+
+    <InstallUISequence>
+      <Custom Action="PreventDowngrading" After="FindRelatedProducts">NEWPRODUCTFOUND</Custom>
+    </InstallUISequence>
+
+    <Property Id="ALLUSERS">1</Property>
+
+    <WixVariable Id="WixUILicenseRtf" Value="License.rtf" />
+
+    <Property Id="WIXUI_INSTALLDIR" Value="INSTALLLOCATION" />
+    <UIRef Id="WixUI_InstallDir" />
+
+  </Product>
+</Wix>

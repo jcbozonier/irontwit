@@ -1,4 +1,5 @@
-﻿using Unite.Messaging.Entities;
+﻿using System;
+using Unite.Messaging.Entities;
 using Unite.Messaging.Services;
 using Unite.UI.Utilities;
 using Unite.UI.ViewModels;
@@ -12,7 +13,6 @@ using IServiceProvider=Unite.Messaging.Services.IServiceProvider;
 namespace Unite.Specs.Application_starting.Receiving_messages
 {
     [TestFixture]
-    [Ignore]
     public class When_refresh_is_requested : context
     {
         [Test]

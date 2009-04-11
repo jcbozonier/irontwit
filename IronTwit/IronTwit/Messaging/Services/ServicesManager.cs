@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Unite.Messaging.Entities;
 using Unite.Messaging.Messages;
 
@@ -7,21 +8,29 @@ namespace Unite.Messaging.Services
 {
     public class ServicesManager : IMessagingServiceManager
     {
-        private readonly IServiceProvider Provider;
+        private readonly IServiceProvider _Provider;
         private readonly IServiceResolver _Resolver;
+
+        private readonly IEnumerable<IMessagingService> _Services;
+
+        public event EventHandler<CredentialEventArgs> AuthorizationFailed;
+        public event EventHandler<CredentialEventArgs> CredentialsRequested;
+        public event EventHandler<MessagesReceivedEventArgs> MessagesReceived;
 
         public ServicesManager(IServiceProvider provider)
         {
-            Provider = provider;
-            Provider.CredentialsRequested += Provider_CredentialsRequested;
-            Provider.AuthorizationFailed += Provider_AuthorizationFailed;
-            _Resolver = new ServiceResolver(Provider);
+            _Provider = provider;
+            _Provider.CredentialsRequested += Provider_CredentialsRequested;
+            _Provider.AuthorizationFailed += Provider_AuthorizationFailed;
+            _Resolver = new ServiceResolver(_Provider);
+
+            _Services = _Provider.GetServices();
         }
 
         void Provider_AuthorizationFailed(object sender, CredentialEventArgs e)
         {
             if (AuthorizationFailed != null)
-                AuthorizationFailed(sender, e);
+                    AuthorizationFailed(sender, e);
         }
 
         void Provider_CredentialsRequested(object sender, CredentialEventArgs e)
@@ -38,7 +47,7 @@ namespace Unite.Messaging.Services
         public List<IMessage> GetMessages()
         {
             var messages = new List<IMessage>();
-            var services = Provider.GetServices();
+            var services = _Services;
 
             foreach (var service in services)
             {
@@ -50,13 +59,13 @@ namespace Unite.Messaging.Services
 
         public void SendMessage(IIdentity recipient, string message)
         {
-            var service = Provider.GetService(recipient.ServiceInfo);
+            var service = _Provider.GetService(recipient.ServiceInfo);
             service.SendMessage(recipient, message);
         }
 
         public void SetCredentials(Credentials credentials)
         {
-            var services = Provider.GetServices();
+            var services = _Services;
 
             foreach (var service in services)
             {
@@ -64,9 +73,6 @@ namespace Unite.Messaging.Services
                     service.SetCredentials(credentials);
             }
         }
-
-        public event EventHandler<CredentialEventArgs> CredentialsRequested;
-        public event EventHandler<CredentialEventArgs> AuthorizationFailed;
 
         public bool CanFind(string address)
         {
@@ -85,7 +91,7 @@ namespace Unite.Messaging.Services
 
         public void StartReceiving()
         {
-            var services = Provider.GetServices();
+            var services = _Services;
 
             foreach (var service in services)
             {
@@ -94,7 +100,7 @@ namespace Unite.Messaging.Services
             }
         }
 
-        void service_MessagesReceived(object sender, MessagesReceivedEventArgs e)
+        private void service_MessagesReceived(object sender, MessagesReceivedEventArgs e)
         {
             if (MessagesReceived != null)
                 MessagesReceived(sender, e);
@@ -102,7 +108,7 @@ namespace Unite.Messaging.Services
 
         public void StopReceiving()
         {
-            var services = Provider.GetServices();
+            var services = _Services;
 
             foreach (var service in services)
             {
@@ -110,8 +116,6 @@ namespace Unite.Messaging.Services
                 service.StopReceiving();
             }
         }
-
-        public event EventHandler<MessagesReceivedEventArgs> MessagesReceived;
 
         public void SendMessage(string recipient, string message)
         {

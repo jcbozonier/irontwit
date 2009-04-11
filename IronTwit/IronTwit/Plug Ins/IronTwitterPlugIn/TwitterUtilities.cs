@@ -202,6 +202,9 @@ namespace IronTwitterPlugIn
             }
             catch (WebException err)
             {
+                if(err.Message.Contains("(400)"))
+                    return new List<IMessage>();
+
                 // Those credentials suck apparently.
                 _UserCredentials = null;
                 // Let everyone know how much they suck.

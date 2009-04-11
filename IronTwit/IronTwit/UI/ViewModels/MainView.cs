@@ -21,6 +21,12 @@ namespace Unite.UI.ViewModels
 
     public class MainView : IInitializeView, INotifyPropertyChanged
     {
+        private readonly IMessagingServiceManager _MessagingService;
+        private readonly Thread _CurrentThread;
+        private readonly Dispatcher _CurrentDispatcher;
+
+        protected IContactProvider _ContactRepo;
+
         /// <summary>
         /// Any user input the view model needs can be requested through
         /// this object. Instantiation is handled in IoC container.
@@ -31,11 +37,6 @@ namespace Unite.UI.ViewModels
         /// A list of all of the tweets that should be displayed.
         /// </summary>
         public ObservableCollection<UiMessage> Messages { get; set; }
-
-        /// <summary>
-        /// A list of all of the user's messages.
-        /// </summary>
-        public ObservableCollection<UiMessage> MyReplies { get; set; }
 
         private string _messageToSend;
         /// <summary>
@@ -98,11 +99,6 @@ namespace Unite.UI.ViewModels
         /// </summary>
         public ReceiveMessagesCommand ReceiveMessage { get; set; }
 
-        private IMessagingServiceManager _MessagingService;
-
-        private Thread _CurrentThread;
-        private Dispatcher _CurrentDispatcher;
-
         public MainView(
             IInteractionContext interactionContext,
             IMessagingServiceManager messagingService, 
@@ -125,7 +121,6 @@ namespace Unite.UI.ViewModels
             _MessagingService.MessagesReceived += _MessagingService_MessagesReceived;
 
             Messages = new ObservableCollection<UiMessage>();
-            MyReplies = new ObservableCollection<UiMessage>();
 
             Interactions = interactionContext;
 
@@ -166,9 +161,16 @@ namespace Unite.UI.ViewModels
             }
         }
 
+        private Dictionary<ServiceInformation, bool> _RetryOnAuthFailure;
+
         void _MessagingService_AuthorizationFailed(object sender, CredentialEventArgs e)
         {
-            if (!Interactions.AuthenticationFailedRetryQuery()) return;
+            _RetryOnAuthFailure = _RetryOnAuthFailure ?? new Dictionary<ServiceInformation, bool>();
+
+            if(!_RetryOnAuthFailure.ContainsKey(e.ServiceInfo))
+                _RetryOnAuthFailure[e.ServiceInfo] = Interactions.AuthenticationFailedRetryQuery();
+
+            if (!_RetryOnAuthFailure[e.ServiceInfo]) return;
 
             messagingService_CredentialsRequested(this, e);
         }
@@ -205,15 +207,11 @@ namespace Unite.UI.ViewModels
             }
         }
 
-        protected IContactProvider _ContactRepo;
-
         void messagingService_CredentialsRequested(object sender, CredentialEventArgs e)
         {
             var credentials = Interactions.GetCredentials(e.ServiceInfo);
             _MessagingService.SetCredentials(credentials);
         }
-
-
 
         /// <summary>
         /// This must be called when the application first starts so
@@ -233,6 +231,10 @@ namespace Unite.UI.ViewModels
         public void Dispose()
         {
             _MessagingService.StopReceiving();
+            PropertyChanged -= MainView_PropertyChanged;
+            _MessagingService.CredentialsRequested -= messagingService_CredentialsRequested;
+            _MessagingService.AuthorizationFailed -= _MessagingService_AuthorizationFailed;
+            _MessagingService.MessagesReceived -= _MessagingService_MessagesReceived;
         }
     }
 }

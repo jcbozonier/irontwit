@@ -67,6 +67,7 @@
     <Compile Include="Services\ServiceProvider.cs" />
     <Compile Include="Services\ServiceResolver.cs" />
     <Compile Include="Services\ServicesManager.cs" />
+    <Compile Include="Services\ISettingsProvider.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

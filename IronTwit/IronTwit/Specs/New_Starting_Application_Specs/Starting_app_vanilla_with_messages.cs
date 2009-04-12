@@ -17,7 +17,7 @@ namespace Unite.Specs.New_Starting_Application_Specs
         {
             FakeRepo.FakePluginFinder
                 .Stub(x => x.GetAllPlugins())
-                .Return(new[] { typeof(FakePlugin) });
+                .Return(new[] { typeof(IMessagingService) });
 
             ViewModel = FakeRepo.GetMainView();
         }

@@ -10,53 +10,48 @@ namespace Unite.Specs.New_Starting_Application_Specs
 {
     public class FakePlugin : IMessagingService
     {
-        public static ServiceInformation ServiceInformation = 
-            new ServiceInformation(){ServiceID = Guid.NewGuid(), ServiceName = "Fake"};
-
-        public static IMessagingService Fake;
-
         public event EventHandler<CredentialEventArgs> AuthorizationFailed;
-        public event EventHandler<CredentialEventArgs> CredentialsRequested;
+        public virtual event EventHandler<CredentialEventArgs> CredentialsRequested;
         public event EventHandler<MessagesReceivedEventArgs> MessagesReceived;
 
-        public bool CanAccept(Credentials credentials)
+        public virtual bool CanAccept(Credentials credentials)
         {
-            return Fake.CanAccept(credentials);
+            return true;
         }
 
-        public List<IMessage> GetMessages()
+        public virtual List<IMessage> GetMessages()
         {
-            return Fake.GetMessages();
+            return new List<IMessage>();
         }
 
-        public void SendMessage(IIdentity recipient, string message)
+        public virtual void SendMessage(IIdentity recipient, string message)
         {
-            Fake.SendMessage(recipient, message);
+            
         }
 
-        public void SetCredentials(Credentials credentials)
+        public virtual void SetCredentials(Credentials credentials)
         {
-            Fake.SetCredentials(credentials);
+            
         }
 
-        public bool CanFind(string address)
+        public virtual bool CanFind(string address)
         {
-            return Fake.CanFind(address);
+            return true;
         }
 
-        public ServiceInformation GetInformation()
+        public virtual ServiceInformation GetInformation()
         {
-            return Fake.GetInformation();
+            return new ServiceInformation(){ServiceID = Guid.NewGuid(), ServiceName = "Fake"};
         }
 
         public virtual void StartReceiving()
         {
-            Fake.StartReceiving();
+            
         }
 
         public virtual void StopReceiving()
         {
-            Fake.StopReceiving();
+            
         }
     }
 }

@@ -15,22 +15,22 @@ namespace Unite.Specs.New_Starting_Application_Specs
 {
     public class ScenarioRepository
     {
-        public readonly IInteractionContext FakeContext;
-        public readonly IPluginFinder FakePluginFinder;
-        public readonly ISettingsProvider FakeSettings;
-        public readonly IMessagingService FakeMessagePlugin;
+        public IInteractionContext FakeContext;
+        public IPluginFinder FakePluginFinder;
+        public ISettingsProvider FakeSettings;
+        public IMessagingService FakeMessagePlugin;
 
         public ScenarioRepository()
         {
             FakeContext = MockRepository.GenerateMock<IInteractionContext>();
             FakePluginFinder = MockRepository.GenerateMock<IPluginFinder>();
             FakeSettings = MockRepository.GenerateMock<ISettingsProvider>();
-            FakeMessagePlugin = FakePlugin.Fake = MockRepository.GenerateMock<IMessagingService>();
+            FakeMessagePlugin = MockRepository.GenerateMock<IMessagingService>();
         }
 
         public MainView GetMainView()
         {
-            ContainerBootstrapper.BootstrapStructureMap(FakeContext, FakePluginFinder, FakeSettings);
+            ContainerBootstrapper.BootstrapStructureMap(FakeContext, FakePluginFinder, FakeSettings, FakeMessagePlugin);
             return ObjectFactory.GetInstance<MainView>();
         }
 
@@ -50,6 +50,18 @@ namespace Unite.Specs.New_Starting_Application_Specs
                            Address = new Address(),
                            Text = "Fake message",
                            TimeStamp = DateTime.MinValue
+                       };
+        }
+
+        public Credentials CreateFakeCredentials()
+        {
+            return new Credentials
+                       {
+                           ServiceInformation = new ServiceInformation()
+                                                    {
+                                                        ServiceID = Guid.NewGuid(),
+                                                        ServiceName = "Fake"
+                                                    }
                        };
         }
     }
@@ -88,15 +100,17 @@ namespace Unite.Specs.New_Starting_Application_Specs
     public static class ContainerBootstrapper
     {
         public static void BootstrapStructureMap(
-            IInteractionContext gui,
-            IPluginFinder pluginFinder,
-            ISettingsProvider settings)
+            IInteractionContext gui, 
+            IPluginFinder pluginFinder, 
+            ISettingsProvider settings, 
+            IMessagingService plugin)
         {
             // Initialize the static ObjectFactory container
             ObjectFactory.Initialize(x =>
             {
                 x.ForRequestedType<MainView>().TheDefaultIsConcreteType<MainView>();
                 x.ForRequestedType<IInteractionContext>().TheDefault.IsThis(gui);
+                x.ForRequestedType<IMessagingService>().TheDefault.IsThis(plugin);
                 x.ForRequestedType<ISettingsProvider>().TheDefault.IsThis(settings);
                 x.ForRequestedType<IMessagingServiceManager>().TheDefaultIsConcreteType<ServicesManager>();
                 x.ForRequestedType<IContactProvider>().TheDefaultIsConcreteType<ContactProvider>();

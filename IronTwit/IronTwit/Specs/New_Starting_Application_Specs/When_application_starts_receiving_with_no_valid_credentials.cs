@@ -4,21 +4,25 @@ using System.Linq;
 using System.Text;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Unite.Messaging;
+using Unite.Messaging.Entities;
+using Unite.Messaging.Messages;
 using Unite.UI.ViewModels;
 
 namespace Unite.Specs.New_Starting_Application_Specs
 {
     [TestFixture]
-    public class When_application_starts_receiving_and_there_are_no_valid_credentials : cached_credentials_no_settings
+    public class When_messaging_service_needs_credentials : cached_credentials_no_settings
     {
         protected override void Context()
         {
             FakeRepo.FakePluginFinder
                 .Stub(x => x.GetAllPlugins())
-                .Return(new[] { typeof(ReceivingMessagePlugin) });
+                .Return(new[] { typeof(IMessagingService) });
 
-            FakeRepo.FakeContext
-                .Stub(x => x.GetCredentials(FakePlugin.ServiceInformation));
+                FakeRepo.FakeContext
+                    .Stub(x => x.GetCredentials(null))
+                    .Return(FakeRepo.CreateFakeCredentials());
 
             ViewModel = FakeRepo.GetMainView();
         }
@@ -29,10 +33,20 @@ namespace Unite.Specs.New_Starting_Application_Specs
         }
 
         [Test]
-        public void It_should_ask_for_credentials()
+        public void It_should_ask_ui_for_credentials()
         {
             FakeRepo.FakeContext
                 .AssertWasCalled(x => x.GetCredentials(null));
+        }
+    }
+
+    public class GetCredentialsPlugIn : FakePlugin
+    {
+        public override event EventHandler<CredentialEventArgs> CredentialsRequested;
+
+        public override void StartReceiving()
+        {
+            CredentialsRequested(this, new CredentialEventArgs());
         }
     }
 
@@ -40,11 +54,17 @@ namespace Unite.Specs.New_Starting_Application_Specs
     {
         protected MainView ViewModel;
         protected ScenarioRepository FakeRepo;
+        protected IMessagingService FakeMessagingPlugin;
 
         [TestFixtureSetUp]
         public void Setup()
         {
-            FakeRepo = new ScenarioRepository();
+            FakeMessagingPlugin = new GetCredentialsPlugIn();
+
+            FakeRepo = new ScenarioRepository()
+                           {
+                               FakeMessagePlugin = FakeMessagingPlugin
+                           };
 
             Context();
             Because();

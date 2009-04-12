@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Reflection;
+using StructureMap;
 using Unite.Messaging.Entities;
 using Unite.Messaging.Messages;
-using Unite.Messaging.Services;
-using IServiceProvider=Unite.Messaging.Services.IServiceProvider;
 
 namespace Unite.Messaging.Services
 {
@@ -28,9 +24,7 @@ namespace Unite.Messaging.Services
 
         private void _AddServiceProvider(Type serviceType)
         {
-            var constructor = serviceType.GetConstructor(new Type[0]);
-            var serviceObject = constructor.Invoke(new object[0]);
-            var service = (IMessagingService) serviceObject;
+            var service = (IMessagingService)ObjectFactory.GetInstance(serviceType);
             Add(service);
         }
 

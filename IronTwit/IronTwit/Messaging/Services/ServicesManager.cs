@@ -8,6 +8,12 @@ namespace Unite.Messaging.Services
 {
     public class ServicesManager : IMessagingServiceManager
     {
+        private readonly ServiceInformation _ServiceInfo = new ServiceInformation()
+        {
+            ServiceID = new Guid("{FC1DF655-BBA0-4036-B352-CA98E1B56001}"),
+            ServiceName = "Service Manager"
+        };
+
         private readonly IServiceProvider _Provider;
         private readonly IServiceResolver _Resolver;
 
@@ -82,11 +88,7 @@ namespace Unite.Messaging.Services
 
         public ServiceInformation GetInformation()
         {
-            return new ServiceInformation()
-                       {
-                           ServiceID = new Guid("{FC1DF655-BBA0-4036-B352-CA98E1B56001}"),
-                           ServiceName = "Service Manager"
-                       };
+            return _ServiceInfo;
         }
 
         public void StartReceiving()

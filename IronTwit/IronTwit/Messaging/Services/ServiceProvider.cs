@@ -18,7 +18,6 @@ namespace Unite.Messaging.Services
         {
             Services = new List<IMessagingService>();
 
-            // We should probably try to discover the plug ins here...?
             var plugins = finder.GetAllPlugins();
 
             foreach(var plugin in plugins)

@@ -49,12 +49,12 @@ namespace Unite.Specs.New_Starting_Application_Specs
             return Fake.GetInformation();
         }
 
-        public void StartReceiving()
+        public virtual void StartReceiving()
         {
             Fake.StartReceiving();
         }
 
-        public void StopReceiving()
+        public virtual void StopReceiving()
         {
             Fake.StopReceiving();
         }
